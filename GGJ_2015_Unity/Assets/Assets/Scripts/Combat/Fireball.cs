@@ -12,6 +12,8 @@ public class Fireball : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		flashOscillator.Restart();
+
+		AudioHandler.Play(Audio.fireball); //SFX
 	}
 	
 	// Update is called once per frame

@@ -24,14 +24,19 @@ public class Avatar : MonoBehaviour {
 	//STATS
 	public int hitPoints;
 	public int lootPoints;
+	public int lowHitPoints;
 
 	//POLISH
 	public Color normalColor, hurtColor;
 	public Oscillator hurtOscillator;
+	public GameObject explosion;
 
 	//MESSAGES
 	public delegate void GameOverAction();
 	public event GameOverAction OnGameOverMessage;
+
+	//SFX
+	public ARLTimer bumpTimer, beepTimer;
 
 	// Use this for initialization
 	void Start () {
@@ -40,6 +45,9 @@ public class Avatar : MonoBehaviour {
 		direction = DirectionHandler.Directions.Down;
 		invulnerabilityTimer.SetDone();
 		hurtOscillator.Restart();
+
+		bumpTimer.SetDone();
+		beepTimer.SetDone();
 	}
 	
 	// Update is called once per frame
@@ -101,6 +109,9 @@ public class Avatar : MonoBehaviour {
 					if (hit.collider.gameObject.GetComponent<Enemy>() != null) {
 						hit.collider.gameObject.GetComponent<Enemy>().TakeDamage(attackDamage, attackDirection);
 					}
+					else if (hit.collider.tag == "Wall") {
+						AudioHandler.Play(Audio.bumpSword); //SFX
+					}
 				}
 			}
 		}
@@ -113,9 +124,16 @@ public class Avatar : MonoBehaviour {
 		else {
 			renderer.material.color = normalColor;
 		}
+
+		if (hitPoints <= lowHitPoints && beepTimer.IsDone()) {
+			AudioHandler.Play(Audio.warningBeep); //SFX
+			beepTimer.Restart();
+		}
 	}
 	
 	void StartAttack() {
+		AudioHandler.Play(Audio.sword);
+
 		isAttacking = true;
 		attackDirection = direction;
 		
@@ -126,15 +144,37 @@ public class Avatar : MonoBehaviour {
 	public void TakeDamage(int damage, DirectionHandler.Directions dir) { 
 		if (invulnerabilityTimer.IsDone()) {
 			hitPoints -= damage;
-			transform.Translate(DirectionHandler.Instance.DirectionToVector(dir) * knockbackDist);
+
+			//transform.Translate(DirectionHandler.Instance.DirectionToVector(dir) * knockbackDist);
+			Knockback(dir);
+
 			invulnerabilityTimer.Restart();
 			hurtOscillator.Restart();
 
 			if (hitPoints <= 0) {
+				AudioHandler.Play(Audio.playerDie); //SFX
+				Instantiate(explosion, transform.position, explosion.transform.rotation);
+
 				Destroy(gameObject);
 				OnGameOverMessage();
 			}
+			else {
+				AudioHandler.Play(Audio.playerHurt); //SFX
+			}
 		}
+	}
+
+	void Knockback(DirectionHandler.Directions dir) {
+		float dist = knockbackDist;
+		Vector3 dirV = DirectionHandler.Instance.DirectionToVector(dir);
+		Ray ray = new Ray(transform.position, dirV);
+		RaycastHit hit;
+
+		if (Physics.Raycast(ray, out hit, dist)) {
+			dist = hit.distance / 2;
+		}
+
+		transform.Translate(dirV * dist);
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -148,6 +188,17 @@ public class Avatar : MonoBehaviour {
 		if (other.gameObject.GetComponent<DoesDamage>() != null && invulnerabilityTimer.IsDone()) {
 			Vector3 v = transform.position - other.transform.position;
 			TakeDamage(other.gameObject.GetComponent<DoesDamage>().damage, DirectionHandler.Instance.VectorToDirection(v));
+		}
+		else if (other.gameObject.tag == "Wall" && bumpTimer.IsDone()) {
+			AudioHandler.Play(Audio.bump); //SFX
+			bumpTimer.Restart();
+		}
+	}
+
+	void OnCollisionStay(Collision other) {
+		if (other.gameObject.tag == "Wall" && bumpTimer.IsDone()) {
+			AudioHandler.Play(Audio.bump); //SFX
+			bumpTimer.Restart();
 		}
 	}
 }

@@ -47,19 +47,40 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public virtual void TakeDamage(int damage, DirectionHandler.Directions dir) {
-		hitPoints -= damage;
-		transform.Translate(DirectionHandler.Instance.DirectionToVector(dir) * knockbackDist, Space.World);
+		if (hurtTimer.PercentDone() > 0.5f) {
+			hitPoints -= damage;
 
-		renderer.material.color = hurtColor;
-		hurtTimer.Restart();
+			//transform.Translate(DirectionHandler.Instance.DirectionToVector(dir) * knockbackDist, Space.World);
+			Knockback(dir);
 
-		if (hitPoints <= 0) {
-			OnDeath();
-			Destroy(gameObject);
+			renderer.material.color = hurtColor;
+			hurtTimer.Restart();
+
+			if (hitPoints <= 0) {
+				OnDeath();
+				Destroy(gameObject);
+			}
+			else {
+				AudioHandler.Play(Audio.enemyHurt); //SFX
+			}
 		}
 	}
 
+	void Knockback(DirectionHandler.Directions dir) {
+		float dist = knockbackDist;
+		Vector3 dirV = DirectionHandler.Instance.DirectionToVector(dir);
+		Ray ray = new Ray(transform.position, dirV);
+		RaycastHit hit;
+		
+		if (Physics.Raycast(ray, out hit, dist)) {
+			dist = hit.distance / 2;
+		}
+		
+		transform.Translate(dirV * dist, Space.World);
+	}
+
 	protected virtual void OnDeath() {
+		AudioHandler.Play(Audio.enemyDie); //SFX
 		Instantiate(deathEffect, transform.position, deathEffect.transform.rotation);
 	}
 }

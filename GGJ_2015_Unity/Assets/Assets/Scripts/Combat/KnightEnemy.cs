@@ -119,6 +119,7 @@ public class KnightEnemy : RandomWalkEnemy {
 		else {
 			//half a knockback
 			transform.Translate(DirectionHandler.Instance.DirectionToVector(dir) * knockbackDist * 0.5f, Space.World);
+			AudioHandler.Play(Audio.bumpSword); //SFX
 		}
 	}
 

@@ -47,98 +47,89 @@ MonoBehaviour:
     volume: 1
   objects:
   - name: 0
-    audioEnumName: dash
+    audioEnumName: bump
     audioClass: 0
     clip: {fileID: 0}
-    nameInResources: 
+    nameInResources: bump
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
   - name: 1
-    audioEnumName: dash_tell
+    audioEnumName: sword
     audioClass: 0
     clip: {fileID: 0}
-    nameInResources: 
+    nameInResources: sword
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
   - name: 2
-    audioEnumName: coin_pickup
+    audioEnumName: playerHurt
     audioClass: 0
     clip: {fileID: 0}
-    nameInResources: 
+    nameInResources: playerHurt
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
   - name: 3
-    audioEnumName: coin_pickpocket
+    audioEnumName: enemyHurt
     audioClass: 0
     clip: {fileID: 0}
-    nameInResources: 
+    nameInResources: playerHurt
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
   - name: 4
-    audioEnumName: coin_drop
+    audioEnumName: enemyDie
     audioClass: 0
     clip: {fileID: 0}
-    nameInResources: 
+    nameInResources: enemyDie
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
   - name: 5
-    audioEnumName: disguise_on
+    audioEnumName: bumpSword
     audioClass: 0
     clip: {fileID: 0}
-    nameInResources: 
+    nameInResources: bumpSword
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
   - name: 6
-    audioEnumName: disguise_off
+    audioEnumName: fireball
     audioClass: 0
     clip: {fileID: 0}
-    nameInResources: 
+    nameInResources: fireball
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
   - name: 7
-    audioEnumName: bank_deposit
+    audioEnumName: playerDie
     audioClass: 0
     clip: {fileID: 0}
-    nameInResources: 
+    nameInResources: playerDie
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
   - name: 8
-    audioEnumName: collision
+    audioEnumName: warningBeep
     audioClass: 0
     clip: {fileID: 0}
-    nameInResources: 
+    nameInResources: warningBeep
     preload: 0
-    defaultVolume: 1
-    currentVolume: 1
+    defaultVolume: .647940099
+    currentVolume: .647940099
     mute: 0
-  - name: 9
-    audioEnumName: stun
-    audioClass: 0
-    clip: {fileID: 0}
-    nameInResources: 
-    preload: 0
-    defaultVolume: 1
-    currentVolume: 1
-    mute: 0
-  poolSize2D: 0
-  poolSize3D: 0
-  poolSizeDedicated: 0
+  poolSize2D: 30
+  poolSize3D: 1
+  poolSizeDedicated: 10
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

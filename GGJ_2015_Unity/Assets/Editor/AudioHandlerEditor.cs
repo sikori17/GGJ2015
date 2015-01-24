@@ -37,9 +37,9 @@ public class AudioHandlerEditor : Editor {
 
 	void ReloadAudioClips(){
 
-		audioClips = new AudioClip[(int) Audio.Length];
+		audioClips = new AudioClip[(int) Audio.Length-1];
 
-		for(int i = 0; i < (int) Audio.Length; i++){
+		for(int i = 0; i < (int) Audio.Length-1; i++){
 
 			string name = audioHandler.GetAudioObjectName((Audio) i);
 
