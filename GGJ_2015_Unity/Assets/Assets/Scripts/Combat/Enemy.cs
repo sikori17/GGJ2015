@@ -11,6 +11,7 @@ public class Enemy : MonoBehaviour {
 	//POLISH
 	public Color normalColor, hurtColor;
 	public ARLTimer hurtTimer;
+	public GameObject deathEffect;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -53,7 +54,12 @@ public class Enemy : MonoBehaviour {
 		hurtTimer.Restart();
 
 		if (hitPoints <= 0) {
+			OnDeath();
 			Destroy(gameObject);
 		}
+	}
+
+	protected virtual void OnDeath() {
+		Instantiate(deathEffect, transform.position, deathEffect.transform.rotation);
 	}
 }

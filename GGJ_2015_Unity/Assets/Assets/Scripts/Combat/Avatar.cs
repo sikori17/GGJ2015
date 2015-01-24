@@ -3,6 +3,9 @@ using System.Collections;
 
 public class Avatar : MonoBehaviour {
 
+	//INSTANCE
+	public static Avatar Instance;
+
 	//MOVEMENT
 	public float speed;
 	DirectionHandler.Directions direction;
@@ -32,6 +35,8 @@ public class Avatar : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Instance = this;
+
 		direction = DirectionHandler.Directions.Down;
 		invulnerabilityTimer.SetDone();
 		hurtOscillator.Restart();
@@ -70,7 +75,7 @@ public class Avatar : MonoBehaviour {
 			isMoving = false;
 		}
 
-		if (ControllerInput.Button(1, Button.Xbox_A) && !isAttacking && attackCooldownTimer.IsDone()) {
+		if (ControllerInput.ButtonDown(1, Button.Xbox_A) && !isAttacking && attackCooldownTimer.IsDone()) {
 			StartAttack();
 		}
 	}
@@ -118,15 +123,17 @@ public class Avatar : MonoBehaviour {
 		swords[(int) attackDirection].SetActive(true);
 	}
 
-	void TakeDamage(int damage, DirectionHandler.Directions dir) { 
-		hitPoints -= damage;
-		transform.Translate(DirectionHandler.Instance.DirectionToVector(dir) * knockbackDist);
-		invulnerabilityTimer.Restart();
-		hurtOscillator.Restart();
+	public void TakeDamage(int damage, DirectionHandler.Directions dir) { 
+		if (invulnerabilityTimer.IsDone()) {
+			hitPoints -= damage;
+			transform.Translate(DirectionHandler.Instance.DirectionToVector(dir) * knockbackDist);
+			invulnerabilityTimer.Restart();
+			hurtOscillator.Restart();
 
-		if (hitPoints <= 0) {
-			Destroy(gameObject);
-			OnGameOverMessage();
+			if (hitPoints <= 0) {
+				Destroy(gameObject);
+				OnGameOverMessage();
+			}
 		}
 	}
 
