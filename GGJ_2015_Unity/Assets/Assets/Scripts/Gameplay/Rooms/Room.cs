@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
 
 public class Room : MonoBehaviour {
 
@@ -19,7 +18,7 @@ public class Room : MonoBehaviour {
 	
 	}
 
-	public void Spawn(List<EnemyManager.EnemyTypes> enemies) {
+	public void Spawn(EnemyManager.EnemyTypes[] enemies) {
 		Vector3 roomPos = transform.position;
 		Vector3 roomScale = new Vector3(Grid.Instance.roomWidth, 0, Grid.Instance.roomHeight);
 
@@ -41,6 +40,7 @@ public class Room : MonoBehaviour {
 
 	public void ApplyRoomCard(Card card){
 		ApplyWallConfiguration(card.wallTypes);
+		Spawn(card.enemySpawnList);
 	}
 
 	public void ApplyWallConfiguration(WallType[] wallTypes){
@@ -51,6 +51,8 @@ public class Room : MonoBehaviour {
 	}
 
 	public void ApplyEffectCard(Card card){
-
+		if (card.effect == Effect.SpawnEnemy) {
+			Spawn(card.enemySpawnList);
+		}
 	}
 }

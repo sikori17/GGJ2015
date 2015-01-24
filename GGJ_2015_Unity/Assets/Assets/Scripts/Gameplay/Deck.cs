@@ -49,6 +49,7 @@ public class Deck : MonoBehaviour {
 		else{ // Room card
 			card.SetFormat(CardFormat.Room);
 			card.RandomizeWallTypes();
+			card.RandomizeEnemies();
 		}
 
 		rand = Random.Range(0.0f, 1.0f);
