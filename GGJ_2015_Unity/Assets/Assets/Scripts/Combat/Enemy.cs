@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	protected virtual void Start () {
-		hurtTimer.SetDone();
+		//gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -32,6 +32,31 @@ public class Enemy : MonoBehaviour {
 		//stop the character from floating away because of physics
 		rigidbody.velocity = Vector3.zero;
 
+	}
+
+	public virtual void Spawn(Vector3 roomPos, Vector3 roomScale) {
+
+		Vector3 spawnPos = roomPos + new Vector3(Random.Range(roomScale.x/2, -roomScale.x/2), 0, Random.Range(roomScale.z/2, -roomScale.z/2));
+		bool hasGoodSpawnPos = false;
+
+		while (!hasGoodSpawnPos) {
+			Ray ray = new Ray(spawnPos + Vector3.left, Vector3.right);
+			RaycastHit hit;
+			if (Physics.SphereCast(ray, 2f, out hit, 2f)) {
+				hasGoodSpawnPos = false;
+				spawnPos = roomPos + new Vector3(Random.Range(roomScale.x/2, -roomScale.x/2), 0, Random.Range(roomScale.z/2, -roomScale.z/2));
+			}
+			else {
+				hasGoodSpawnPos = true;
+			}
+		}
+
+		print ("spawn " + name);
+
+		transform.position = spawnPos;
+		gameObject.SetActive(true);
+
+		hurtTimer.SetDone();
 	}
 
 	protected virtual void AI() {}

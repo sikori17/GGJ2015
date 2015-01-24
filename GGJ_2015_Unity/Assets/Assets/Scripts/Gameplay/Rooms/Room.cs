@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Room : MonoBehaviour {
 
@@ -16,6 +17,16 @@ public class Room : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public void Spawn(List<EnemyManager.EnemyTypes> enemies) {
+		Vector3 roomPos = transform.position;
+		Vector3 roomScale = new Vector3(Grid.Instance.roomWidth, 0, Grid.Instance.roomHeight);
+
+		foreach (EnemyManager.EnemyTypes e in enemies) {
+			GameObject newEnemy = Instantiate(EnemyManager.Instance.GetEnemyPrefab(e)) as GameObject;
+			newEnemy.GetComponent<Enemy>().Spawn(roomPos, roomScale);
+		}
 	}
 
 	public void ApplyCard(Card card){

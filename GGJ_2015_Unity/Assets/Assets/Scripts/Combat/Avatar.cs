@@ -6,6 +6,9 @@ public class Avatar : MonoBehaviour {
 	//INSTANCE
 	public static Avatar Instance;
 
+	//INPUT
+	public int controllerNum;
+
 	//MOVEMENT
 	public float speed;
 	DirectionHandler.Directions direction;
@@ -67,23 +70,23 @@ public class Avatar : MonoBehaviour {
 
 	void ReadInput() {
 		isMoving = true;
-		if (ControllerInput.Dpad_Button(1, Dpad.Xbox_Up)) {
+		if (ControllerInput.Dpad_Button(controllerNum, Dpad.Xbox_Up)) {
 			direction = DirectionHandler.Directions.Up;
 		}
-		else if (ControllerInput.Dpad_Button(1, Dpad.Xbox_Down)) {
+		else if (ControllerInput.Dpad_Button(controllerNum, Dpad.Xbox_Down)) {
 			direction = DirectionHandler.Directions.Down;
 		}
-		else if (ControllerInput.Dpad_Button(1, Dpad.Xbox_Left)) {
+		else if (ControllerInput.Dpad_Button(controllerNum, Dpad.Xbox_Left)) {
 			direction = DirectionHandler.Directions.Left;
 		}
-		else if (ControllerInput.Dpad_Button(1, Dpad.Xbox_Right)) {
+		else if (ControllerInput.Dpad_Button(controllerNum, Dpad.Xbox_Right)) {
 			direction = DirectionHandler.Directions.Right;
 		}
 		else {
 			isMoving = false;
 		}
 
-		if (ControllerInput.ButtonDown(1, Button.Xbox_A) && !isAttacking && attackCooldownTimer.IsDone()) {
+		if (ControllerInput.ButtonDown(controllerNum, Button.Xbox_A) && !isAttacking && attackCooldownTimer.IsDone()) {
 			StartAttack();
 		}
 	}

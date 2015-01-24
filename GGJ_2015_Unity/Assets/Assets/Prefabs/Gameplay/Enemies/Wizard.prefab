@@ -137,6 +137,7 @@ MonoBehaviour:
     TimerInterval: 1
     AutoRestart: 0
   fireballLaunchRange: 2
+  attackRange: 20
   fadeColor: {r: .972549021, g: 0, b: .921568632, a: 0}
 --- !u!1001 &100100000
 Prefab:

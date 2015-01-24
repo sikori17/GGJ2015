@@ -72,6 +72,7 @@
      <Compile Include="Assets\Assets\Scripts\Combat\DirectionHandler.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\DoesDamage.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\Enemy.cs" />
+     <Compile Include="Assets\Assets\Scripts\Combat\EnemyManager.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\Explosion.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\Fireball.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\KnightEnemy.cs" />

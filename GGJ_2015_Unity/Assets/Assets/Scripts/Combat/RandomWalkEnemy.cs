@@ -7,10 +7,10 @@ public class RandomWalkEnemy : Enemy {
 	public float speed;
 	public DirectionHandler.Directions direction;
 	public ARLTimer moveTimer;
-	
-	protected override void Start ()
+
+	public override void Spawn (Vector3 roomPos, Vector3 roomScale)
 	{
-		base.Start ();
+		base.Spawn (roomPos, roomScale);
 		
 		direction = DirectionHandler.Directions.Down;
 		PickNewDirection();
