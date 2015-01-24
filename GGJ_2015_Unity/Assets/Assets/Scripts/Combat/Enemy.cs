@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour {
 
 	// Use this for initialization
 	protected virtual void Start () {
-		hurtTimer.SetDone();
+		//gameObject.SetActive(false);
 	}
 	
 	// Update is called once per frame
@@ -34,6 +34,31 @@ public class Enemy : MonoBehaviour {
 
 	}
 
+	public virtual void Spawn(Vector3 roomPos, Vector3 roomScale) {
+
+		Vector3 spawnPos = roomPos + new Vector3(Random.Range(roomScale.x/2, -roomScale.x/2), 0, Random.Range(roomScale.z/2, -roomScale.z/2));
+		bool hasGoodSpawnPos = false;
+
+		while (!hasGoodSpawnPos) {
+			Ray ray = new Ray(spawnPos + Vector3.left, Vector3.right);
+			RaycastHit hit;
+			if (Physics.SphereCast(ray, 2f, out hit, 2f)) {
+				hasGoodSpawnPos = false;
+				spawnPos = roomPos + new Vector3(Random.Range(roomScale.x/2, -roomScale.x/2), 0, Random.Range(roomScale.z/2, -roomScale.z/2));
+			}
+			else {
+				hasGoodSpawnPos = true;
+			}
+		}
+
+		print ("spawn " + name);
+
+		transform.position = spawnPos;
+		gameObject.SetActive(true);
+
+		hurtTimer.SetDone();
+	}
+
 	protected virtual void AI() {}
 
 	protected virtual void Move() {}
@@ -47,19 +72,40 @@ public class Enemy : MonoBehaviour {
 	}
 
 	public virtual void TakeDamage(int damage, DirectionHandler.Directions dir) {
-		hitPoints -= damage;
-		transform.Translate(DirectionHandler.Instance.DirectionToVector(dir) * knockbackDist, Space.World);
+		if (hurtTimer.PercentDone() > 0.5f) {
+			hitPoints -= damage;
 
-		renderer.material.color = hurtColor;
-		hurtTimer.Restart();
+			//transform.Translate(DirectionHandler.Instance.DirectionToVector(dir) * knockbackDist, Space.World);
+			Knockback(dir);
 
-		if (hitPoints <= 0) {
-			OnDeath();
-			Destroy(gameObject);
+			renderer.material.color = hurtColor;
+			hurtTimer.Restart();
+
+			if (hitPoints <= 0) {
+				OnDeath();
+				Destroy(gameObject);
+			}
+			else {
+				AudioHandler.Play(Audio.enemyHurt); //SFX
+			}
 		}
 	}
 
+	void Knockback(DirectionHandler.Directions dir) {
+		float dist = knockbackDist;
+		Vector3 dirV = DirectionHandler.Instance.DirectionToVector(dir);
+		Ray ray = new Ray(transform.position, dirV);
+		RaycastHit hit;
+		
+		if (Physics.Raycast(ray, out hit, dist)) {
+			dist = hit.distance / 2;
+		}
+		
+		transform.Translate(dirV * dist, Space.World);
+	}
+
 	protected virtual void OnDeath() {
+		AudioHandler.Play(Audio.enemyDie); //SFX
 		Instantiate(deathEffect, transform.position, deathEffect.transform.rotation);
 	}
 }

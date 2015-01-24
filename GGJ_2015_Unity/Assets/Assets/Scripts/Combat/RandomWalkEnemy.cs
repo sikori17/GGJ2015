@@ -7,10 +7,14 @@ public class RandomWalkEnemy : Enemy {
 	public float speed;
 	public DirectionHandler.Directions direction;
 	public ARLTimer moveTimer;
-	
-	protected override void Start ()
+	Vector3 roomPos, roomScale; //bounds
+
+	public override void Spawn (Vector3 roomPos, Vector3 roomScale)
 	{
-		base.Start ();
+		base.Spawn (roomPos, roomScale);
+
+		this.roomPos = roomPos;
+		this.roomScale = roomScale;
 		
 		direction = DirectionHandler.Directions.Down;
 		PickNewDirection();
@@ -25,8 +29,17 @@ public class RandomWalkEnemy : Enemy {
 	
 	protected override void Move(){
 		transform.Translate(DirectionHandler.Instance.DirectionToVector(direction) * speed * Time.deltaTime, Space.World);
+
+		if (OutOfBounds()) {
+			GoOppositeDirection();
+		}
 	}
-	
+
+	bool OutOfBounds() {
+		return transform.position.x > (roomPos.x + roomScale.x/2) || transform.position.x < (roomPos.x - roomScale.x/2) ||
+			transform.position.z > (roomPos.z + roomScale.z/2) || transform.position.z < (roomPos.z - roomScale.z/2);
+	}
+
 	void PickNewDirection() {
 		direction = DirectionHandler.Instance.RandomDirection();
 		moveTimer.Restart();

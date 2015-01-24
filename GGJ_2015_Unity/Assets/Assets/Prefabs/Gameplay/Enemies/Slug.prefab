@@ -119,7 +119,7 @@ MonoBehaviour:
     TimerInterval: .200000003
     AutoRestart: 0
   deathEffect: {fileID: 100000, guid: bf8ece6eeab6241a9850880cf8720ca6, type: 2}
-  speed: 3
+  speed: 6
   direction: 0
   moveTimer:
     TimerInterval: 2

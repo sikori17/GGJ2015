@@ -5,16 +5,15 @@ using System.Collections.Generic;
 // All audio clips are enumerated here
 // Enum name should match the name of the clip in Resources
 public enum Audio{
-	dash = 0,
-	dash_tell,
-	coin_pickup,
-	coin_pickpocket,
-	coin_drop,
-	disguise_on,
-	disguise_off,
-	bank_deposit,
-	collision,
-	stun,
+	bump = 0,
+	sword,
+	playerHurt,
+	enemyHurt,
+	enemyDie,
+	bumpSword,
+	fireball,
+	playerDie,
+	warningBeep,
 	Length
 }
 

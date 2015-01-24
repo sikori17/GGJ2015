@@ -12,21 +12,24 @@ public class WizardEnemy : Enemy {
 	//ATTACK
 	public GameObject fireballPrefab;
 	public ARLTimer fireballTimer;
-	public float fireballLaunchRange;
+	public float fireballLaunchRange, attackRange;
 	Vector3 attackVector;
 
 	//POLISH
 	public Color fadeColor;
-
-	protected override void Start ()
+	
+	public override void Spawn (Vector3 roomPos, Vector3 roomScale)
 	{
-		base.Start ();
+		base.Spawn (roomPos, roomScale);
 
+		this.roomPos = roomPos;
+		this.roomScale = roomScale;
+		
 		appearState = new SimpleState(AppearEnter, AppearUpdate, AppearExit, "APPEAR");
 		attackState = new SimpleState(AttackEnter, AttackUpdate, AttackExit, "ATTACK");
 		dissapearState = new SimpleState(DissapearEnter, DissapearUpdate, DissapearExit, "DISSAPEAR");
 		invisibleState = new SimpleState(InvisibleEnter, InvisibleUpdate, InvisibleExit, "INVISIBLE");
-
+		
 		stateMachine.SwitchStates(appearState);
 	}
 
@@ -37,7 +40,9 @@ public class WizardEnemy : Enemy {
 
 	protected override void Attack ()
 	{
-		if (stateMachine.currentState == "ATTACK" && fireballTimer.IsDone() && hurtTimer.IsDone()) {
+		if (stateMachine.currentState == "ATTACK" && fireballTimer.IsDone() && 
+		    hurtTimer.IsDone() && Vector3.Distance(transform.position, Avatar.Instance.transform.position) < attackRange) {
+
 			GameObject newFireball = Instantiate(fireballPrefab, 
 			                                     transform.position + attackVector * fireballLaunchRange, 
 			                                     fireballPrefab.transform.rotation) as GameObject;

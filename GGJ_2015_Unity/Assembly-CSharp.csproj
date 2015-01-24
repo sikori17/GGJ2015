@@ -72,6 +72,7 @@
      <Compile Include="Assets\Assets\Scripts\Combat\DirectionHandler.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\DoesDamage.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\Enemy.cs" />
+     <Compile Include="Assets\Assets\Scripts\Combat\EnemyManager.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\Explosion.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\Fireball.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\KnightEnemy.cs" />
@@ -102,6 +103,8 @@
      <Compile Include="Assets\Assets\Scripts\Input\ControllerInput.cs" />
      <Compile Include="Assets\Assets\Scripts\Input\DpadStates.cs" />
      <Compile Include="Assets\Assets\Scripts\Input\TriggerStates.cs" />
+     <Compile Include="Assets\Assets\Scripts\Polish\StartMenu.cs" />
+     <Compile Include="Assets\Assets\Scripts\Polish\TextFlash.cs" />
      <Compile Include="Assets\Assets\Scripts\Utility\FileIO\FileDirectory.cs" />
      <Compile Include="Assets\Assets\Scripts\Utility\FileIO\XmlUtil.cs" />
      <Compile Include="Assets\Assets\Scripts\Utility\General\Timer.cs" />

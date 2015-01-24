@@ -16,16 +16,16 @@ public class KnightEnemy : RandomWalkEnemy {
 	public ARLTimer shieldTimer, vulnerableTimer, swordTimer;
 	public GameObject[] shields, swords;
 
-	protected override void Start ()
+	public override void Spawn (Vector3 roomPos, Vector3 roomScale)
 	{
-		base.Start ();
-
+		base.Spawn (roomPos, roomScale);
+		
 		followTimer.SetDone();
-
+		
 		shieldState = new SimpleState(ShieldEnter, ShieldUpdate, ShieldExit, "SHIELD");
 		vulnerableState = new SimpleState(VulnerableEnter, VulnerableUpdate, null, "VULNERABLE");
 		swordState = new SimpleState(SwordEnter, SwordUpdate, SwordExit, "SWORD");
-
+		
 		stateMachine.SwitchStates(shieldState);
 	}
 
@@ -119,6 +119,7 @@ public class KnightEnemy : RandomWalkEnemy {
 		else {
 			//half a knockback
 			transform.Translate(DirectionHandler.Instance.DirectionToVector(dir) * knockbackDist * 0.5f, Space.World);
+			AudioHandler.Play(Audio.bumpSword); //SFX
 		}
 	}
 

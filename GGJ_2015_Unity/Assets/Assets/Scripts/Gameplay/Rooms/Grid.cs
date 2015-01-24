@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Grid : MonoBehaviour {
 
@@ -30,6 +31,9 @@ public class Grid : MonoBehaviour {
 	public Transform tilesRoot;
 	public Transform[,] tiles;
 	public Transform tilePrefab;
+
+	//DEBUG
+	public List<EnemyManager.EnemyTypes> enemyTestList; 
 
 	void Awake(){
 		Instance = this;
@@ -105,6 +109,7 @@ public class Grid : MonoBehaviour {
 				room.transform.position = roomPlacementAnchor + new Vector3(i * roomWidth, 0, j * -roomHeight);
 				room.gameObject.SetActive(false);
 				room.transform.parent = roomsRoot;
+				room.Spawn(enemyTestList); //debug
 				Rooms[i, j] = room;
 				// Tile Setup
 				tile = GameObject.Instantiate(tilePrefab) as Transform;
