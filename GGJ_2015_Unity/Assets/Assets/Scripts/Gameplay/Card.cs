@@ -8,12 +8,12 @@ public enum CardFormat{
 }
 
 public enum Effect{
-	PlaceholderOne,
-	PlaceholderTwo,
+	SpawnEnemy,
+	DarkenRoom,
 	Length
 }
 
-public class Card : MonoBehaviour {
+public class Card{
 
 	public CardFormat format;
 	public WallType[] wallTypes;
@@ -29,6 +29,15 @@ public class Card : MonoBehaviour {
 	
 	}
 
+	public void SetFormat(CardFormat format){
+		this.format = format;
+		if(format == CardFormat.Room) RandomizeWallTypes();
+	}
+
+	public void SetEffect(Effect effect){
+		this.effect = effect;
+	}
+
 	public void Randomize(){
 
 		format = (CardFormat) Random.Range(0, 1);
@@ -41,7 +50,7 @@ public class Card : MonoBehaviour {
 		}
 	}
 
-	private void RandomizeWallTypes(){
+	public void RandomizeWallTypes(){
 
 		wallTypes = new WallType[4];
 

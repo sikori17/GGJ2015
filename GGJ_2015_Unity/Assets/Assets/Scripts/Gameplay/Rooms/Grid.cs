@@ -25,6 +25,12 @@ public class Grid : MonoBehaviour {
 	public GameObject bottomLeftCorner;
 	public GameObject bottomRightCorner;
 
+	// BG
+	public GameObject background;
+	public Transform tilesRoot;
+	public Transform[,] tiles;
+	public Transform tilePrefab;
+
 	void Awake(){
 		Instance = this;
 	}
@@ -35,6 +41,7 @@ public class Grid : MonoBehaviour {
 		InitializeRoomSize();
 		AdjustScreenHeight(); // To accomodate UI row
 		PositionCorners();
+		PositionAndScaleBackground();
 		SpawnRooms();
 	}
 	
@@ -65,6 +72,11 @@ public class Grid : MonoBehaviour {
 		bottomRightCorner.transform.position = bottomLeftCorner.transform.position + Vector3.right * screenWidth;
 	}
 
+	public void PositionAndScaleBackground(){
+		background.transform.position = ((topLeftCorner.transform.position + topRightCorner.transform.position + bottomLeftCorner.transform.position + bottomRightCorner.transform.position) / 4.0f) - Vector3.up * 10;
+		background.transform.localScale = new Vector3(screenWidth, screenHeight, 1);
+	}
+
 	public void InitializeRoomSize(){
 
 		roomPrefab = GameObject.Instantiate(roomPrefab) as Room;
@@ -73,6 +85,7 @@ public class Grid : MonoBehaviour {
 		roomWidth = screenWidth / roomsX;
 
 		roomPrefab.transform.localScale = new Vector3(roomWidth, 1, roomHeight);
+		tilePrefab.transform.localScale = new Vector3(roomWidth * 0.9f, roomHeight * 0.9f, 1);
 	}
 
 	public void SpawnRooms(){
@@ -80,20 +93,38 @@ public class Grid : MonoBehaviour {
 		Rooms = new Room[roomsX, roomsY];
 		Room room;
 
+		tiles = new Transform[roomsX, roomsY];
+		Transform tile;
+
 		Vector3 roomPlacementAnchor = gridAnchor + new Vector3(roomWidth / 2.0f, 0, -roomHeight / 2.0f);
 
 		for(int i = 0; i < roomsX; i++){
 			for(int j = 0; j < roomsY; j++){
+				// Room Setup
 				room = GameObject.Instantiate(roomPrefab) as Room;
 				room.transform.position = roomPlacementAnchor + new Vector3(i * roomWidth, 0, j * -roomHeight);
-				room.gameObject.SetActive(true);
+				room.gameObject.SetActive(false);
 				room.transform.parent = roomsRoot;
 				Rooms[i, j] = room;
+				// Tile Setup
+				tile = GameObject.Instantiate(tilePrefab) as Transform;
+				tile.transform.position = room.transform.position;
+				tile.gameObject.SetActive(true);
+				tile.transform.parent = tilesRoot;
+				tiles[i, j] = tile;
 			}
 		}
 	}
 
 	public static Vector3 GetRoomPosition(int x, int y){
 		return Instance.Rooms[x, y].transform.position;
+	}
+
+	public static Room GetRoom(int x, int y){
+		return Instance.Rooms[x, y];
+	}
+
+	public Room GetNewRoom(){
+		return GameObject.Instantiate(roomPrefab) as Room;
 	}
 }

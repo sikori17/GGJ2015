@@ -13,6 +13,9 @@ public class DungeonMaster : MonoBehaviour {
 
 	public RoomHighlight highlight;
 
+	public Deck deck;
+	public Hand hand;
+
 	// Use this for initialization
 	void Start () {
 		InitializeStates();
@@ -46,6 +49,12 @@ public class DungeonMaster : MonoBehaviour {
 		if(selectionY < 0) selectionY = Grid.Instance.roomsY - 1;
 
 		highlight.transform.position = Grid.GetRoomPosition(selectionX, selectionY) + Vector3.up * 5;
+
+		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_A)){
+			Room room = Grid.GetRoom(selectionX, selectionY);
+			room.ApplyCard(deck.temp);
+			room.gameObject.SetActive(true);
+		}
 	}
 
 	public void IdleExit(){

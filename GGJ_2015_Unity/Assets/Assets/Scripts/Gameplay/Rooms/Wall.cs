@@ -19,10 +19,12 @@ public class Wall : MonoBehaviour {
 		if(type == WallType.Open){
 			closedWall.gameObject.SetActive(false);
 			openWall.gameObject.SetActive(true);
+			lockedDoor.gameObject.SetActive(false);
 		}
 		else if(type == WallType.Closed){
 			openWall.gameObject.SetActive(false);
 			closedWall.gameObject.SetActive(true);
+			lockedDoor.gameObject.SetActive(false);
 		}
 		else if(type == WallType.Key){
 			closedWall.gameObject.SetActive(false);

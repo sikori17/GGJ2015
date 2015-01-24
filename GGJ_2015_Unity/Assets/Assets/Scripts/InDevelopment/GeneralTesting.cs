@@ -78,7 +78,7 @@ public class GeneralTesting : MonoBehaviour {
 		}
 		*/
 		if(Input.GetKeyDown(KeyCode.A)){
-			AudioHandler.Play(Audio.shoot);
+			//AudioHandler.Play(Audio.shoot);
 		}
 
 	}

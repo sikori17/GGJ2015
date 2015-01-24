@@ -46,6 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Assets\Scripts\AdamScripts\ARLTimer.cs" />
+     <Compile Include="Assets\Assets\Scripts\AdamScripts\Oscillator.cs" />
      <Compile Include="Assets\Assets\Scripts\Animation\BezierPath.cs" />
      <Compile Include="Assets\Assets\Scripts\Animation\TweenLib.cs" />
      <Compile Include="Assets\Assets\Scripts\Architecture\General\BaseBehaviour.cs" />
@@ -66,6 +68,11 @@
      <Compile Include="Assets\Assets\Scripts\Audio\AudioSpeaker.cs" />
      <Compile Include="Assets\Assets\Scripts\BrowserCommunication\BrowserInterface.cs" />
      <Compile Include="Assets\Assets\Scripts\BrowserCommunication\ConnectToJavascript.cs" />
+     <Compile Include="Assets\Assets\Scripts\Combat\Avatar.cs" />
+     <Compile Include="Assets\Assets\Scripts\Combat\DirectionHandler.cs" />
+     <Compile Include="Assets\Assets\Scripts\Combat\DoesDamage.cs" />
+     <Compile Include="Assets\Assets\Scripts\Combat\Enemy.cs" />
+     <Compile Include="Assets\Assets\Scripts\Combat\SlugEnemy.cs" />
      <Compile Include="Assets\Assets\Scripts\Debug\DebugHandler.cs" />
      <Compile Include="Assets\Assets\Scripts\Debug\MemoryStamp.cs" />
      <Compile Include="Assets\Assets\Scripts\Debug\TimeStamp.cs" />
@@ -73,6 +80,7 @@
      <Compile Include="Assets\Assets\Scripts\Gameplay\Deck.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\Door.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\DungeonMaster.cs" />
+     <Compile Include="Assets\Assets\Scripts\Gameplay\GameplayUI.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\Hand.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\RoomHighlight.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\Rooms\Grid.cs" />

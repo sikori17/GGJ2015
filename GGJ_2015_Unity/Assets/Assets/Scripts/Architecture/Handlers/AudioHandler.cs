@@ -6,24 +6,6 @@ using System.Collections.Generic;
 // Enum name should match the name of the clip in Resources
 public enum Audio{
 	dribble = 0,
-	shoot,
-	destroy,
-	dash,
-	bump,
-	stun,
-	bounce,
-	goal,
-	barrierDestroy,
-	powerShot,
-	teleport,
-	turn,
-	blip,
-	start,
-	fuzz,
-	implode,
-	warning,
-	menuConfirm,
-	menuSwitch,
 	Length
 }
 
