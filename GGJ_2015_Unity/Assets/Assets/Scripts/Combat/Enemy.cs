@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour {
 	// Use this for initialization
 	protected virtual void Start () {
 		//gameObject.SetActive(false);
+		Spawn(new Vector3(0,0,0), new Vector3(30, 0, 20));
 	}
 	
 	// Update is called once per frame
