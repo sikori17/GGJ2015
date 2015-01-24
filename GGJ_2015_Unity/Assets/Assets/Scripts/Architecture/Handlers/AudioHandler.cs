@@ -5,7 +5,11 @@ using System.Collections.Generic;
 // All audio clips are enumerated here
 // Enum name should match the name of the clip in Resources
 public enum Audio{
-	dribble = 0,
+	bump = 0,
+	sword,
+	playerHurt,
+	enemyHurt,
+	enemyDie,
 	Length
 }
 

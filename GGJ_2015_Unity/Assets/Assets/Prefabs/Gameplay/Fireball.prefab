@@ -11,12 +11,12 @@ GameObject:
   - 33: {fileID: 3300000}
   - 65: {fileID: 6500000}
   - 23: {fileID: 2300000}
-  - 54: {fileID: 5400000}
   - 114: {fileID: 11400002}
   - 114: {fileID: 11400000}
+  - 54: {fileID: 5400000}
   m_Layer: 0
-  m_Name: Slug
-  m_TagString: Enemy
+  m_Name: Fireball
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28,8 +28,8 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.6500001, y: -.0799999982, z: .0599999987}
-  m_LocalScale: {x: 1, y: 1, z: 1.5}
+  m_LocalPosition: {x: -.0399999991, y: 0, z: -5.80000019}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -45,7 +45,7 @@ Renderer:
   m_LightmapIndex: 255
   m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
   m_Materials:
-  - {fileID: 2100000, guid: 9a4fc4c88ea6b436a83341fa52c3388a, type: 2}
+  - {fileID: 2100000, guid: febd1a0c3ec924fe0b2599fa26ebd47b, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_UseLightProbes: 0
@@ -95,10 +95,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dbe040979af424ed0aaf65eea89d9aac, type: 3}
+  m_Script: {fileID: 11500000, guid: 9395721185cb1494898aec654f67eb2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
+  speed: 5
+  dir: {x: 0, y: 0, z: 1}
+  color1: {r: 1, g: .682758629, b: 0, a: 1}
+  color2: {r: 1, g: 0, b: 0, a: 1}
+  flashOscillator:
+    period: .300000012
+    min: 0
+    max: 1
 --- !u!114 &11400002
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -107,29 +114,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47a67b02158d5433b95f0f96dee33d02, type: 3}
+  m_Script: {fileID: 11500000, guid: dbe040979af424ed0aaf65eea89d9aac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 3
-  lootPoints: 0
-  knockbackDist: 1.5
-  normalColor: {r: 0, g: 1, b: .0482759476, a: 1}
-  hurtColor: {r: 1, g: 1, b: 1, a: 1}
-  hurtTimer:
-    TimerInterval: .200000003
-    AutoRestart: 0
-  deathEffect: {fileID: 100000, guid: bf8ece6eeab6241a9850880cf8720ca6, type: 2}
-  speed: 3
-  direction: 0
-  moveTimer:
-    TimerInterval: 2
-    AutoRestart: 0
-  minSize: {x: 1, y: 1, z: 1.5}
-  maxSize: {x: 1, y: 1, z: 2.5}
-  squishOscillator:
-    period: 1
-    min: 0
-    max: 1
+  damage: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
