@@ -4,7 +4,8 @@ using System.Collections;
 [System.Serializable]
 public class AudioObject{
 	
-	private Audio name;
+	public Audio name;
+	public string audioEnumName; // For syncing with AudioHandlerEditor
 	public AudioClass audioClass;
 	public AudioClip clip;
 	public string nameInResources;
@@ -15,6 +16,11 @@ public class AudioObject{
 	
 	public FloatParamDelegate UpdateVolume;
 	public BoolParamDelegate UpdateMute;
+
+	public AudioObject(Audio audio){
+		name = audio;
+		audioEnumName = audio.ToString();
+	}
 	
 	public void Init(){
 		AudioHandler.RegisterAudioObject(this);
@@ -72,7 +78,7 @@ public class AudioObject{
 	
 	public void Reset(){
 		Debug.Log("Reset: " + nameInResources);
-		audioClass = AudioClass.Length;
+		audioClass = (AudioClass) 0;
 		clip = null;
 		nameInResources = "";
 		preload = false;

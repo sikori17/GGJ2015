@@ -43,134 +43,93 @@ MonoBehaviour:
   settings:
   - mute: 0
     volume: 1
+  - mute: 0
+    volume: 1
   objects:
-  - audioClass: 0
+  - name: 0
+    audioEnumName: dash
+    audioClass: 0
     clip: {fileID: 0}
     nameInResources: 
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
-  - audioClass: 0
+  - name: 1
+    audioEnumName: dash_tell
+    audioClass: 0
     clip: {fileID: 0}
     nameInResources: 
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
-  - audioClass: 0
+  - name: 2
+    audioEnumName: coin_pickup
+    audioClass: 0
     clip: {fileID: 0}
     nameInResources: 
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
-  - audioClass: 0
+  - name: 3
+    audioEnumName: coin_pickpocket
+    audioClass: 0
     clip: {fileID: 0}
     nameInResources: 
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
-  - audioClass: 0
+  - name: 4
+    audioEnumName: coin_drop
+    audioClass: 0
     clip: {fileID: 0}
     nameInResources: 
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
-  - audioClass: 0
+  - name: 5
+    audioEnumName: disguise_on
+    audioClass: 0
     clip: {fileID: 0}
     nameInResources: 
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
-  - audioClass: 0
+  - name: 6
+    audioEnumName: disguise_off
+    audioClass: 0
     clip: {fileID: 0}
     nameInResources: 
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
-  - audioClass: 0
+  - name: 7
+    audioEnumName: bank_deposit
+    audioClass: 0
     clip: {fileID: 0}
     nameInResources: 
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
-  - audioClass: 0
+  - name: 8
+    audioEnumName: collision
+    audioClass: 0
     clip: {fileID: 0}
     nameInResources: 
     preload: 0
     defaultVolume: 1
     currentVolume: 1
     mute: 0
-  - audioClass: 0
-    clip: {fileID: 0}
-    nameInResources: 
-    preload: 0
-    defaultVolume: 1
-    currentVolume: 1
-    mute: 0
-  - audioClass: 0
-    clip: {fileID: 0}
-    nameInResources: 
-    preload: 0
-    defaultVolume: 1
-    currentVolume: 1
-    mute: 0
-  - audioClass: 0
-    clip: {fileID: 0}
-    nameInResources: 
-    preload: 0
-    defaultVolume: 1
-    currentVolume: 1
-    mute: 0
-  - audioClass: 0
-    clip: {fileID: 0}
-    nameInResources: 
-    preload: 0
-    defaultVolume: 1
-    currentVolume: 1
-    mute: 0
-  - audioClass: 0
-    clip: {fileID: 0}
-    nameInResources: 
-    preload: 0
-    defaultVolume: 1
-    currentVolume: 1
-    mute: 0
-  - audioClass: 0
-    clip: {fileID: 0}
-    nameInResources: 
-    preload: 0
-    defaultVolume: 1
-    currentVolume: 1
-    mute: 0
-  - audioClass: 0
-    clip: {fileID: 0}
-    nameInResources: 
-    preload: 0
-    defaultVolume: 1
-    currentVolume: 1
-    mute: 0
-  - audioClass: 0
-    clip: {fileID: 0}
-    nameInResources: 
-    preload: 0
-    defaultVolume: 1
-    currentVolume: 1
-    mute: 0
-  - audioClass: 0
-    clip: {fileID: 0}
-    nameInResources: 
-    preload: 0
-    defaultVolume: 1
-    currentVolume: 1
-    mute: 0
-  - audioClass: 0
+  - name: 9
+    audioEnumName: stun
+    audioClass: 0
     clip: {fileID: 0}
     nameInResources: 
     preload: 0

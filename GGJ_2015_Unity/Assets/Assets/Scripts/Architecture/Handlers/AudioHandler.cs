@@ -5,11 +5,16 @@ using System.Collections.Generic;
 // All audio clips are enumerated here
 // Enum name should match the name of the clip in Resources
 public enum Audio{
-	bump = 0,
-	sword,
-	playerHurt,
-	enemyHurt,
-	enemyDie,
+	dash = 0,
+	dash_tell,
+	coin_pickup,
+	coin_pickpocket,
+	coin_drop,
+	disguise_on,
+	disguise_off,
+	bank_deposit,
+	collision,
+	stun,
 	Length
 }
 
@@ -31,8 +36,9 @@ public class AudioHandler : BaseBehaviour {
 	
 	// Singleton reference
 	public static AudioHandler Instance;
+	private bool initialized;
 
-	[SerializeField] [HideInInspector]
+	[SerializeField] //[HideInInspector]
 	private bool editorInitialized;
 	[SerializeField] [HideInInspector]
 	private AudioClassSetting[] settings;
@@ -73,9 +79,10 @@ public class AudioHandler : BaseBehaviour {
 
 	// Set up the AudioHandler singleton and internal vars
 	public void Init(){
-		if(Instance == null){
+		if(!initialized){
 
 			Instance = this;
+			initialized = true;
 
 			Setup2D();
 			Setup3D();
@@ -98,16 +105,8 @@ public class AudioHandler : BaseBehaviour {
 
 		speakers2D_Open = new Queue<AudioSpeaker>(poolSize2D);
 		speakers2D_Playing = new LinkedList<AudioSpeaker>();
-		
-		AudioSource source;
-		AudioSpeaker speaker;
-		for(int i = 0; i < poolSize2D; i++){
-			source = Root_2D.AddComponent<AudioSource>();
-			source.enabled = false;
-			speaker = Root_2D.AddComponent<AudioSpeaker>();
-			speaker.Init(source);
-			speakers2D_Open.Enqueue(speaker);
-		}
+
+		Increase2DQueueSize(poolSize2D);
 	}
 
 	private void Setup3D(){
@@ -118,17 +117,8 @@ public class AudioHandler : BaseBehaviour {
 		
 		speakers3D_Open = new Queue<AudioSpeaker>(poolSize3D);
 		speakers3D_Playing = new LinkedList<AudioSpeaker>();
-		
-		GameObject speaker3D;
-		AudioSpeaker speaker;
-		for(int i = 0; i < poolSize3D; i++){
-			speaker3D = new GameObject("Speaker_3D", typeof(AudioSource));
-			speaker3D.SetActive(false);
-			speaker3D.transform.parent = Root_3D.transform;
-			speaker = speaker3D.AddComponent<AudioSpeaker>();
-			speaker.Init();
-			speakers3D_Open.Enqueue(speaker);
-		}
+
+		Increase3DQueueSize(poolSize3D);
 	}
 
 	private void SetupDedicated(){
@@ -218,8 +208,8 @@ public class AudioHandler : BaseBehaviour {
 	// Individual play functions
 
 	public static void Play(Audio sound){
-
 		AudioSpeaker speaker = Instance.PullSpeaker2D();
+
 		speaker.SetAudioObject(sound);
 		speaker.SetLooped(false);
 		speaker.Play();
@@ -251,6 +241,7 @@ public class AudioHandler : BaseBehaviour {
 	}
 
 	public AudioSpeaker PullSpeaker2D(){
+		if(speakers2D_Open.Count == 0) Increase2DQueueSize(poolSize2D);
 		AudioSpeaker speaker = speakers2D_Open.Dequeue();
 		speaker.SetActive(true);
 		speakers2D_Playing.AddLast(speaker);
@@ -258,6 +249,7 @@ public class AudioHandler : BaseBehaviour {
 	}
 
 	public AudioSpeaker PullSpeaker3D(){
+		if(speakers3D_Open.Count == 0) Increase3DQueueSize(poolSize3D);
 		AudioSpeaker speaker = speakers3D_Open.Dequeue();
 		speaker.SetGameobjectActive(true);
 		speakers3D_Playing.AddLast(speaker);
@@ -328,6 +320,39 @@ public class AudioHandler : BaseBehaviour {
 		}
 	}
 
+	#region Queue
+
+	private void Increase2DQueueSize(int count){
+
+		AudioSource source;
+		AudioSpeaker speaker;
+
+		for(int i = 0; i < count; i++){
+			source = Root_2D.AddComponent<AudioSource>();
+			source.enabled = false;
+			speaker = Root_2D.AddComponent<AudioSpeaker>();
+			speaker.Init(source);
+			speakers2D_Open.Enqueue(speaker);
+		}
+	}
+
+	private void Increase3DQueueSize(int count){
+
+		GameObject speaker3D;
+		AudioSpeaker speaker;
+
+		for(int i = 0; i < count; i++){
+			speaker3D = new GameObject("Speaker_3D", typeof(AudioSource));
+			speaker3D.SetActive(false);
+			speaker3D.transform.parent = Root_3D.transform;
+			speaker = speaker3D.AddComponent<AudioSpeaker>();
+			speaker.Init();
+			speakers3D_Open.Enqueue(speaker);
+		}
+	}
+
+	#endregion
+
 	#region Editor
 
 	public void EditorInit(){
@@ -347,7 +372,7 @@ public class AudioHandler : BaseBehaviour {
 			
 			objects = new AudioObject[(int) Audio.Length];
 			for(int i = 0; i < (int) Audio.Length; i++){
-				objects[i] = new AudioObject();
+				objects[i] = new AudioObject((Audio) i);
 			}
 		}
 	}
@@ -424,6 +449,14 @@ public class AudioHandler : BaseBehaviour {
 
 	public void SetAudioObjectClass(Audio audio, AudioClass audioClass){
 		objects[(int) audio].audioClass = audioClass;
+	}
+
+	public AudioObject[] GetAudioObjects(){
+		return objects;
+	}
+
+	public void SetAudioObjects(AudioObject[] objects){
+		this.objects = objects;
 	}
 
 	public AudioObject GetAudioObject(Audio audio){

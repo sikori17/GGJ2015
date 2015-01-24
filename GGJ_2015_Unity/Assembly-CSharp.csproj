@@ -72,7 +72,12 @@
      <Compile Include="Assets\Assets\Scripts\Combat\DirectionHandler.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\DoesDamage.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\Enemy.cs" />
+     <Compile Include="Assets\Assets\Scripts\Combat\Explosion.cs" />
+     <Compile Include="Assets\Assets\Scripts\Combat\Fireball.cs" />
+     <Compile Include="Assets\Assets\Scripts\Combat\KnightEnemy.cs" />
+     <Compile Include="Assets\Assets\Scripts\Combat\RandomWalkEnemy.cs" />
      <Compile Include="Assets\Assets\Scripts\Combat\SlugEnemy.cs" />
+     <Compile Include="Assets\Assets\Scripts\Combat\WizardEnemy.cs" />
      <Compile Include="Assets\Assets\Scripts\Debug\DebugHandler.cs" />
      <Compile Include="Assets\Assets\Scripts\Debug\MemoryStamp.cs" />
      <Compile Include="Assets\Assets\Scripts\Debug\TimeStamp.cs" />

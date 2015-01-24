@@ -17,12 +17,6 @@ public class AudioHandlerEditor : Editor {
 	[SerializeField] [HideInInspector]
 	private AudioClip[] audioClips;
 	
-	//flags for alert messages
-	private bool addError;
-	private float timeStamp;
-	private float timer;
-	private string errorMessage;
-	
 	void Init(){
 
 		initialized = true;
@@ -36,7 +30,8 @@ public class AudioHandlerEditor : Editor {
 	
 	void OnEnable(){
 		if(!initialized || AudioHandler.Instance == null){Init();}
-		ReloadAudioClips();
+		//ReloadAudioClips();
+		SyncWithEnum();
 		audioHandler.EditorRefresh();
 	}
 
@@ -70,80 +65,95 @@ public class AudioHandlerEditor : Editor {
 		base.OnInspectorGUI();
 
 		if(AudioHandler.Instance == null) OnEnable();
+		if(audioHandler.GetAudioObjects().Length != (int) Audio.Length) SyncWithEnum();
 		
 		GUILayout.BeginVertical();
-		GUILayout.Box("Audio Handler Editor");
 
 		GUILayout.Space(10);
 
-		GUILayout.Box("Audio Classes");
+		GUILayout.Box("Audio Classes", EditorStyles.whiteLargeLabel);
 		GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1));
 		
 		for(int i = 0; i < AudioClassEnums.Length - 1; i++){
 
 			GUILayout.BeginHorizontal();
-			GUILayout.Label(AudioClassEnums[i]);
-			bool mute = audioHandler.GetAudioClassMute((AudioClass) i);
-			bool state = GUILayout.Toggle(mute , "Mute");
-			if(state != mute) audioHandler.SetAudioClassMute((AudioClass) i, state);
+			GUILayout.Label(AudioClassEnums[i], EditorStyles.boldLabel);
 			GUILayout.FlexibleSpace();
+			bool mute = audioHandler.GetAudioClassMute((AudioClass) i);
+			bool state = GUILayout.Toggle(mute , "Mute", GUILayout.MinWidth(30));
+			if(state != mute) audioHandler.SetAudioClassMute((AudioClass) i, state);
 			GUILayout.EndHorizontal();
 
 			GUILayout.BeginHorizontal();
 
-			string curVol = "" + audioHandler.GetAudioClassVolume((AudioClass) i);
+			float volume = audioHandler.GetAudioClassVolume((AudioClass) i);
+
+			string curVol = "" + volume;
 			GUILayout.Label(curVol, GUILayout.MaxWidth(35));
 
-			float volume = GUILayout.HorizontalSlider(audioHandler.GetAudioClassVolume((AudioClass) i), 0, 1.0f);
-			audioHandler.SetAudioClassVolume((AudioClass) i, volume); 
+			float newVolume = GUILayout.HorizontalSlider(volume, 0, 1.0f);
+			if(volume != newVolume) audioHandler.SetAudioClassVolume((AudioClass) i, newVolume); 
 
 			GUILayout.EndHorizontal();
 		}
 
 		GUILayout.Space(20);
 
-		GUILayout.Box("Audio Objects");
+		GUILayout.Box("Audio Objects", EditorStyles.whiteLargeLabel);
 
 		for(int i = 0; i < (int) Audio.Length; i++){
 
 			GUILayout.Box("", GUILayout.ExpandWidth(true), GUILayout.Height(1));
 
 			GUILayout.BeginHorizontal();
-			GUILayout.Label(((Audio) i).ToString());
+			GUILayout.Label(((Audio) i).ToString(), EditorStyles.boldLabel);
 			bool mute = audioHandler.GetAudioObject((Audio) i).mute;
-			bool state = GUILayout.Toggle(audioHandler.GetAudioObject((Audio) i).mute, "Mute");
-			if(mute != state) audioHandler.GetAudioObject((Audio) i).SetDefaultMute(state);
 			GUILayout.FlexibleSpace();
+
+			bool state = GUILayout.Toggle(audioHandler.GetAudioObject((Audio) i).mute, "Mute", GUILayout.MinWidth(60), GUILayout.MinHeight(20));
+			if(mute != state) audioHandler.GetAudioObject((Audio) i).SetDefaultMute(state);
+
+			bool preload = GUILayout.Toggle(audioHandler.GetAudioObjectPreload((Audio) i), "Preload", GUILayout.MinWidth(60));
+			audioHandler.SetAudioObjectPreload((Audio) i, preload);
+
 			GUILayout.EndHorizontal();
 
 			GUILayout.BeginHorizontal();
 			AudioClass audioClass = (AudioClass) EditorGUILayout.EnumPopup(audioHandler.GetAudioObjectClass((Audio) i));
 			audioHandler.SetAudioObjectClass((Audio) i, audioClass);
 
-			bool preload = GUILayout.Toggle(audioHandler.GetAudioObjectPreload((Audio) i), "Preload");
+			/*
+			GUILayout.FlexibleSpace();
+			bool preload = GUILayout.Toggle(audioHandler.GetAudioObjectPreload((Audio) i), "Preload", GUILayout.MinWidth(70));
 			audioHandler.SetAudioObjectPreload((Audio) i, preload);
+			*/
 			GUILayout.EndHorizontal();
+
+			AudioClip clip = null;
 
 			// if clip is already set
 			if(audioClips[i] != null){
 				GUILayout.BeginHorizontal();
-				EditorGUILayout.ObjectField(audioClips[i], typeof(AudioClip), false);
-				bool remove = GUILayout.Button("Remove");
-				if(remove){
+				clip = (AudioClip) EditorGUILayout.ObjectField(audioClips[i], typeof(AudioClip), false);
+				//bool remove = GUILayout.Button("Remove");
+				//if(remove){
+				//	audioClips[i] = null;
+				//	audioHandler.ResetAudioObject((Audio) i);
+				//}
+				if(clip == null){
 					audioClips[i] = null;
 					audioHandler.ResetAudioObject((Audio) i);
 				}
+				else if(clip != audioClips[i]){
+					AttemptClipAdd((Audio) i, clip);
+				}
+
 				GUILayout.EndHorizontal();
 			}
 			else{
-				AudioClip clip = (AudioClip) EditorGUILayout.ObjectField(null, typeof(AudioClip), false);
+				clip = (AudioClip) EditorGUILayout.ObjectField(null, typeof(AudioClip), false);
 				if(clip != null){
-					string path = AssetDatabase.GetAssetPath(clip);
-					string end = "Resources/" + clip.name;
-					if(path.EndsWith(end + ".wav") || path.EndsWith(end + ".mp3") || path.EndsWith(end + ".ogg")){
-						audioClips[i] = clip;
-						audioHandler.SetAudioObjectName((Audio) i, clip.name);
-					}
+					AttemptClipAdd((Audio) i, clip);
 				}
 			}
 
@@ -158,64 +168,55 @@ public class AudioHandlerEditor : Editor {
 
 		EditorUtility.SetDirty(audioHandler);
 	}
-	
-	private bool AttemptAdd(BaseBehaviour prefab, int index){
-		
-		bool result = false;
-		string path = AssetDatabase.GetAssetPath(prefab);
-		
-		if(path.EndsWith("Resources/" + prefab.name + ".prefab")){
-			
-			string[] names = Enum.GetNames(typeof(Prefab));
-			if(names[index] == prefab.name){
-				//prefabHandler.AddPrefab(index);
-				result = true;
-			}
-			else{
-				ErrorMessage(5, "Incorrect prefab for this Prefab Enum");
-			}
+
+	private void AttemptClipAdd(Audio audio, AudioClip clip){
+
+		string path = AssetDatabase.GetAssetPath(clip);
+		string end = "Resources/" + clip.name;
+
+		if(path.EndsWith(end + ".wav") || path.EndsWith(end + ".mp3") || path.EndsWith(end + ".ogg")){
+			audioClips[(int) audio] = clip;
+			audioHandler.SetAudioObjectName(audio, clip.name);
 		}
 		else{
-			ErrorMessage(5, "Object is not in a Resources folder");
+			Debug.Log("<color=red> ERROR: AudioClip with name '" + clip.name + "' is not in Resources.</color>");
 		}
-		
-		return result;
 	}
-	
-	private void AttemptAdd(BaseBehaviour prefab){
-		
-		string prefabName = prefab.name;
-		string path = AssetDatabase.GetAssetPath(prefab);
-		
-		if(path.EndsWith("Resources/" + prefab.name + ".prefab")){
-			
-			string[] names = Enum.GetNames(typeof(Prefab));
-			
-			for(int i = 0; i < names.Length; i++){
-				// if valid enum exists
-				if(prefabName == names[i]){
-					// if not already in array
-//					if(!prefabHandler.Contains((Prefab) i)){
-//						prefabHandler.AddPrefab(i);
-//					}
-//					else{
-//						ErrorMessage(5, "Prefab already exists in collection");
-//					}
-					break;
-				}
-				
-				ErrorMessage(5, "Need a matching Prefab enum");
+
+	private void SyncWithEnum(){
+
+		AudioObject[] audioObjects = audioHandler.GetAudioObjects();
+		AudioObject[] newAudioObjectsArray = new AudioObject[(int) Audio.Length];
+
+		// Names of current Audio enums
+		List<string> enumNames = new List<string>(Enum.GetNames(typeof(Audio)));
+
+		// Transfer existing clips - Handles reordering of enums
+		for(int i = 0; i < audioObjects.Length; i++){
+			// If this audio object still exists in enum list
+			if(enumNames.Contains(audioObjects[i].audioEnumName)){
+				// Get correct Audio enum by parsing stored string enum name
+				Audio audioEnum = (Audio) Enum.Parse(typeof(Audio), audioObjects[i].audioEnumName);
+				// Transfer audio object
+				newAudioObjectsArray[(int) audioEnum] =  audioObjects[i];
 			}
 		}
-		else{
-			ErrorMessage(5, "Object is not in a Resources folder");
+
+		// Fill in missing clips with new empty AudioObjects
+		for(int i = 0; i < newAudioObjectsArray.Length; i++){
+			if(newAudioObjectsArray[i] == null){
+				newAudioObjectsArray[i] = new AudioObject((Audio) i);
+			}
 		}
-	}
-	
-	protected void ErrorMessage(float seconds, string message){
-		timeStamp = (float) EditorApplication.timeSinceStartup;
-		errorMessage = message;
-		addError = true;
-		timer = seconds;
+
+		// Resetting local audioClips array used for editor display
+		audioClips = new AudioClip[(int) Audio.Length];
+		string audioName = "";
+		for(int i = 0; i < audioClips.Length; i++){
+			audioName = audioHandler.GetAudioObjectName((Audio) i);
+			if(audioName != "") audioClips[i] = (AudioClip) Resources.Load(audioName);
+		}
+
+		audioHandler.SetAudioObjects(newAudioObjectsArray);
 	}
 }
