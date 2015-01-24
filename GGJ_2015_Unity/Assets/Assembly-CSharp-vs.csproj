@@ -46,6 +46,8 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\AdamScripts\ARLTimer.cs" />
+     <Compile Include="Assets\Scripts\AdamScripts\Oscillator.cs" />
      <Compile Include="Assets\Scripts\Animation\BezierPath.cs" />
      <Compile Include="Assets\Scripts\Animation\TweenLib.cs" />
      <Compile Include="Assets\Scripts\Architecture\General\BaseBehaviour.cs" />
@@ -67,9 +69,17 @@
      <Compile Include="Assets\Scripts\BrowserCommunication\BrowserInterface.cs" />
      <Compile Include="Assets\Scripts\BrowserCommunication\ConnectToJavascript.cs" />
      <Compile Include="Assets\Scripts\Combat\Avatar.cs" />
+     <Compile Include="Assets\Scripts\Combat\DirectionHandler.cs" />
+     <Compile Include="Assets\Scripts\Combat\DoesDamage.cs" />
+     <Compile Include="Assets\Scripts\Combat\Enemy.cs" />
+     <Compile Include="Assets\Scripts\Combat\SlugEnemy.cs" />
      <Compile Include="Assets\Scripts\Debug\DebugHandler.cs" />
      <Compile Include="Assets\Scripts\Debug\MemoryStamp.cs" />
      <Compile Include="Assets\Scripts\Debug\TimeStamp.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Rooms\Door.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Rooms\Grid.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Rooms\Room.cs" />
+     <Compile Include="Assets\Scripts\Gameplay\Rooms\Wall.cs" />
      <Compile Include="Assets\Scripts\InDevelopment\BaseBehaviourExtender.cs" />
      <Compile Include="Assets\Scripts\InDevelopment\GeneralTesting.cs" />
      <Compile Include="Assets\Scripts\InDevelopment\GenericDictionary.cs" />
