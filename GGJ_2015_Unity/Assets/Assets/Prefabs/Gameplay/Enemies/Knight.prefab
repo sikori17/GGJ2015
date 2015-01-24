@@ -156,7 +156,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &100018
 GameObject:
   m_ObjectHideFlags: 0
@@ -638,7 +638,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 5
-  lootPoints: 3
+  lootPoints: 9
   knockbackDist: 1
   normalColor: {r: .333333343, g: .470588237, b: 1, a: 1}
   hurtColor: {r: 1, g: 1, b: 1, a: 1}
@@ -646,6 +646,7 @@ MonoBehaviour:
     TimerInterval: 1
     AutoRestart: 0
   deathEffect: {fileID: 100000, guid: bf8ece6eeab6241a9850880cf8720ca6, type: 2}
+  lootEffect: {fileID: 100000, guid: 4f9d78b09bdd24ed7aeaebc47877ad9d, type: 2}
   speed: 1
   direction: 0
   moveTimer:

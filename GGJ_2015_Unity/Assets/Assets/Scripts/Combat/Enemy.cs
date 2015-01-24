@@ -12,6 +12,7 @@ public class Enemy : MonoBehaviour {
 	public Color normalColor, hurtColor;
 	public ARLTimer hurtTimer;
 	public GameObject deathEffect;
+	public GameObject lootEffect;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -108,5 +109,9 @@ public class Enemy : MonoBehaviour {
 	protected virtual void OnDeath() {
 		AudioHandler.Play(Audio.enemyDie); //SFX
 		Instantiate(deathEffect, transform.position, deathEffect.transform.rotation);
+
+		Avatar.Instance.lootPoints += lootPoints;
+		GameObject lfx = Instantiate(lootEffect, transform.position, lootEffect.transform.rotation) as GameObject;
+		lfx.GetComponent<LootPointEffect>().repeatNum = lootPoints;
 	}
 }

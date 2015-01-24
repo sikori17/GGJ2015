@@ -31,6 +31,7 @@ public class RandomWalkEnemy : Enemy {
 		transform.Translate(DirectionHandler.Instance.DirectionToVector(direction) * speed * Time.deltaTime, Space.World);
 
 		if (OutOfBounds()) {
+			AudioHandler.Play(Audio.bump); //SFX
 			GoOppositeDirection();
 		}
 	}
@@ -50,6 +51,7 @@ public class RandomWalkEnemy : Enemy {
 	}
 	
 	void OnCollisionEnter(Collision other) {
+		AudioHandler.Play(Audio.bump); //SFX
 		GoOppositeDirection();
 	}
 }
