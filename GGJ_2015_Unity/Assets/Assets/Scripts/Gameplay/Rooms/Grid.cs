@@ -127,4 +127,8 @@ public class Grid : MonoBehaviour {
 	public Room GetNewRoom(){
 		return GameObject.Instantiate(roomPrefab) as Room;
 	}
+
+	public static Transform GetTile(int x, int y){
+		return Instance.tiles[x, y];
+	}
 }

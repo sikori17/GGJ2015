@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GameplayUI : MonoBehaviour {
 
@@ -13,10 +14,13 @@ public class GameplayUI : MonoBehaviour {
 	public Scrollbar adventurerXP;
 
 	// Dungeon Master
-	public Scrollbar deckPoints;
-	public Text draws;
 	public Room displayRoom;
 	public Image effectImage;
+
+	// Deck
+	public RectTransform deck;
+	public Scrollbar deckPoints;
+	public Text draws;
 
 	// Hand
 	public RectTransform cardOne;
@@ -24,21 +28,31 @@ public class GameplayUI : MonoBehaviour {
 	public RectTransform cardThree;
 	public RectTransform cardFour;
 
-	private Vector2 cardOneAnchor;
-	private Vector2 cardTwoAnchor;
-	private Vector2 cardThreeAnchor;
-	private Vector2 cardFourAnchor;
+	public List<CardUI> cards;
+
+	private Vector3 deckAnchor;
+	private Vector3 cardOneAnchor;
+	private Vector3 cardTwoAnchor;
+	private Vector3 cardThreeAnchor;
+	private Vector3 cardFourAnchor;
+
+	// Times
+	public float drawTime;
 
 	// Image assets
 
 	void Awake(){
 		Instance = this;
+		Debug.Log("1_" + cardOne.transform.position);
 	}
 
 	// Use this for initialization
 	void Start () {
 		InitializeDisplayRoom();
-		InitializeHandVariables();
+		Debug.Log("2_" + cardOne.transform.position);
+		InitializeVariables();
+		Debug.Log("3_" + cardOne.transform.position);
+		Debug.Log("C " + cardOneAnchor);
 	}
 	
 	// Update is called once per frame
@@ -54,11 +68,12 @@ public class GameplayUI : MonoBehaviour {
 		displayRoom.transform.localScale *= 0.9f;
 	}
 
-	public void InitializeHandVariables(){
-		cardOneAnchor = cardOne.anchoredPosition;
-		cardTwoAnchor = cardTwo.anchoredPosition;
-		cardThreeAnchor = cardThree.anchoredPosition;
-		cardFourAnchor = cardFour.anchoredPosition;
+	public void InitializeVariables(){
+		deckAnchor = deck.transform.position;
+		cardOneAnchor = cardOne.transform.position;
+		cardTwoAnchor = cardTwo.transform.position;
+		cardThreeAnchor = cardThree.transform.position;
+		cardFourAnchor = cardFour.transform.position;
 	}
 
 	public void SetXP(float norm){
@@ -106,4 +121,68 @@ public class GameplayUI : MonoBehaviour {
 		}
 
 	}
+
+	public void ClearCard(Button button){
+
+		RectTransform target = null;
+
+		if(button == Button.Xbox_A){
+			target = cardOne;
+		}
+		else if(button == Button.Xbox_B){
+			target = cardTwo;
+		}
+		else if(button == Button.Xbox_X){
+			target = cardThree;
+		}
+		else if(button == Button.Xbox_Y){
+			target = cardFour;
+		}
+
+		target.gameObject.SetActive(false);
+		displayRoom.gameObject.SetActive(false);
+		effectImage.gameObject.SetActive(false);
+	}
+
+	#region Animation
+
+	public void AnimateDraw(Card card, Button button){
+
+		RectTransform target = null;
+		Vector3 targetPos = Vector2.zero;
+
+		if(button == Button.Xbox_A){
+			target = cardOne;
+			targetPos = cardOneAnchor;
+		}
+		else if(button == Button.Xbox_B){
+			target = cardTwo;
+			targetPos = cardTwoAnchor;
+		}
+		else if(button == Button.Xbox_X){
+			target = cardThree;
+			targetPos = cardThreeAnchor;
+		}
+		else if(button == Button.Xbox_Y){
+			target = cardFour;
+			targetPos = cardFourAnchor;
+		}
+
+		target.gameObject.SetActive(true);
+		StartCoroutine(Animate(target, deckAnchor, targetPos, drawTime));
+	}
+
+	public IEnumerator Animate(RectTransform rect, Vector3 startPos, Vector3 endPos, float time){
+		Timer timer = new Timer(time);
+		rect.transform.position = startPos;
+		while(!timer.StopwatchDone()){
+			Debug.Log("A " + rect.transform.position);
+			rect.transform.position = Vector3.Lerp(startPos, endPos, timer.GetNormalizedTime());
+			yield return null;
+		}
+		Debug.Log("K");
+		rect.transform.position = endPos;
+	}
+
+	#endregion
 }

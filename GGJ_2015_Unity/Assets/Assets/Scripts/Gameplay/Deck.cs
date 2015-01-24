@@ -31,9 +31,14 @@ public class Deck : MonoBehaviour {
 	}
 
 	public Card Draw(){
+		return Draw(true);
+	}
+
+	public Card Draw(bool chargeDrawPoint){
 
 		Card card = new Card();
-		storedDraws -= 1;
+		if(chargeDrawPoint) storedDraws -= 1;
+		GameplayUI.Instance.SetDrawCount(storedDraws);
 
 		float rand = Random.Range(0.0f, 1.0f);
 

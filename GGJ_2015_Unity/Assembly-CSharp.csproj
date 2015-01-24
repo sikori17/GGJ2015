@@ -82,6 +82,7 @@
      <Compile Include="Assets\Assets\Scripts\Debug\MemoryStamp.cs" />
      <Compile Include="Assets\Assets\Scripts\Debug\TimeStamp.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\Card.cs" />
+     <Compile Include="Assets\Assets\Scripts\Gameplay\CardUI.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\Deck.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\Door.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\DungeonMaster.cs" />
