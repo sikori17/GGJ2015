@@ -69,7 +69,12 @@
      <Compile Include="Assets\Assets\Scripts\Debug\DebugHandler.cs" />
      <Compile Include="Assets\Assets\Scripts\Debug\MemoryStamp.cs" />
      <Compile Include="Assets\Assets\Scripts\Debug\TimeStamp.cs" />
-     <Compile Include="Assets\Assets\Scripts\Gameplay\Rooms\Door.cs" />
+     <Compile Include="Assets\Assets\Scripts\Gameplay\Card.cs" />
+     <Compile Include="Assets\Assets\Scripts\Gameplay\Deck.cs" />
+     <Compile Include="Assets\Assets\Scripts\Gameplay\Door.cs" />
+     <Compile Include="Assets\Assets\Scripts\Gameplay\DungeonMaster.cs" />
+     <Compile Include="Assets\Assets\Scripts\Gameplay\Hand.cs" />
+     <Compile Include="Assets\Assets\Scripts\Gameplay\RoomHighlight.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\Rooms\Grid.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\Rooms\Room.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\Rooms\Wall.cs" />

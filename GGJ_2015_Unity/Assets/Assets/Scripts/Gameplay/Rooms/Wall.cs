@@ -1,18 +1,33 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum WallType{
+	Open,
+	Closed,
+	Key,
+	Length
+}
+
 public class Wall : MonoBehaviour {
 
 	public GameObject closedWall;
 	public GameObject openWall;
+	public GameObject lockedDoor;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public void ApplyType(WallType type){
+		if(type == WallType.Open){
+			closedWall.gameObject.SetActive(false);
+			openWall.gameObject.SetActive(true);
+		}
+		else if(type == WallType.Closed){
+			openWall.gameObject.SetActive(false);
+			closedWall.gameObject.SetActive(true);
+		}
+		else if(type == WallType.Key){
+			closedWall.gameObject.SetActive(false);
+			openWall.gameObject.SetActive(true);
+			lockedDoor.gameObject.SetActive(true);
+		}
 	}
 }

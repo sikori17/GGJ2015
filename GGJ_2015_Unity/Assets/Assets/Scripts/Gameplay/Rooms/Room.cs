@@ -17,4 +17,25 @@ public class Room : MonoBehaviour {
 	void Update () {
 	
 	}
+
+	public void ApplyCard(Card card){
+
+		if(card.format == CardFormat.Room){
+			ApplyRoomCard(card);
+		}
+		else{
+			ApplyEffectCard(card);
+		}
+	}
+
+	public void ApplyRoomCard(Card card){
+		northWall.ApplyType(card.wallTypes[0]);
+		southWall.ApplyType(card.wallTypes[1]);
+		eastWall.ApplyType(card.wallTypes[2]);
+		westWall.ApplyType(card.wallTypes[3]);
+	}
+
+	public void ApplyEffectCard(Card card){
+
+	}
 }
