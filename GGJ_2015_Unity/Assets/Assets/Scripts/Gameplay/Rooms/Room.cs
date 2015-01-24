@@ -30,7 +30,7 @@ public class Room : MonoBehaviour {
 	}
 
 	public void ApplyCard(Card card){
-		Debug.Log("GGG " + (card == null).ToString());
+
 		if(card.format == CardFormat.Room){
 			ApplyRoomCard(card);
 		}

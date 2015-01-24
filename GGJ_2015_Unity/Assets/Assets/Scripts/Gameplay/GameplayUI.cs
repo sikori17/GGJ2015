@@ -115,9 +115,11 @@ public class GameplayUI : MonoBehaviour {
 		if(card.format == CardFormat.Room){
 			displayRoom.gameObject.SetActive(true);
 			displayRoom.ApplyWallConfiguration(card.wallTypes);
+			effectImage.gameObject.SetActive(true);
 		}
 		else{
 			displayRoom.gameObject.SetActive(false);
+			effectImage.gameObject.SetActive(true);
 		}
 
 	}

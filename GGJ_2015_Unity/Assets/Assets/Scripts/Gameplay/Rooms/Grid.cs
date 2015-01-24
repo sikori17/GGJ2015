@@ -119,6 +119,8 @@ public class Grid : MonoBehaviour {
 				tiles[i, j] = tile;
 			}
 		}
+
+		Rooms[0, 0].gameObject.SetActive(true);
 	}
 
 	public static Vector3 GetRoomPosition(int x, int y){
@@ -135,5 +137,9 @@ public class Grid : MonoBehaviour {
 
 	public static Transform GetTile(int x, int y){
 		return Instance.tiles[x, y];
+	}
+
+	public bool RoomActive(int x, int y){
+		return ((x >= 0 && x < roomsX) && (y >= 0 && y < roomsY) && GetRoom(x, y).gameObject.activeInHierarchy);
 	}
 }
