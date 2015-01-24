@@ -1,0 +1,15 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/Combat/Avatar.cs">
+    <Files>
+      <File FileName="Assets/Scripts/Combat/Avatar.cs" Line="95" Column="30" />
+      <File FileName="Assets/Scripts/Combat/DirectionHandler.cs" Line="51" Column="26" />
+      <File FileName="Assets/Scripts/Combat/Enemy.cs" Line="25" Column="37" />
+      <File FileName="Assets/Scripts/Combat/SlugEnemy.cs" Line="35" Column="42" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
