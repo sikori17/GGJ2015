@@ -15,6 +15,19 @@ public enum Audio{
 	playerDie,
 	warningBeep,
 	lootPoint,
+	heart,
+	potion,
+	bomb,
+	newItem,
+	newRoom,
+	playCard,
+	doorLock,
+	doorUnlock,
+	placeCrown,
+	placeTreasure,
+	openTreasure,
+	dmNegative,
+	levelUp,
 	Length
 }
 

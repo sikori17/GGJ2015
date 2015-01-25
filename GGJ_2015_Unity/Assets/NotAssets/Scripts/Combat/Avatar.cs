@@ -46,6 +46,10 @@ public class Avatar : MonoBehaviour {
 	//SFX
 	public ARLTimer bumpTimer, beepTimer;
 
+	//ETC
+	public ARLTimer gameOverTimer;
+	public bool isGameOver;
+
 	// Use this for initialization
 	void Start () {
 		Instance = this;
@@ -77,6 +81,11 @@ public class Avatar : MonoBehaviour {
 
 		//stop the character from floating away because of physics
 		rigidbody.velocity = Vector3.zero;
+
+
+		if (isGameOver && gameOverTimer.IsDone()) {
+			Application.LoadLevel("RestartScene_DungeonMasterWin");
+		}
 	}
 
 	void ReadInput() {
@@ -200,8 +209,12 @@ public class Avatar : MonoBehaviour {
 				AudioHandler.Play(Audio.playerDie); //SFX
 				Instantiate(explosion, transform.position, explosion.transform.rotation);
 
-				Destroy(gameObject);
-				OnGameOverMessage();
+				//Destroy(gameObject);
+				gameObject.renderer.enabled = false;
+				gameObject.collider.enabled = false;
+				//OnGameOverMessage();
+				isGameOver = true;
+				gameOverTimer.Restart();
 			}
 			else {
 				AudioHandler.Play(Audio.playerHurt); //SFX
@@ -234,6 +247,7 @@ public class Avatar : MonoBehaviour {
 		if (other.gameObject.tag == "Heart") {
 			AddHP(1);
 			Destroy(other.gameObject);
+			AudioHandler.Play(Audio.heart); //SFX
 		}
 
 		if (other.gameObject.tag == "Item") {
@@ -253,6 +267,7 @@ public class Avatar : MonoBehaviour {
 			}
 			
 			ItemRegistry.Instance.SetItemButton(curItem);
+			AudioHandler.Play(Audio.newItem); //sfx
 		}
 	}
 
@@ -272,6 +287,7 @@ public class Avatar : MonoBehaviour {
 		if (other.gameObject.tag == "Heart") {
 			AddHP(1);
 			Destroy(other.gameObject);
+			AudioHandler.Play(Audio.heart); //SFX
 		}
 	}
 

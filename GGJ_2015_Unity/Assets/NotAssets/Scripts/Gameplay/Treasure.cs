@@ -28,6 +28,7 @@ public class Treasure : MonoBehaviour {
 		GameObject item = GameObject.Instantiate(items[Random.Range(0, items.Length)]) as GameObject;
 		item.name = item.name.Remove(item.name.Length - 7, 7);
 		item.transform.position = transform.position;
+		AudioHandler.Play(Audio.openTreasure);//sfx
 	}
 
 	public void AssignRoom(Room room){

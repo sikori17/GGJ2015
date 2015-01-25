@@ -48,6 +48,7 @@ public class Room : MonoBehaviour {
 				for(int i = 0; i < lockedWalls.Count; i++){
 					lockedWalls[i].ApplyType(WallType.Open);
 				}
+				AudioHandler.Play(Audio.doorUnlock); //sfx
 			}
 		}
 	}
@@ -180,6 +181,8 @@ public class Room : MonoBehaviour {
 			}
 
 			untraversed = false;
+
+			AudioHandler.Play(Audio.doorLock); //sfx
 		}
 	}
 

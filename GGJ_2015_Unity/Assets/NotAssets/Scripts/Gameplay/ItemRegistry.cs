@@ -50,6 +50,7 @@ public class ItemRegistry : MonoBehaviour {
 	
 	void PotionAction() {
 		Avatar.Instance.AddHP(5);
+		AudioHandler.Play(Audio.potion); //sfx
 	}
 	
 	void FireballAction() {
@@ -81,6 +82,8 @@ public class ItemRegistry : MonoBehaviour {
 			curRoom.eastWall.ApplyType(WallType.Open);
 			break;
 		}
+
+		AudioHandler.Play(Audio.bomb); //sfx
 	}
 	
 	public void SetItemButton(Items type) {

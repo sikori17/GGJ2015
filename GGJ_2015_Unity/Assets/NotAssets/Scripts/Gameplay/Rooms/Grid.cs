@@ -235,6 +235,8 @@ public class Grid : MonoBehaviour {
 		else {
 			newRoom.SpawnStarterEnemies();
 		}
+
+		AudioHandler.Play(Audio.newRoom); //sfx
 	}
 
 	public static Transform GetTile(int x, int y){

@@ -34,6 +34,11 @@ public class DungeonMaster : MonoBehaviour {
 	//DEATH CARD
 	public ARLTimer deathCardTimer, spawnEnemyTimer;
 
+	//MUSIC JUNK
+	public AudioSource music1, music2;
+	public ARLTimer music2Timer;
+	public bool isMusic2;
+
 	void Awake(){
 		Instance = this;
 	}
@@ -63,6 +68,11 @@ public class DungeonMaster : MonoBehaviour {
 	void Update () {
 		stateMachine.Execute();
 		deckMachine.Execute();
+
+		if (isMusic2 && music2Timer.IsDone()) {
+			music2.Play();
+			isMusic2 = false;
+		}
 	}
 
 	public void PlayCard(Card card){
@@ -70,6 +80,8 @@ public class DungeonMaster : MonoBehaviour {
 		room.ApplyCard(card);
 		room.gameObject.SetActive(true);
 		Grid.GetTile(selectionX, selectionY).gameObject.SetActive(false);
+
+		AudioHandler.Play(Audio.playCard); //sfx
 	}
 
 	#region Death Card
@@ -259,6 +271,9 @@ public class DungeonMaster : MonoBehaviour {
 						Grid.RewardUsed();
 					}
 				}
+				else {
+					AudioHandler.Play(Audio.dmNegative);//sfx
+				}
 			}
 			else { //format == CardFormat.Effect
 				if (selectedCard.effect == Effect.SpawnEnemy) {
@@ -267,6 +282,9 @@ public class DungeonMaster : MonoBehaviour {
 						hand.RemoveCard(b);
 						GameplayUI.Instance.ClearCard(b);
 						deckMachine.SwitchStates(DeckIdleState);
+					}
+					else {
+						AudioHandler.Play(Audio.dmNegative);//sfx
 					}
 				}
 				else if (selectedCard.effect == Effect.DeathCard) {
@@ -338,7 +356,7 @@ public class DungeonMaster : MonoBehaviour {
 	}
 
 	public void PlaceTreasureExit(){
-
+		AudioHandler.Play(Audio.placeTreasure); //sfx
 	}
 
 	public void PlaceTreasure(int x, int y){
@@ -358,7 +376,6 @@ public class DungeonMaster : MonoBehaviour {
 	}
 
 	public void PlaceCrownEnter(){
-
 	}
 
 	public void PlaceCrownUpdate(){
@@ -379,7 +396,10 @@ public class DungeonMaster : MonoBehaviour {
 	}
 
 	public void PlaceCrownExit(){
-
+		music1.Stop();
+		AudioHandler.Play(Audio.placeCrown); //sfx
+		isMusic2 = true;
+		music2Timer.Restart();
 	}
 
 	public void PlaceCrown(){
