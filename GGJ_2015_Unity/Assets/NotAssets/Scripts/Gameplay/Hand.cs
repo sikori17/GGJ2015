@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -59,6 +59,27 @@ public class Hand : MonoBehaviour {
 
 			GameplayUI.Instance.AnimateDraw(card, button);
 		}
+	}
+
+	public void DrawDeathCard(Button button) {
+		Card card = new Card();
+		card.format = CardFormat.Effect;
+		card.effect = Effect.DeathCard;
+		
+		if(button == Button.Xbox_A){
+			cardA = card;
+		}
+		else if(button == Button.Xbox_B){
+			cardB = card;
+		}
+		else if(button == Button.Xbox_X){
+			cardX = card;
+		}
+		else if(button == Button.Xbox_Y){
+			cardY = card;
+		}
+		
+		GameplayUI.Instance.AnimateDraw(card, button);
 	}
 
 	public Card GetCard(Button button){

@@ -10,7 +10,7 @@ public enum CardFormat{
 
 public enum Effect{
 	SpawnEnemy,
-	DarkenRoom,
+	DeathCard,
 	Length
 }
 
@@ -21,7 +21,7 @@ public class Card{
 	public Effect effect;
 	public EnemyHandler.EnemyTypes[] enemySpawnList;
 	
-	public enum Type { EmptyRoom, SlugRoom, WizardRoom, KnightRoom, SlugEffect, WizardEffect, KnightEffect, Effect };
+	public enum Type { EmptyRoom, SlugRoom, WizardRoom, KnightRoom, SlugEffect, WizardEffect, KnightEffect, DeathCardEffect, Effect };
 	int mainEnemy;
 
 	// Use this for initialization
@@ -69,6 +69,9 @@ public class Card{
 						break;
 				}
 				return Type.Effect; //buggy stuff
+			}
+			else if (effect == Effect.DeathCard) {
+				return Type.DeathCardEffect;
 			}
 			return Type.Effect;
 		}

@@ -73,7 +73,7 @@ public class Deck : MonoBehaviour {
 			card.SetEffect(Effect.SpawnEnemy);
 		}
 		else{ // Darken room
-			card.SetEffect(Effect.DarkenRoom);
+			card.SetEffect(Effect.SpawnEnemy); //no more room darkening
 		}
 
 		return card;

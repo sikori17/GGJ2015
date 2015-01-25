@@ -6,15 +6,15 @@ public class DungeonMaster : MonoBehaviour {
 	public static DungeonMaster Instance;
 	public int playerNum;
 
-	SimpleStateMachine stateMachine;
+	public SimpleStateMachine stateMachine;
 	private SimpleState IdleState;
 
-	SimpleStateMachine deckMachine;
+	public SimpleStateMachine deckMachine;
 	private SimpleState DeckIdleState;
 	private SimpleState DrawCardState;
 	private SimpleState CardSelectedState;
 	private SimpleState PlaceTreasureState;
-	private SimpleState PlaceCrownState;
+	private SimpleState DeathCardState;
 
 	public int selectionX;
 	public int selectionY;
@@ -29,6 +29,9 @@ public class DungeonMaster : MonoBehaviour {
 
 	public Treasure treasurePrefab;
 	public Crown crownPrefab;
+
+	//DEATH CARD
+	public ARLTimer deathCardTimer, spawnEnemyTimer;
 
 	void Awake(){
 		Instance = this;
@@ -50,7 +53,9 @@ public class DungeonMaster : MonoBehaviour {
 		CardSelectedState = new SimpleState(CardSelectedEnter, CardSelectedUpdate, CardSelectedExit, "CARD_SELECTED");
 		PlaceTreasureState = new SimpleState(PlaceTreasureEnter, PlaceTreasureUpdate, PlaceTreasureExit, "PLACE_TREASURE");
 		PlaceCrownState = new SimpleState(PlaceCrownEnter, PlaceCrownUpdate, PlaceCrownExit, "PLACE_CROWN");
+		DeathCardState = new SimpleState(DeathCardEnter, DeathCardUpdate, DeathCardExit, "DEATH_CARD");
 		deckMachine.SwitchStates(DeckIdleState);
+		//deckMachine.SwitchStates(DeathCardState);
 	}
 	
 	// Update is called once per frame
@@ -65,6 +70,33 @@ public class DungeonMaster : MonoBehaviour {
 		room.gameObject.SetActive(true);
 		Grid.GetTile(selectionX, selectionY).gameObject.SetActive(false);
 	}
+
+	#region Death Card
+	public void DeathCardEnter() {
+		deathCardTimer.Restart();
+		spawnEnemyTimer.Restart();
+	}
+
+	public void DeathCardUpdate() {
+		//SPAWN ENEMIES
+		if (spawnEnemyTimer.IsDone()) {
+			spawnEnemyTimer.Restart();
+
+			if (Grid.Instance.RoomActive(selectionX, selectionY)) {
+				EnemyHandler.EnemyTypes[] e = new EnemyHandler.EnemyTypes[]{ (EnemyHandler.EnemyTypes) Random.Range(0,3) };
+				Grid.Instance.Rooms[selectionX, selectionY].Spawn(e);
+			}
+		}
+
+		//EXIT
+		if (deathCardTimer.IsDone()) {
+			deckMachine.SwitchStates(DeckIdleState);
+		}
+	}
+
+	public void DeathCardExit() {
+	}
+	#endregion
 
 	#region Idle
 
@@ -218,14 +250,28 @@ public class DungeonMaster : MonoBehaviour {
 					hand.RemoveCard(b);
 					GameplayUI.Instance.ClearCard(b);
 					deckMachine.SwitchStates(DeckIdleState);
+
+					if (Grid.GetRoom(selectionX, selectionY).rewardSpace) {
+						hand.DrawDeathCard(b);
+
+						Grid.GetRoom(selectionX, selectionY).rewardSpace = false;
+						Destroy(Grid.GetRoom(selectionX, selectionY).rewardMarker);
+					}
 				}
 			}
 			else { //format == CardFormat.Effect
-				if (Grid.Instance.RoomActive(selectionX, selectionY) && !Grid.IsPlayerLocation(selectionX, selectionY)) {
-					PlayCard(selectedCard);
+				if (selectedCard.effect == Effect.SpawnEnemy) {
+					if (Grid.Instance.RoomActive(selectionX, selectionY) && !Grid.IsPlayerLocation(selectionX, selectionY)) {
+						PlayCard(selectedCard);
+						hand.RemoveCard(b);
+						GameplayUI.Instance.ClearCard(b);
+						deckMachine.SwitchStates(DeckIdleState);
+					}
+				}
+				else if (selectedCard.effect == Effect.DeathCard) {
 					hand.RemoveCard(b);
 					GameplayUI.Instance.ClearCard(b);
-					deckMachine.SwitchStates(DeckIdleState);
+					deckMachine.SwitchStates(DeathCardState);
 				}
 			}
 		}

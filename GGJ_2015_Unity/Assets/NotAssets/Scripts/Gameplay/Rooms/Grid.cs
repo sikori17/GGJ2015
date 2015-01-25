@@ -193,6 +193,7 @@ public class Grid : MonoBehaviour {
 				marker.gameObject.SetActive(true);
 				Room room = GetRoom(space[0], space[1]);
 				room.rewardSpace = true;
+				room.rewardMarker = marker.gameObject;
 				marker.transform.position = room.transform.position + Vector3.up * 5;
 			}
 		}
@@ -212,6 +213,7 @@ public class Grid : MonoBehaviour {
 
 	public void NewOpenRoom(int x, int y, int openWall){
 		Room newRoom = Grid.GetRoom(x, y);
+
 		tiles[x, y].gameObject.SetActive(false);
 		WallType[] wallConfig = Card.GetRandomWallConfig();
 		wallConfig[openWall] = WallType.Open;
@@ -223,7 +225,15 @@ public class Grid : MonoBehaviour {
 			newRoom.GetWall((DirectionHandler.Directions) Random.Range(0, nums.Count)).ApplyType(WallType.Open);
 		}
 		newRoom.gameObject.SetActive(true);
-		newRoom.SpawnStarterEnemies();
+
+		if (newRoom.rewardSpace) {
+			DungeonMaster.Instance.PlaceTreasure(x, y);
+			newRoom.rewardSpace = false;
+			Destroy(newRoom.rewardMarker);
+		}
+		else {
+			newRoom.SpawnStarterEnemies();
+		}
 	}
 
 	public static Transform GetTile(int x, int y){
