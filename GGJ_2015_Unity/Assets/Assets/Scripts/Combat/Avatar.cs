@@ -175,9 +175,7 @@ public class Avatar : MonoBehaviour {
 		lootPoints += loot;
 
 		if(lootPoints >= maxLootPoints){
-			Debug.Log("HHHHHHHHH");
 			lootPoints -= maxLootPoints;
-			Debug.Log(lootPoints + "_" + maxLootPoints);
 			DungeonMaster.Instance.TreasureEvent();
 		}
 
@@ -221,6 +219,9 @@ public class Avatar : MonoBehaviour {
 	}
 
 	void OnTriggerEnter(Collider other) {
+
+		Debug.Log("Trigger_" + other.gameObject.name);
+
 		if (other.gameObject.GetComponent<DoesDamage>() != null && invulnerabilityTimer.IsDone()) {
 			Vector3 v = transform.position - other.transform.position;
 			TakeDamage(other.gameObject.GetComponent<DoesDamage>().damage, DirectionHandler.Instance.VectorToDirection(v));

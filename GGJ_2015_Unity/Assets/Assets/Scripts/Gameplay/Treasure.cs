@@ -24,6 +24,7 @@ public class Treasure : MonoBehaviour {
 
 	public void DropLoot(){
 		GameObject item = GameObject.Instantiate(items[Random.Range(0, items.Length)]) as GameObject;
+		item.name = item.name.Remove(item.name.Length - 7, 7);
 		item.transform.position = transform.position;
 	}
 }
