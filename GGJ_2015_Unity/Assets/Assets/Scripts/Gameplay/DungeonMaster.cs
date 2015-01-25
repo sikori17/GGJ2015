@@ -48,6 +48,8 @@ public class DungeonMaster : MonoBehaviour {
 	}
 
 	public void PlayCard(Card card){
+		print ("play card");
+
 		Room room = Grid.GetRoom(selectionX, selectionY);
 		room.ApplyCard(card);
 		room.gameObject.SetActive(true);
@@ -156,6 +158,8 @@ public class DungeonMaster : MonoBehaviour {
 
 	public void CardSelectedUpdate(){
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_A)){
+			UseCard(Button.Xbox_A);
+			/*
 			if(selectedButton == Button.Xbox_A){
 				Debug.Log("LV "  + LocationValid());
 				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
@@ -174,8 +178,11 @@ public class DungeonMaster : MonoBehaviour {
 			else{
 				hand.DrawCard(selectedButton);
 			}
+			*/
 		}
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_B)){
+			UseCard(Button.Xbox_B);
+			/*
 			if(selectedButton == Button.Xbox_B){
 				Debug.Log("LV "  + LocationValid());
 				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
@@ -194,8 +201,11 @@ public class DungeonMaster : MonoBehaviour {
 			else{
 				hand.DrawCard(selectedButton);
 			}
+			*/
 		}
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_X)){
+			UseCard(Button.Xbox_X);
+			/*
 			if(selectedButton == Button.Xbox_X){
 				Debug.Log("LV "  + LocationValid());
 				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
@@ -214,8 +224,11 @@ public class DungeonMaster : MonoBehaviour {
 			else{
 				hand.DrawCard(selectedButton);
 			}
+			*/
 		}
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_Y)){
+			UseCard(Button.Xbox_Y);
+			/*
 			if(selectedButton == Button.Xbox_Y){
 				Debug.Log("LV "  + LocationValid());
 				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
@@ -234,6 +247,38 @@ public class DungeonMaster : MonoBehaviour {
 			else{
 				hand.DrawCard(selectedButton);
 			}
+			*/
+		}
+	}
+
+	void UseCard(Button b) {
+		if(selectedButton == b){
+			if (selectedCard.format == CardFormat.Room) {
+				Debug.Log("LV "  + LocationValid());
+				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
+				if(LocationValid()){
+					PlayCard(selectedCard);
+					hand.RemoveCard(b);
+					GameplayUI.Instance.ClearCard(b);
+					deckMachine.SwitchStates(DeckIdleState);
+				}
+			}
+			else { //format == CardFormat.Effect
+				if (Grid.Instance.RoomActive(selectionX, selectionY)) {
+					PlayCard(selectedCard);
+					hand.RemoveCard(b);
+					GameplayUI.Instance.ClearCard(b);
+					deckMachine.SwitchStates(DeckIdleState);
+				}
+			}
+		}
+		else if(hand.CardAvailable(b)){
+			selectedButton = b;
+			selectedCard = hand.GetCard(b);
+			GameplayUI.Instance.SetDisplayRoom(selectedCard);
+		}
+		else{
+			hand.DrawCard(b);
 		}
 	}
 
