@@ -218,7 +218,7 @@ public class DungeonMaster : MonoBehaviour {
 				}
 			}
 			else { //format == CardFormat.Effect
-				if (Grid.Instance.RoomActive(selectionX, selectionY)) {
+				if (Grid.Instance.RoomActive(selectionX, selectionY) && !Grid.IsPlayerLocation(selectionX, selectionY)) {
 					PlayCard(selectedCard);
 					hand.RemoveCard(b);
 					GameplayUI.Instance.ClearCard(b);
@@ -271,7 +271,7 @@ public class DungeonMaster : MonoBehaviour {
 
 	public void PlaceTreasureUpdate(){
 
-		if(Grid.Instance.RoomActive(selectionX, selectionY) && !(Grid.IsPlayerLocation(selectionX, selectionY))){
+		if(Grid.Instance.RoomActive(selectionX, selectionY) && !(Grid.IsPlayerLocation(selectionX, selectionY)) && !Grid.GetRoom(selectionX, selectionY).hasTreasure){
 			highlight.SetValid();
 		}
 		else{
@@ -279,7 +279,7 @@ public class DungeonMaster : MonoBehaviour {
 		}
 
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_A) || ControllerInput.ButtonDown(playerNum, Button.Xbox_B) || ControllerInput.ButtonDown(playerNum, Button.Xbox_X) || ControllerInput.ButtonDown(playerNum, Button.Xbox_Y)){
-			if(Grid.Instance.RoomActive(selectionX, selectionY) && !(Grid.IsPlayerLocation(selectionX, selectionY))){
+			if(Grid.Instance.RoomActive(selectionX, selectionY) && !(Grid.IsPlayerLocation(selectionX, selectionY)) && !Grid.GetRoom(selectionX, selectionY).hasTreasure){
 				PlaceTreasure(selectionX, selectionY);
 				GameplayUI.Instance.ClearPreview();
 				deckMachine.SwitchStates(DeckIdleState);
@@ -295,18 +295,34 @@ public class DungeonMaster : MonoBehaviour {
 		Treasure treasure = GameObject.Instantiate(treasurePrefab) as Treasure;
 		treasure.gameObject.SetActive(true);
 		treasure.transform.position = Grid.GetRoom(x, y).transform.position + Vector3.up * 1;
+		treasure.AssignRoom(Grid.GetRoom(x, y));
+		Grid.GetRoom(x, y).hasTreasure = true;
 	}
 
 	#endregion
 
 	public bool LocationValid(){
-		return
-		 /* Is selected room empty */ ((!Grid.Instance.RoomActive(selectionX, selectionY)) &&
-		 /* Is room to the right existing && doors are open */ ((Grid.Instance.RoomActive(selectionX + 1, selectionY) && Grid.GetRoom(selectionX + 1, selectionY).IsDoorOpen(DirectionHandler.Directions.Left) && Grid.GetRoom(selectionX, selectionY).IsDoorOpen(DirectionHandler.Directions.Right)) ||
-		 /* Is room to the left existing && doors are open */ (Grid.Instance.RoomActive(selectionX - 1, selectionY) && Grid.GetRoom(selectionX - 1, selectionY).IsDoorOpen(DirectionHandler.Directions.Right) && Grid.GetRoom(selectionX, selectionY).IsDoorOpen(DirectionHandler.Directions.Left)) ||
-		 /* Is room below existing && doors are open */ (Grid.Instance.RoomActive(selectionX, selectionY + 1) && Grid.GetRoom(selectionX, selectionY + 1).IsDoorOpen(DirectionHandler.Directions.Up) && Grid.GetRoom(selectionX, selectionY).IsDoorOpen(DirectionHandler.Directions.Down)) ||
-		 /* Is room above existing && doors are open */ (Grid.Instance.RoomActive(selectionX, selectionY - 1) && Grid.GetRoom(selectionX, selectionY - 1).IsDoorOpen(DirectionHandler.Directions.Down) && Grid.GetRoom(selectionX, selectionY).IsDoorOpen(DirectionHandler.Directions.Up))));
+		if(DoorsAreMatching()){
+			if(Grid.Instance.RoomActive(selectionX, selectionY)){
+				if(!Grid.GetRoom(selectionX, selectionY).hasTreasure && Grid.GetRoom(selectionX, selectionY).enemyList.Count == 0){
+					return true;
+				}
+			}
+			else{
+				return true;
+			}
+		}
+		else{
+			return false;
+		}
+		return false;
 	}
 
-
+	public bool DoorsAreMatching(){
+		return
+			/* Is room to the right existing && doors are open */ ((Grid.Instance.RoomActive(selectionX + 1, selectionY) && Grid.GetRoom(selectionX + 1, selectionY).IsDoorOpen(DirectionHandler.Directions.Left) && Grid.GetRoom(selectionX, selectionY).IsDoorOpen(DirectionHandler.Directions.Right)) ||
+       /* Is room to the left existing && doors are open */ (Grid.Instance.RoomActive(selectionX - 1, selectionY) && Grid.GetRoom(selectionX - 1, selectionY).IsDoorOpen(DirectionHandler.Directions.Right) && Grid.GetRoom(selectionX, selectionY).IsDoorOpen(DirectionHandler.Directions.Left)) ||
+       /* Is room below existing && doors are open */ (Grid.Instance.RoomActive(selectionX, selectionY + 1) && Grid.GetRoom(selectionX, selectionY + 1).IsDoorOpen(DirectionHandler.Directions.Up) && Grid.GetRoom(selectionX, selectionY).IsDoorOpen(DirectionHandler.Directions.Down)) ||
+       /* Is room above existing && doors are open */ (Grid.Instance.RoomActive(selectionX, selectionY - 1) && Grid.GetRoom(selectionX, selectionY - 1).IsDoorOpen(DirectionHandler.Directions.Down) && Grid.GetRoom(selectionX, selectionY).IsDoorOpen(DirectionHandler.Directions.Up)));
+	}
 }

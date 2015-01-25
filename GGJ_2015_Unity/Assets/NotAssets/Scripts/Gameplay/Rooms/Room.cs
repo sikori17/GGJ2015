@@ -22,6 +22,7 @@ public class Room : MonoBehaviour {
 	public bool untraversed;
 	public bool locked;
 	public List<Wall> lockedWalls;
+	public bool hasTreasure;
 
 	public List<GameObject> enemyList;
 
@@ -130,16 +131,16 @@ public class Room : MonoBehaviour {
 
 	public bool IsDoorOpen(DirectionHandler.Directions direction){
 		if(direction == DirectionHandler.Directions.Left){
-			return westWall.type == WallType.Open;
+			return (westWall.type == WallType.Open || westWall.type == WallType.Key);
 		}
 		else if(direction == DirectionHandler.Directions.Right){
-			return eastWall.type == WallType.Open;
+			return eastWall.type == WallType.Open || eastWall.type == WallType.Key;
 		}
 		else if(direction == DirectionHandler.Directions.Up){
-			return northWall.type == WallType.Open;
+			return northWall.type == WallType.Open || northWall.type == WallType.Key;
 		}
 		else if(direction == DirectionHandler.Directions.Down){
-			return southWall.type == WallType.Open;
+			return southWall.type == WallType.Open || southWall.type == WallType.Key;
 		}
 		else{
 			return false;
@@ -174,15 +175,17 @@ public class Room : MonoBehaviour {
 				lockedWalls.Add(westWall);
 			}
 
-			EnemyHandler.EnemyTypes[] eProbs = { EnemyHandler.EnemyTypes.Slug, EnemyHandler.EnemyTypes.Slug, EnemyHandler.EnemyTypes.Wizard, EnemyHandler.EnemyTypes.Knight };
-			int eNum = Random.Range(1,3);
-			EnemyHandler.EnemyTypes[] eSpawnList = new EnemyHandler.EnemyTypes[eNum];
-			for (int i = 0; i < eNum; i++) {
-				eSpawnList[i] = eProbs[Random.Range(0,4)];
-			}
-			Spawn(eSpawnList);
-
 			untraversed = false;
 		}
+	}
+
+	public void SpawnStarterEnemies(){
+		EnemyHandler.EnemyTypes[] eProbs = { EnemyHandler.EnemyTypes.Slug, EnemyHandler.EnemyTypes.Slug, EnemyHandler.EnemyTypes.Wizard, EnemyHandler.EnemyTypes.Knight };
+		int eNum = Random.Range(1,3);
+		EnemyHandler.EnemyTypes[] eSpawnList = new EnemyHandler.EnemyTypes[eNum];
+		for (int i = 0; i < eNum; i++) {
+			eSpawnList[i] = eProbs[Random.Range(0,4)];
+		}
+		Spawn(eSpawnList);
 	}
 }

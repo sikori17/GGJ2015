@@ -4,6 +4,7 @@ using System.Collections;
 public class Treasure : MonoBehaviour {
 
 	public GameObject[] items;
+	public Room room;
 
 	// Use this for initialization
 	void Start () {
@@ -18,6 +19,7 @@ public class Treasure : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if(other.tag == "Player"){
 			DropLoot();
+			room.hasTreasure = false;
 			GameObject.Destroy(gameObject);
 		}
 	}
@@ -26,5 +28,9 @@ public class Treasure : MonoBehaviour {
 		GameObject item = GameObject.Instantiate(items[Random.Range(0, items.Length)]) as GameObject;
 		item.name = item.name.Remove(item.name.Length - 7, 7);
 		item.transform.position = transform.position;
+	}
+
+	public void AssignRoom(Room room){
+		this.room = room;
 	}
 }

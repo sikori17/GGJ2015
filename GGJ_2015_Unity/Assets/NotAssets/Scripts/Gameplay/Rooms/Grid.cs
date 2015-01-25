@@ -214,6 +214,7 @@ public class Grid : MonoBehaviour {
 		wallConfig[openWall] = WallType.Open;
 		newRoom.ApplyWallConfiguration(wallConfig);
 		newRoom.gameObject.SetActive(true);
+		newRoom.SpawnStarterEnemies();
 	}
 
 	public static Transform GetTile(int x, int y){
@@ -234,6 +235,15 @@ public class Grid : MonoBehaviour {
 	}
 
 	public static bool IsPlayerLocation(int x, int y){
-		return !((x == Instance.playerPosX) && (y == Instance.playerPosY));
+		return ((x == Instance.playerPosX) && (y == Instance.playerPosY));
+	}
+
+	public DirectionHandler.Directions[] GetDungeonExitDirections(){
+		for(int i = 0; i < roomsX; i++){
+			for(int j = 0; j < roomsY; j++){
+
+			}
+		}
+		return new DirectionHandler.Directions[0];
 	}
 }

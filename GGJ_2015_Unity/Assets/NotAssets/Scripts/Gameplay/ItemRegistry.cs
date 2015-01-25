@@ -86,7 +86,7 @@ public class ItemRegistry : MonoBehaviour {
 	public void SetItemButton(Items type) {
 		print (type);
 		Debug.Log(type.ToString() + "_" + (int) type + "_" + itemSpritesList.Length);
-		//GameplayUI.Instance.itemButtonB.sprite = itemSpritesList[0];//itemSpritesList[(int) type];
+		GameplayUI.Instance.itemButtonB.sprite = itemSpritesList[(int) type];
 	}
 	
 	void NoneAction() {

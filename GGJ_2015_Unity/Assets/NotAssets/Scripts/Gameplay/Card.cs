@@ -125,7 +125,7 @@ public class Card{
 
 		if (numEnemyTypes == 1) {
 			EnemyHandler.EnemyTypes enemyType = (EnemyHandler.EnemyTypes) Random.Range(0,3);
-			enemySpawnList = new EnemyHandler.EnemyTypes[Random.Range(3,6)];
+			enemySpawnList = new EnemyHandler.EnemyTypes[Random.Range(2,4)];
 			for (int i = 0; i < enemySpawnList.Length; i++) {
 				enemySpawnList[i] = enemyType;
 			}
@@ -139,8 +139,8 @@ public class Card{
 			EnemyHandler.EnemyTypes enemyType1 = (EnemyHandler.EnemyTypes) a;
 			EnemyHandler.EnemyTypes enemyType2 = (EnemyHandler.EnemyTypes) b;
 
-			int aCount = Random.Range(2,4);
-			int bCount = Random.Range(1,3);
+			int aCount = Random.Range(2,3);
+			int bCount = Random.Range(1,2);
 
 			enemySpawnList = new EnemyHandler.EnemyTypes[aCount + bCount];
 			for (int i = 0; i < aCount; i++) {
@@ -175,7 +175,7 @@ public class Card{
 		
 		if (numEnemyTypes == 1) {
 			EnemyHandler.EnemyTypes enemyType = (EnemyHandler.EnemyTypes) Random.Range(0,3);
-			enemySpawnList = new EnemyHandler.EnemyTypes[Random.Range(3,6)];
+			enemySpawnList = new EnemyHandler.EnemyTypes[Random.Range(2,4)];
 			for (int i = 0; i < enemySpawnList.Length; i++) {
 				enemySpawnList[i] = enemyType;
 			}
@@ -189,8 +189,8 @@ public class Card{
 			EnemyHandler.EnemyTypes enemyType1 = (EnemyHandler.EnemyTypes) a;
 			EnemyHandler.EnemyTypes enemyType2 = (EnemyHandler.EnemyTypes) b;
 			
-			int aCount = Random.Range(2,4);
-			int bCount = Random.Range(1,3);
+			int aCount = Random.Range(2,3);
+			int bCount = Random.Range(1,2);
 			
 			enemySpawnList = new EnemyHandler.EnemyTypes[aCount + bCount];
 			for (int i = 0; i < aCount; i++) {
