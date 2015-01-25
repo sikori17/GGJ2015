@@ -275,7 +275,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 12c34215533194fd7845ee1072385cfe, type: 2}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 12c34215533194fd7845ee1072385cfe, type: 2}
       propertyPath: controllerNum
@@ -1032,8 +1032,8 @@ Transform:
   m_PrefabInternal: {fileID: 32666431}
   m_GameObject: {fileID: 179547971}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.26999998, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1, z: .200000003}
+  m_LocalPosition: {x: -1.52999997, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 1, z: .200000003}
   m_Children: []
   m_Father: {fileID: 1681468587}
   m_RootOrder: 2
@@ -4761,6 +4761,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f11ebdeca26934dc7ab731ca38923039, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  valid: {r: 0, g: 0, b: 0, a: 0}
+  invalid: {r: 0, g: 0, b: 0, a: 0}
 --- !u!23 &1135641884
 Renderer:
   m_ObjectHideFlags: 0
@@ -5337,9 +5339,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96a340f210a114327b27b9558aed0e6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heartOne: {fileID: 346043215}
-  heartTwo: {fileID: 344084098}
-  heartThree: {fileID: 11635794}
+  heartImages: []
   adventurerXP: {fileID: 104932490}
   displayRoom: {fileID: 0}
   effectImage: {fileID: 820738900}
@@ -5977,8 +5977,8 @@ Transform:
   m_PrefabInternal: {fileID: 32666431}
   m_GameObject: {fileID: 1269216694}
   m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106709}
-  m_LocalPosition: {x: -.0199999996, y: .419999987, z: -.49000001}
-  m_LocalScale: {x: .75, y: 1, z: .400000066}
+  m_LocalPosition: {x: -.0199999996, y: .419999987, z: -.639999986}
+  m_LocalScale: {x: 1, y: 1, z: .400000066}
   m_Children: []
   m_Father: {fileID: 1681468587}
   m_RootOrder: 1
@@ -6586,8 +6586,8 @@ Transform:
   m_PrefabInternal: {fileID: 32666431}
   m_GameObject: {fileID: 1499418153}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.25, y: 0, z: 0}
-  m_LocalScale: {x: 1.5, y: 1, z: .200000003}
+  m_LocalPosition: {x: 1.50999999, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 1, z: .200000003}
   m_Children: []
   m_Father: {fileID: 1681468587}
   m_RootOrder: 3
@@ -6772,6 +6772,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   controllerNum: 1
   speed: 12
+  direction: 0
   attackDamage: 1
   attackRange: 2.5
   swords:
@@ -6800,6 +6801,11 @@ MonoBehaviour:
     min: 0
     max: 1
   explosion: {fileID: 100000, guid: bf8ece6eeab6241a9850880cf8720ca6, type: 2}
+  swordOscillator:
+    period: .150000006
+    min: 0
+    max: 1
+  curItem: 0
   bumpTimer:
     TimerInterval: .5
     AutoRestart: 0
@@ -7023,8 +7029,8 @@ Transform:
   m_PrefabInternal: {fileID: 32666431}
   m_GameObject: {fileID: 1717036131}
   m_LocalRotation: {x: 0, y: .707106829, z: 0, w: .707106709}
-  m_LocalPosition: {x: -.0199999996, y: -.589999974, z: .550000012}
-  m_LocalScale: {x: .75, y: 1, z: .400000155}
+  m_LocalPosition: {x: -.0199999996, y: -.230000004, z: .74000001}
+  m_LocalScale: {x: 1, y: 1, z: .400000155}
   m_Children: []
   m_Father: {fileID: 1681468587}
   m_RootOrder: 0

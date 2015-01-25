@@ -255,4 +255,7 @@ public class Avatar : MonoBehaviour {
 			bumpTimer.Restart();
 		}
 	}
+
+	void AddHP (int hp) {
+	}
 }

@@ -47,7 +47,11 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
+<<<<<<< HEAD
 			GlobalSection(MonoDevelopProperties) = preSolution
+=======
+						GlobalSection(MonoDevelopProperties) = preSolution
+>>>>>>> 8b30cbb... dungeon master functionalization
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
