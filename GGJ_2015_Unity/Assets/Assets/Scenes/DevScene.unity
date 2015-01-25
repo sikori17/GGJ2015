@@ -275,7 +275,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400006, guid: 12c34215533194fd7845ee1072385cfe, type: 2}
       propertyPath: m_RootOrder
-      value: 11
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 11400000, guid: 12c34215533194fd7845ee1072385cfe, type: 2}
       propertyPath: controllerNum
@@ -343,7 +343,7 @@ MonoBehaviour:
   southEastCorner: {fileID: 1235652831}
   southWestCorner: {fileID: 390842991}
   northWestCorner: {fileID: 980871880}
-  untraversed: 0
+  untraversed: 1
   locked: 0
   lockedWalls: []
   enemyList: []
@@ -4170,7 +4170,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
 --- !u!1 &929382907
 GameObject:
   m_ObjectHideFlags: 0
@@ -5238,6 +5238,9 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 006e248af27724ad8a5231f181dfc11e, type: 3}
   - {fileID: 21300000, guid: da6fe91da399f4b7c88cd66570c0d178, type: 3}
   - {fileID: 21300000, guid: f07fede9ed8034cd29c681070b56faea, type: 3}
+  - {fileID: 21300000, guid: 260b539416437451196d14ed31a5f98f, type: 3}
+  - {fileID: 21300000, guid: 98e1fdc4d15ef4c278d20310301c1944, type: 3}
+  - {fileID: 21300000, guid: fe580dd40d676468187f9f88158fad48, type: 3}
 --- !u!1 &1209428172
 GameObject:
   m_ObjectHideFlags: 0
@@ -6370,7 +6373,7 @@ MonoBehaviour:
   controllerNum: 2
   speed: 12
   attackDamage: 1
-  attackRange: 1.5
+  attackRange: 2.5
   swords:
   - {fileID: 1717036131}
   - {fileID: 1269216694}
@@ -6460,7 +6463,7 @@ Transform:
   - {fileID: 179547972}
   - {fileID: 1499418154}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
 --- !u!1 &1709228921
 GameObject:
   m_ObjectHideFlags: 0
@@ -6575,8 +6578,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5912d1ee3fb54498bb245f664d9529fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  roomPercentage: 1
-  spawnEnemyPercentage: .699999988
+  roomPercentage: .699999988
+  spawnEnemyPercentage: 1
   darkenRoomPercentage: .300000012
   pointsPerDraw: 15
   currentPoints: 4

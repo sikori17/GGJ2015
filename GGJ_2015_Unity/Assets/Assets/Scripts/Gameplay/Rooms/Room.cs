@@ -65,6 +65,7 @@ public class Room : MonoBehaviour {
 	}
 
 	public void ApplyCard(Card card){
+
 		if(card.format == CardFormat.Room){
 			ApplyRoomCard(card);
 		}
@@ -145,6 +146,8 @@ public class Room : MonoBehaviour {
 	}
 
 	public void PlayerEntered(){
+
+
 		if(untraversed){
 			locked = true;
 			lockedWalls = new List<Wall>();
