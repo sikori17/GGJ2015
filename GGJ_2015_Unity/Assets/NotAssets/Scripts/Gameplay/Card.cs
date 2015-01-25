@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public enum CardFormat{
 	Room,
@@ -103,6 +104,8 @@ public class Card{
 
 	public void RandomizeWallTypes(){
 		wallTypes = GetRandomWallConfig();
+		List<DirectionHandler.Directions> directions = Grid.Instance.GetDungeonExitDirections();
+		wallTypes[(int) directions[Random.Range(0, directions.Count)]] = WallType.Open;
 	}
 
 	public static WallType[] GetRandomWallConfig(){

@@ -11,6 +11,8 @@ public class Room : MonoBehaviour {
 	public Wall southWall;
 	public Wall eastWall;
 	public Wall westWall;
+	// Up, Down, Left, Right
+	public Wall[] walls;
 
 	public Transform cornersRoot;
 	public Transform northEastCorner;
@@ -189,5 +191,29 @@ public class Room : MonoBehaviour {
 			eSpawnList[i] = eProbs[Random.Range(0,4)];
 		}
 		Spawn(eSpawnList);
+	}
+
+	public bool HasExit(){
+		// Right
+		if(Grid.Instance.LocationInBounds(x + 1, y) && !Grid.Instance.RoomActive(x + 1, y) && Grid.GetRoom(x, y).IsDoorOpen(DirectionHandler.Directions.Right)){
+			return true;
+		}
+		// Left
+		if(Grid.Instance.LocationInBounds(x - 1, y) && !Grid.Instance.RoomActive(x - 1, y) && Grid.GetRoom(x, y).IsDoorOpen(DirectionHandler.Directions.Left)){
+			return true;
+		}
+		// Up
+		if(Grid.Instance.LocationInBounds(x, y - 1) && !Grid.Instance.RoomActive(x, y - 1) && Grid.GetRoom(x, y).IsDoorOpen(DirectionHandler.Directions.Up)){
+			return true;
+		}
+		// Down
+		if(Grid.Instance.LocationInBounds(x, y + 1) && !Grid.Instance.RoomActive(x, y + 1) && Grid.GetRoom(x, y).IsDoorOpen(DirectionHandler.Directions.Down)){
+			return true;
+		}
+		return false;
+	}
+
+	public Wall GetWall(DirectionHandler.Directions direction){
+		return walls[(int) direction];
 	}
 }

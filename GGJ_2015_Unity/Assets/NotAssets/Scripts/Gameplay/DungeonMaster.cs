@@ -28,6 +28,7 @@ public class DungeonMaster : MonoBehaviour {
 	public Button selectedButton;
 
 	public Treasure treasurePrefab;
+	public Crown crownPrefab;
 
 	//DEATH CARD
 	public ARLTimer deathCardTimer, spawnEnemyTimer;
@@ -51,6 +52,7 @@ public class DungeonMaster : MonoBehaviour {
 		DeckIdleState = new SimpleState(DeckIdleEnter, DeckIdleUpdate, DeckIdleExit, "DECK_IDLE");
 		CardSelectedState = new SimpleState(CardSelectedEnter, CardSelectedUpdate, CardSelectedExit, "CARD_SELECTED");
 		PlaceTreasureState = new SimpleState(PlaceTreasureEnter, PlaceTreasureUpdate, PlaceTreasureExit, "PLACE_TREASURE");
+		PlaceCrownState = new SimpleState(PlaceCrownEnter, PlaceCrownUpdate, PlaceCrownExit, "PLACE_CROWN");
 		DeathCardState = new SimpleState(DeathCardEnter, DeathCardUpdate, DeathCardExit, "DEATH_CARD");
 		deckMachine.SwitchStates(DeckIdleState);
 		//deckMachine.SwitchStates(DeathCardState);
@@ -348,6 +350,45 @@ public class DungeonMaster : MonoBehaviour {
 
 	#endregion
 
+	#region Crown
+
+	public void CrownEvent(){
+		deckMachine.SwitchStates(PlaceCrownState);
+	}
+
+	public void PlaceCrownEnter(){
+
+	}
+
+	public void PlaceCrownUpdate(){
+		if(Grid.Instance.RoomActive(selectionX, selectionY) && !(Grid.IsPlayerLocation(selectionX, selectionY)) && !Grid.GetRoom(selectionX, selectionY).hasTreasure){
+			highlight.SetValid();
+		}
+		else{
+			highlight.SetInvalid();
+		}
+		
+		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_A) || ControllerInput.ButtonDown(playerNum, Button.Xbox_B) || ControllerInput.ButtonDown(playerNum, Button.Xbox_X) || ControllerInput.ButtonDown(playerNum, Button.Xbox_Y)){
+			if(Grid.Instance.RoomActive(selectionX, selectionY) && !(Grid.IsPlayerLocation(selectionX, selectionY)) && !Grid.GetRoom(selectionX, selectionY).hasTreasure){
+				PlaceCrown();
+				GameplayUI.Instance.ClearPreview();
+				deckMachine.SwitchStates(DeckIdleState);
+			}
+		}
+	}
+
+	public void PlaceCrownExit(){
+
+	}
+
+	public void PlaceCrown(){
+		Crown crown = GameObject.Instantiate(crownPrefab) as Crown;
+		crown.transform.position = Grid.GetRoom(selectionX, selectionY).transform.position + Vector3.up;
+		crown.gameObject.SetActive(true);
+	}
+
+	#endregion
+
 	public bool LocationValid(){
 		if(DoorsAreMatching()){
 			if(Grid.Instance.RoomActive(selectionX, selectionY)){
@@ -355,7 +396,7 @@ public class DungeonMaster : MonoBehaviour {
 					return true;
 				}
 			}
-			else{
+			else if(Grid.GetRoom(selectionX, selectionY).HasExit()){
 				return true;
 			}
 		}

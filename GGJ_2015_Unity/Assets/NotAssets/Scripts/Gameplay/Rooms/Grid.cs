@@ -19,6 +19,7 @@ public class Grid : MonoBehaviour {
 	public int startRoomY;
 
 	public int numRewardSpaces;
+	public int rewardsRemaining;
 	public Transform rewardMarker;
 
 	public float screenHeight;
@@ -44,6 +45,8 @@ public class Grid : MonoBehaviour {
 
 	//DEBUG
 	public EnemyHandler.EnemyTypes[] enemyArray;
+
+	public bool crownEvent;
 
 	void Awake(){
 		Instance = this;
@@ -215,6 +218,12 @@ public class Grid : MonoBehaviour {
 		WallType[] wallConfig = Card.GetRandomWallConfig();
 		wallConfig[openWall] = WallType.Open;
 		newRoom.ApplyWallConfiguration(wallConfig);
+		if(!newRoom.HasExit()){
+			List<int> nums = new List<int>();
+			nums.Add(0); nums.Add(1); nums.Add(2); nums.Add(3);
+			nums.Remove(openWall);
+			newRoom.GetWall((DirectionHandler.Directions) Random.Range(0, nums.Count)).ApplyType(WallType.Open);
+		}
 		newRoom.gameObject.SetActive(true);
 
 		if (newRoom.rewardSpace) {
@@ -248,12 +257,42 @@ public class Grid : MonoBehaviour {
 		return ((x == Instance.playerPosX) && (y == Instance.playerPosY));
 	}
 
-	public DirectionHandler.Directions[] GetDungeonExitDirections(){
+	public List<DirectionHandler.Directions> GetDungeonExitDirections(){
+
+		List<DirectionHandler.Directions> directions = new List<DirectionHandler.Directions>();
+
 		for(int i = 0; i < roomsX; i++){
 			for(int j = 0; j < roomsY; j++){
-
+				// Right
+				if(LocationInBounds(i + 1, j) && !RoomActive(i + 1, j) && Grid.GetRoom(i, j).IsDoorOpen(DirectionHandler.Directions.Right)){
+					directions.Add(DirectionHandler.Directions.Right);
+				}
+				// Left
+				if(LocationInBounds(i - 1, j) && !RoomActive(i - 1, j) && Grid.GetRoom(i, j).IsDoorOpen(DirectionHandler.Directions.Left)){
+					directions.Add(DirectionHandler.Directions.Left);
+				}
+				// Up
+				if(LocationInBounds(i, j - 1) && !RoomActive(i, j - 1) && Grid.GetRoom(i, j).IsDoorOpen(DirectionHandler.Directions.Up)){
+					directions.Add(DirectionHandler.Directions.Up);
+				}
+				// Down
+				if(LocationInBounds(i, j + 1) && !RoomActive(i, j + 1) && Grid.GetRoom(i, j).IsDoorOpen(DirectionHandler.Directions.Down)){
+					directions.Add(DirectionHandler.Directions.Down);
+				}
 			}
 		}
-		return new DirectionHandler.Directions[0];
+
+		return directions;
+	}
+
+	public static void RewardUsed(){
+		Grid.Instance.rewardsRemaining--;
+		if(Grid.Instance.rewardsRemaining == 0) TriggerCrownPhase();
+	}
+
+	public static void TriggerCrownPhase(){
+		Instance.crownEvent = true;
+		DungeonMaster.Instance.CrownEvent();
+		Hand.Instance.ClearAndDrawEffectCards();
 	}
 }

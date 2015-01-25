@@ -28,10 +28,6 @@ public class Deck : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.Space)){
-			temp = Draw();
-			GameplayUI.Instance.SetDisplayRoom(temp);
-		}
 
 		if (pointRefreshTimer.IsDone()) {
 			AddPoints(1);
