@@ -26,6 +26,8 @@ public class Room : MonoBehaviour {
 
 	public List<GameObject> enemyList;
 
+	public GameObject rewardMarker;
+
 	// Use this for initialization
 	void Start () {
 	
