@@ -309,7 +309,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 39299617}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -460.850006, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1241399656}
@@ -4228,7 +4228,7 @@ GameObject:
   - 222: {fileID: 1037559920}
   - 114: {fileID: 1037559919}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Button_A
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4241,14 +4241,14 @@ RectTransform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1037559917}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -2.08019992e-06}
   m_LocalScale: {x: .788644016, y: .788644016, z: .788644016}
   m_Children: []
   m_Father: {fileID: 1632917959}
   m_RootOrder: 2
   m_AnchorMin: {x: .70725435, y: -.0019947174}
   m_AnchorMax: {x: .741036355, y: .0612112172}
-  m_AnchoredPosition: {x: 0, y: 7.62939453e-06}
+  m_AnchoredPosition: {x: -3.6217041, y: 17.4500122}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1037559919
