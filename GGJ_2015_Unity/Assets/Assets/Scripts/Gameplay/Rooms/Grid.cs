@@ -135,6 +135,7 @@ public class Grid : MonoBehaviour {
 
 		Rooms[startRoomX, startRoomY].gameObject.SetActive(true);
 		Rooms[startRoomX, startRoomY].OpenAllDoors();
+		Rooms[startRoomX, startRoomY].untraversed = false;
 		tiles[startRoomX, startRoomY].gameObject.SetActive(false);
 		Grid.SetPlayerPosition(startRoomX, startRoomY);
 	}
@@ -230,5 +231,9 @@ public class Grid : MonoBehaviour {
 	public static void SetPlayerPosition(int x, int y){
 		Instance.playerPosX = x;
 		Instance.playerPosY = y;
+	}
+
+	public static bool IsPlayerLocation(int x, int y){
+		return !((x == Instance.playerPosX) && (y == Instance.playerPosY));
 	}
 }

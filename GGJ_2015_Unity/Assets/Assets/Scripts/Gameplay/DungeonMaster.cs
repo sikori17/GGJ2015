@@ -92,7 +92,7 @@ public class DungeonMaster : MonoBehaviour {
 	#region DeckIdle
 
 	public void DeckIdleEnter(){
-
+		highlight.SetNeutral();
 	}
 
 	public void DeckIdleUpdate(){
@@ -164,6 +164,9 @@ public class DungeonMaster : MonoBehaviour {
 	}
 
 	public void CardSelectedUpdate(){
+
+		CardSelectedHighlightLogic();
+
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_A)){
 			UseCard(Button.Xbox_A);
 		}
@@ -175,6 +178,30 @@ public class DungeonMaster : MonoBehaviour {
 		}
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_Y)){
 			UseCard(Button.Xbox_Y);
+		}
+	}
+
+	public void CardSelectedHighlightLogic(){
+		if(selectedCard != null){
+			if(selectedCard.format == CardFormat.Room){
+				if(!Grid.Instance.RoomActive(selectionX, selectionY)){
+					Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
+					if(LocationValid()){
+						highlight.SetValid();
+					}
+					else{
+						highlight.SetInvalid();
+					}
+				}
+			}
+			else{
+				if(Grid.Instance.RoomActive(selectionX, selectionY) && !Grid.IsPlayerLocation(selectionX, selectionY)){
+					highlight.SetValid();
+				}
+				else{
+					highlight.SetInvalid();
+				}
+			}
 		}
 	}
 
@@ -244,10 +271,15 @@ public class DungeonMaster : MonoBehaviour {
 
 	public void PlaceTreasureUpdate(){
 
-		Debug.Log("P");
+		if(Grid.Instance.RoomActive(selectionX, selectionY) && !(Grid.IsPlayerLocation(selectionX, selectionY))){
+			highlight.SetValid();
+		}
+		else{
+			highlight.SetInvalid();
+		}
 
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_A) || ControllerInput.ButtonDown(playerNum, Button.Xbox_B) || ControllerInput.ButtonDown(playerNum, Button.Xbox_X) || ControllerInput.ButtonDown(playerNum, Button.Xbox_Y)){
-			if(Grid.Instance.RoomActive(selectionX, selectionY) && !((selectionX == Grid.Instance.playerPosX) && (selectionY == Grid.Instance.playerPosY))){
+			if(Grid.Instance.RoomActive(selectionX, selectionY) && !(Grid.IsPlayerLocation(selectionX, selectionY))){
 				PlaceTreasure(selectionX, selectionY);
 				GameplayUI.Instance.ClearPreview();
 				deckMachine.SwitchStates(DeckIdleState);

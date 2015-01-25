@@ -3,6 +3,8 @@ using System.Collections;
 
 public class Treasure : MonoBehaviour {
 
+	public GameObject[] items;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -21,6 +23,7 @@ public class Treasure : MonoBehaviour {
 	}
 
 	public void DropLoot(){
-
+		GameObject item = GameObject.Instantiate(items[Random.Range(0, items.Length)]) as GameObject;
+		item.transform.position = transform.position;
 	}
 }

@@ -5,6 +5,7 @@ public class RoomHighlight : MonoBehaviour {
 
 	public Color valid;
 	public Color invalid;
+	public Color neutral;
 
 	// Use this for initialization
 	void Start () {
@@ -26,6 +27,10 @@ public class RoomHighlight : MonoBehaviour {
 
 	public void SetInvalid(){
 		SetColor(invalid);
+	}
+
+	public void SetNeutral(){
+		SetColor(neutral);
 	}
 
 	public void SetColor(Color color){

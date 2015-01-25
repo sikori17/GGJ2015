@@ -121,11 +121,11 @@ public class GameplayUI : MonoBehaviour {
 		if(card.format == CardFormat.Room){
 			displayRoom.gameObject.SetActive(true);
 			displayRoom.ApplyWallConfiguration(card.wallTypes);
-			effectImage.gameObject.SetActive(true);
+			effectImage.gameObject.SetActive(false);
 		}
 		else{
 			displayRoom.gameObject.SetActive(false);
-			effectImage.gameObject.SetActive(true);
+			//effectImage.gameObject.SetActive(true);
 		}
 
 	}
@@ -160,11 +160,12 @@ public class GameplayUI : MonoBehaviour {
 
 	public void ClearPreview(){
 		displayRoom.gameObject.SetActive(false);
-		effectImage.gameObject.SetActive(false);
+		//effectImage.gameObject.SetActive(false);
 	}
 
 	public void TreasurePreview(){
 		displayRoom.gameObject.SetActive(false);
+		effectImage.gameObject.SetActive(true);
 		effectImage.sprite = treasureSprite;
 	}
 
