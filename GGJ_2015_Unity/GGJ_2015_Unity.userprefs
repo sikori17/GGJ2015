@@ -1,22 +1,10 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Assets/Scripts/Gameplay/Treasure.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Assets/Scripts/Gameplay/ItemHandler.cs">
     <Files>
-      <File FileName="Assets/Assets/Scripts/Polish/LootPointEffect.cs" Line="1" Column="1" />
-      <File FileName="Assets/Assets/Scripts/Polish/StartMenu.cs" Line="1" Column="1" />
-      <File FileName="Assets/Assets/Scripts/Gameplay/Card.cs" Line="89" Column="17" />
-      <File FileName="Assets/Assets/Scripts/Gameplay/CardUI.cs" Line="7" Column="27" />
-      <File FileName="Assets/Assets/Scripts/Gameplay/Rooms/Room.cs" Line="64" Column="5" />
-      <File FileName="Assets/Assets/Scripts/Gameplay/Deck.cs" Line="1" Column="1" />
-      <File FileName="Assets/Assets/Scripts/Gameplay/Rooms/Grid.cs" Line="231" Column="40" />
-      <File FileName="Assets/Assets/Scripts/Combat/Avatar.cs" Line="149" Column="3" />
-      <File FileName="Assets/Assets/Scripts/Gameplay/GameplayUI.cs" Line="122" Column="21" />
-      <File FileName="Assets/Assets/Scripts/Combat/Enemy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Assets/Scripts/Combat/RandomWalkEnemy.cs" Line="1" Column="1" />
-      <File FileName="Assets/Assets/Scripts/Gameplay/Hand.cs" Line="1" Column="1" />
-      <File FileName="Assets/Assets/Scripts/Gameplay/Treasure.cs" Line="16" Column="3" />
-      <File FileName="Assets/Assets/Scripts/Gameplay/RoomHighlight.cs" Line="33" Column="21" />
-      <File FileName="Assets/Assets/Scripts/Gameplay/DungeonMaster.cs" Line="278" Column="27" />
+      <File FileName="Assets/Assets/Scripts/Gameplay/ItemHandler.cs" Line="88" Column="68" />
+      <File FileName="Assets/Assets/Scripts/Gameplay/GameplayUI.cs" Line="13" Column="40" />
+      <File FileName="Assets/Assets/Scripts/Combat/Avatar.cs" Line="255" Column="46" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

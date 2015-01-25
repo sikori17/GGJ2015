@@ -39,7 +39,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9c8e916192be44c5b5b4c6d17deaace, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemSprites: []
+  itemSprites:
+  - {fileID: 21300000, guid: 77c59f5967a5b4f47bf7c7ea003b4e66, type: 3}
+  - {fileID: 21300000, guid: b66aa941c8b564044ae0c8eb3d12fcf8, type: 3}
+  - {fileID: 21300000, guid: 342e3e16472724aa2a555566b8659975, type: 3}
+  - {fileID: 21300000, guid: 8572938f4b4a5409faa1ec5fd58b693e, type: 3}
   fireballPrefab: {fileID: 100000, guid: a788af4eff74e4f4e9be4853035e36c6, type: 2}
   crazyFireballTimer:
     TimerInterval: 5

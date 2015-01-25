@@ -10,6 +10,7 @@ public class GameplayUI : MonoBehaviour {
 	// Adventurer
 	public Image[] heartImages;
 	public Scrollbar adventurerXP;
+	public Image itemButtonA, itemButtonB;
 
 	// Dungeon Master
 	public Room displayRoom;

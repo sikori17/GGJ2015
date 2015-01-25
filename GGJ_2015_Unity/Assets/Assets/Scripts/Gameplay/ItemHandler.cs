@@ -83,6 +83,11 @@ public class ItemHandler : MonoBehaviour {
 		}
 	}
 
+	public void SetItemButton(Items type) {
+		print (type);
+		GameplayUI.Instance.itemButtonB.sprite = itemSprites[(int) type];
+	}
+
 	void NoneAction() {
 		print ("oops no item");
 	}

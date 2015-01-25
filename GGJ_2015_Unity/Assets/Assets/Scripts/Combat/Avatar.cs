@@ -60,6 +60,8 @@ public class Avatar : MonoBehaviour {
 		beepTimer.SetDone();
 
 		GameplayUI.Instance.SetHealth(hitPoints);
+
+		ItemHandler.Instance.SetItemButton(curItem);
 	}
 	
 	// Update is called once per frame
@@ -102,6 +104,8 @@ public class Avatar : MonoBehaviour {
 		if (ControllerInput.ButtonDown(controllerNum, Button.Xbox_B)) {
 			ItemHandler.Instance.UseItem(curItem);
 			curItem = ItemHandler.Items.None;
+			
+			ItemHandler.Instance.SetItemButton(curItem);
 		}
 	}
 
@@ -247,6 +251,8 @@ public class Avatar : MonoBehaviour {
 					Destroy(other.gameObject);
 					break;
 			}
+			
+			ItemHandler.Instance.SetItemButton(curItem);
 		}
 	}
 
