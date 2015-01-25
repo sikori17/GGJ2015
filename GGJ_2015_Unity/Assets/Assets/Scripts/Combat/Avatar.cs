@@ -193,6 +193,9 @@ public class Avatar : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision other) {
+
+		Debug.Log(other.gameObject.name);
+
 		if (other.gameObject.GetComponent<DoesDamage>() != null && invulnerabilityTimer.IsDone()) {
 			Vector3 v = transform.position - other.transform.position;
 			TakeDamage(other.gameObject.GetComponent<DoesDamage>().damage, DirectionHandler.Instance.VectorToDirection(v));

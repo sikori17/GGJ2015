@@ -313,6 +313,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1241399656}
+  - {fileID: 235934434}
   - {fileID: 1984425180}
   - {fileID: 1190048636}
   - {fileID: 887163758}
@@ -342,6 +343,8 @@ MonoBehaviour:
   southEastCorner: {fileID: 1235652831}
   southWestCorner: {fileID: 390842991}
   northWestCorner: {fileID: 980871880}
+  locked: 0
+  lockedWalls: []
 --- !u!1 &44586385
 GameObject:
   m_ObjectHideFlags: 0
@@ -506,8 +509,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Mat: {fileID: 0}
-  m_Color: {r: .200000048, g: 1, b: 0, a: 1}
-  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 7796f5a15f44440429a386721b2fd99c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1429,6 +1432,75 @@ MeshFilter:
   m_PrefabInternal: {fileID: 658355216}
   m_GameObject: {fileID: 230921283}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &235934433
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 235934434}
+  - 33: {fileID: 235934437}
+  - 65: {fileID: 235934436}
+  - 23: {fileID: 235934435}
+  m_Layer: 0
+  m_Name: EnterTrigger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 4294967295
+  m_IsActive: 1
+--- !u!4 &235934434
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 235934433}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: .708329976, z: 0}
+  m_LocalScale: {x: .775000036, y: 1, z: .774999976}
+  m_Children: []
+  m_Father: {fileID: 39299618}
+  m_RootOrder: 1
+--- !u!23 &235934435
+Renderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 235934433}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_LightmapIndex: 255
+  m_LightmapTilingOffset: {x: 1, y: 1, z: 0, w: 0}
+  m_Materials:
+  - {fileID: 10302, guid: 0000000000000000f000000000000000, type: 0}
+  m_SubsetIndices: 
+  m_StaticBatchRoot: {fileID: 0}
+  m_UseLightProbes: 0
+  m_LightProbeAnchor: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+--- !u!65 &235934436
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 235934433}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!33 &235934437
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 235934433}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &236345507
 GameObject:
   m_ObjectHideFlags: 0
@@ -1734,7 +1806,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: db592285e9f074d6e817806b8f357a4a, type: 2}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 100012, guid: db592285e9f074d6e817806b8f357a4a, type: 2}
       propertyPath: m_Name
@@ -1966,7 +2038,7 @@ Transform:
   - {fileID: 1580924463}
   - {fileID: 1285149071}
   m_Father: {fileID: 39299618}
-  m_RootOrder: 5
+  m_RootOrder: 6
 --- !u!114 &337446436
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2653,8 +2725,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Mat: {fileID: 0}
-  m_Color: {r: .200000048, g: 1, b: 0, a: 1}
-  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 1d25bafd5507d4b37b229828e0b92b1f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2826,6 +2898,7 @@ MonoBehaviour:
   background: {fileID: 317434817}
   tilesRoot: {fileID: 1674619709}
   tilePrefab: {fileID: 634355973}
+  enemyArray: 
 --- !u!1 &607026736
 GameObject:
   m_ObjectHideFlags: 0
@@ -3062,7 +3135,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: db592285e9f074d6e817806b8f357a4a, type: 2}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 100012, guid: db592285e9f074d6e817806b8f357a4a, type: 2}
       propertyPath: m_Name
@@ -3118,7 +3191,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: db592285e9f074d6e817806b8f357a4a, type: 2}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 100012, guid: db592285e9f074d6e817806b8f357a4a, type: 2}
       propertyPath: m_Name
@@ -3542,8 +3615,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Mat: {fileID: 0}
-  m_Color: {r: .200000048, g: 1, b: 0, a: 1}
-  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: ddca66852897347dd81fa0d23a2ffcd7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3839,7 +3912,7 @@ Transform:
   - {fileID: 1981928500}
   - {fileID: 99477871}
   m_Father: {fileID: 39299618}
-  m_RootOrder: 3
+  m_RootOrder: 4
 --- !u!114 &887163759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4701,7 +4774,7 @@ Transform:
   - {fileID: 422761909}
   - {fileID: 1931956062}
   m_Father: {fileID: 39299618}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!114 &1190048637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4958,6 +5031,11 @@ MonoBehaviour:
   cardFour: {fileID: 975641145}
   cards: []
   drawTime: 1
+  cardImages:
+  - {fileID: 21300000, guid: 0f77ce667d6ac4f588751505059e9fcf, type: 3}
+  - {fileID: 21300000, guid: 006e248af27724ad8a5231f181dfc11e, type: 3}
+  - {fileID: 21300000, guid: da6fe91da399f4b7c88cd66570c0d178, type: 3}
+  - {fileID: 21300000, guid: f07fede9ed8034cd29c681070b56faea, type: 3}
 --- !u!1 &1209428172
 GameObject:
   m_ObjectHideFlags: 0
@@ -5116,8 +5194,17 @@ MonoBehaviour:
     clip: {fileID: 0}
     nameInResources: warningBeep
     preload: 0
-    defaultVolume: .647940099
-    currentVolume: .647940099
+    defaultVolume: 1
+    currentVolume: 1
+    mute: 0
+  - name: 9
+    audioEnumName: lootPoint
+    audioClass: 0
+    clip: {fileID: 0}
+    nameInResources: coin
+    preload: 0
+    defaultVolume: 1
+    currentVolume: 1
     mute: 0
   poolSize2D: 30
   poolSize3D: 1
@@ -5857,8 +5944,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Mat: {fileID: 0}
-  m_Color: {r: .200000048, g: 1, b: 0, a: 1}
-  m_Sprite: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 7b9c88682d66a45f29debb805a697a7f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6096,6 +6183,7 @@ MonoBehaviour:
     AutoRestart: 0
   hitPoints: 5
   lootPoints: 0
+  maxLootPoints: 0
   lowHitPoints: 2
   normalColor: {r: 1, g: 0, b: 0, a: 1}
   hurtColor: {r: 1, g: 1, b: 1, a: 1}
@@ -6285,9 +6373,12 @@ MonoBehaviour:
   roomPercentage: 1
   spawnEnemyPercentage: .699999988
   darkenRoomPercentage: .300000012
-  pointsPerDraw: 10
+  pointsPerDraw: 15
   currentPoints: 4
   storedDraws: 3
+  pointRefreshTimer:
+    TimerInterval: 1
+    AutoRestart: 0
 --- !u!4 &1713768122
 Transform:
   m_ObjectHideFlags: 0
@@ -6557,7 +6648,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400012, guid: db592285e9f074d6e817806b8f357a4a, type: 2}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 100012, guid: db592285e9f074d6e817806b8f357a4a, type: 2}
       propertyPath: m_Name
@@ -6872,7 +6963,7 @@ Transform:
   - {fileID: 1235652831}
   - {fileID: 390842991}
   m_Father: {fileID: 39299618}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!1 &2047748198
 GameObject:
   m_ObjectHideFlags: 0
@@ -6904,7 +6995,7 @@ Transform:
   - {fileID: 44586386}
   - {fileID: 1025726826}
   m_Father: {fileID: 39299618}
-  m_RootOrder: 4
+  m_RootOrder: 5
 --- !u!114 &2047748200
 MonoBehaviour:
   m_ObjectHideFlags: 0

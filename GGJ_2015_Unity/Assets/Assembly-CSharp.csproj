@@ -105,6 +105,7 @@
      <Compile Include="Assets\Scripts\Input\ControllerInput.cs" />
      <Compile Include="Assets\Scripts\Input\DpadStates.cs" />
      <Compile Include="Assets\Scripts\Input\TriggerStates.cs" />
+     <Compile Include="Assets\Scripts\Polish\LootPointEffect.cs" />
      <Compile Include="Assets\Scripts\Polish\StartMenu.cs" />
      <Compile Include="Assets\Scripts\Polish\TextFlash.cs" />
      <Compile Include="Assets\Scripts\Utility\FileIO\FileDirectory.cs" />
