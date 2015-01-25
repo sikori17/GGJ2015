@@ -1,8 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2008
 
-Project("{A34F0D0D-5A19-71EC-129F-7B8C75A7FA32}") = "GGJ_2015_Unity", "Assembly-CSharp-firstpass-vs.csproj", "{48B6D7E7-A78C-04C5-87E0-A4EDCDFA0685}"
-EndProject
 Project("{A34F0D0D-5A19-71EC-129F-7B8C75A7FA32}") = "GGJ_2015_Unity", "Assembly-CSharp-vs.csproj", "{72B154EB-6A77-C10B-D0B4-FAB5D611D8BF}"
 EndProject
 Project("{A34F0D0D-5A19-71EC-129F-7B8C75A7FA32}") = "GGJ_2015_Unity", "Assembly-CSharp-Editor-vs.csproj", "{5DA32632-B65F-1D5E-1813-C56ED0B57C17}"
@@ -13,10 +11,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{48B6D7E7-A78C-04C5-87E0-A4EDCDFA0685}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{48B6D7E7-A78C-04C5-87E0-A4EDCDFA0685}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{48B6D7E7-A78C-04C5-87E0-A4EDCDFA0685}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{48B6D7E7-A78C-04C5-87E0-A4EDCDFA0685}.Release|Any CPU.Build.0 = Release|Any CPU
 		{72B154EB-6A77-C10B-D0B4-FAB5D611D8BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72B154EB-6A77-C10B-D0B4-FAB5D611D8BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72B154EB-6A77-C10B-D0B4-FAB5D611D8BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -29,10 +23,7 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-												GlobalSection(MonoDevelopProperties) = preSolution
-=======
-						GlobalSection(MonoDevelopProperties) = preSolution
->>>>>>> 8b30cbb... dungeon master functionalization
+		GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = Assembly-CSharp.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
