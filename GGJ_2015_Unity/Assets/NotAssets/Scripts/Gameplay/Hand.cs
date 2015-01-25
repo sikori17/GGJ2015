@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Hand : MonoBehaviour {
 
+	public static Hand Instance;
 	public int handLimit;
 	public List<Card> cards;
 
@@ -15,12 +16,12 @@ public class Hand : MonoBehaviour {
 	public Deck deck;
 
 	void Awake(){
-		DrawStartingHand();
+		Instance = this;
 	}
 
 	// Use this for initialization
 	void Start () {
-		
+		DrawStartingHand();
 	}
 	
 	// Update is called once per frame
@@ -39,22 +40,25 @@ public class Hand : MonoBehaviour {
 
 	public void DrawCard(Button button){
 
-		Card card = deck.Draw();
+		if(!Grid.Instance.crownEvent){
 
-		if(button == Button.Xbox_A){
-			cardA = card;
-		}
-		else if(button == Button.Xbox_B){
-			cardB = card;
-		}
-		else if(button == Button.Xbox_X){
-			cardX = card;
-		}
-		else if(button == Button.Xbox_Y){
-			cardY = card;
-		}
+			Card card = deck.Draw();
 
-		GameplayUI.Instance.AnimateDraw(card, button);
+			if(button == Button.Xbox_A){
+				cardA = card;
+			}
+			else if(button == Button.Xbox_B){
+				cardB = card;
+			}
+			else if(button == Button.Xbox_X){
+				cardX = card;
+			}
+			else if(button == Button.Xbox_Y){
+				cardY = card;
+			}
+
+			GameplayUI.Instance.AnimateDraw(card, button);
+		}
 	}
 
 	public Card GetCard(Button button){
@@ -102,5 +106,18 @@ public class Hand : MonoBehaviour {
 		Card holder = GetCard(button);
 
 		return !(holder == null);
+	}
+
+	public void ClearAndDrawEffectCards(){
+		cardA.SetFormat(CardFormat.Effect);
+		cardA.SetEffect(Effect.SpawnEnemy);
+		cardB.SetFormat(CardFormat.Effect);
+		cardB.SetEffect(Effect.SpawnEnemy);
+		cardX.SetFormat(CardFormat.Effect);
+		cardX.SetEffect(Effect.SpawnEnemy);
+		cardY.SetFormat(CardFormat.Effect);
+		cardY.SetEffect(Effect.SpawnEnemy);
+		GameplayUI.Instance.InitCardImages(cardA, cardB, cardX, cardY);
+		deck.enabled = false;
 	}
 }

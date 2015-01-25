@@ -84,6 +84,7 @@
      <Compile Include="Assets\NotAssets\Scripts\Debug\TimeStamp.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Gameplay\Card.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Gameplay\CardUI.cs" />
+     <Compile Include="Assets\NotAssets\Scripts\Gameplay\Crown.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Gameplay\Deck.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Gameplay\DestroyEnemyOnContact.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Gameplay\Door.cs" />

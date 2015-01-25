@@ -154,7 +154,7 @@ public class GameplayUI : MonoBehaviour {
 		}
 
 		target.gameObject.SetActive(false);
-		prompt.gameObject.SetActive(true);
+		prompt.gameObject.SetActive(!Grid.Instance.crownEvent); // Remove prompts once crown event begins
 		cardHighlight.gameObject.SetActive(false);
 		ClearPreview();
 	}
