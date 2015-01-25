@@ -14,6 +14,7 @@ public enum Audio{
 	fireball,
 	playerDie,
 	warningBeep,
+	lootPoint,
 	Length
 }
 

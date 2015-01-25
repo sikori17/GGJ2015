@@ -32,6 +32,9 @@ public class Grid : MonoBehaviour {
 	public Transform[,] tiles;
 	public Transform tilePrefab;
 
+	//DEBUG
+	public EnemyManager.EnemyTypes[] enemyArray;
+
 	void Awake(){
 		Instance = this;
 	}
@@ -107,6 +110,7 @@ public class Grid : MonoBehaviour {
 				room.transform.position = roomPlacementAnchor + new Vector3(i * roomWidth, 0, j * -roomHeight);
 				room.gameObject.SetActive(false);
 				room.transform.parent = roomsRoot;
+				//room.Spawn(enemyArray);
 				Rooms[i, j] = room;
 				room.AssignLocation(i, j);
 				// Tile Setup

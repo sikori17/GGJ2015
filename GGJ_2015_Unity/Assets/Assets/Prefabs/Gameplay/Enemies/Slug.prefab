@@ -111,7 +111,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitPoints: 3
-  lootPoints: 0
+  lootPoints: 3
+  maxLootPoints: 4
   knockbackDist: 1.5
   normalColor: {r: 0, g: 1, b: .0482759476, a: 1}
   hurtColor: {r: 1, g: 1, b: 1, a: 1}
@@ -119,6 +120,7 @@ MonoBehaviour:
     TimerInterval: .200000003
     AutoRestart: 0
   deathEffect: {fileID: 100000, guid: bf8ece6eeab6241a9850880cf8720ca6, type: 2}
+  lootEffect: {fileID: 100000, guid: 4f9d78b09bdd24ed7aeaebc47877ad9d, type: 2}
   speed: 6
   direction: 0
   moveTimer:

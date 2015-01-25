@@ -16,6 +16,10 @@ public class KnightEnemy : RandomWalkEnemy {
 	public ARLTimer shieldTimer, vulnerableTimer, swordTimer;
 	public GameObject[] shields, swords;
 
+	//POLISH
+	public GameObject helm;
+	public Texture[] helmTextures;
+
 	public override void Spawn (Vector3 roomPos, Vector3 roomScale)
 	{
 		base.Spawn (roomPos, roomScale);
@@ -59,6 +63,13 @@ public class KnightEnemy : RandomWalkEnemy {
 				}
 			}
 		}
+	}
+
+	protected override void Polish ()
+	{
+		base.Polish ();
+
+		helm.renderer.material.mainTexture = helmTextures[(int) direction];
 	}
 
 	void ShieldEnter() {

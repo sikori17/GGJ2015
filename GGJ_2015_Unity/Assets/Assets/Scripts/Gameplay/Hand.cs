@@ -33,6 +33,8 @@ public class Hand : MonoBehaviour {
 		cardB = deck.Draw(false);
 		cardX = deck.Draw(false);
 		cardY = deck.Draw(false);
+
+		GameplayUI.Instance.InitCardImages(cardA, cardB, cardX, cardY);
 	}
 
 	public void DrawCard(Button button){

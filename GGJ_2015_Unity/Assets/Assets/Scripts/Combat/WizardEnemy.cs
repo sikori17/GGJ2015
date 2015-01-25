@@ -16,7 +16,8 @@ public class WizardEnemy : Enemy {
 	Vector3 attackVector;
 
 	//POLISH
-	public Color fadeColor;
+	public Color fadeColor, hatColor;
+	public GameObject hat;
 	
 	public override void Spawn (Vector3 roomPos, Vector3 roomScale)
 	{
@@ -78,6 +79,7 @@ public class WizardEnemy : Enemy {
 		}
 		else {
 			renderer.material.color = Color.Lerp(fadeColor, normalColor, fadeTimer.PercentDone());
+			hat.renderer.material.color = Color.Lerp(fadeColor, hatColor, fadeTimer.PercentDone());
 		}
 	}
 	
@@ -117,6 +119,7 @@ public class WizardEnemy : Enemy {
 		}
 		else {
 			renderer.material.color = Color.Lerp(normalColor, fadeColor, fadeTimer.PercentDone());
+			hat.renderer.material.color = Color.Lerp(hatColor, fadeColor, fadeTimer.PercentDone());
 		}
 	}
 

@@ -124,8 +124,17 @@ MonoBehaviour:
     clip: {fileID: 0}
     nameInResources: warningBeep
     preload: 0
-    defaultVolume: .647940099
-    currentVolume: .647940099
+    defaultVolume: 1
+    currentVolume: 1
+    mute: 0
+  - name: 9
+    audioEnumName: lootPoint
+    audioClass: 0
+    clip: {fileID: 0}
+    nameInResources: coin
+    preload: 0
+    defaultVolume: 1
+    currentVolume: 1
     mute: 0
   poolSize2D: 30
   poolSize3D: 1
