@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -133,10 +133,17 @@ public class Grid : MonoBehaviour {
 			}
 		}
 
+<<<<<<< HEAD
 		Rooms[startRoomX, startRoomY].gameObject.SetActive(true);
 		Rooms[startRoomX, startRoomY].OpenAllDoors();
 		tiles[startRoomX, startRoomY].gameObject.SetActive(false);
 		Grid.SetPlayerPosition(startRoomX, startRoomY);
+=======
+		Rooms[1, 1].gameObject.SetActive(true);
+		Rooms[1, 1].OpenAllDoors();
+		Rooms[1, 1].untraversed = false;
+		tiles[1, 1].gameObject.SetActive(false);
+>>>>>>> 4b10a1ae34495f4b594732d8d5db1b11ec639fa9
 	}
 
 	public void PlayerExiting(Room room, DirectionHandler.Directions direction){

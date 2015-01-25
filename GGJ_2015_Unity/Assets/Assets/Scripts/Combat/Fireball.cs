@@ -27,6 +27,7 @@ public class Fireball : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision other) {
+		print (other.gameObject.name);
 		Destroy(gameObject);
 	}
 }

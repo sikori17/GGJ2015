@@ -11,7 +11,7 @@ public class Avatar : MonoBehaviour {
 
 	//MOVEMENT
 	public float speed;
-	DirectionHandler.Directions direction;
+	public DirectionHandler.Directions direction;
 	bool isMoving;
 
 	//ATTACKING
@@ -33,10 +33,15 @@ public class Avatar : MonoBehaviour {
 	public Color normalColor, hurtColor;
 	public Oscillator hurtOscillator;
 	public GameObject explosion;
+	public Oscillator swordOscillator;
+	Vector3 swordStartPos;
 
 	//MESSAGES
 	public delegate void GameOverAction();
 	public event GameOverAction OnGameOverMessage;
+
+	//ITEMS
+	public ItemHandler.Items curItem;
 
 	//SFX
 	public ARLTimer bumpTimer, beepTimer;
@@ -45,12 +50,16 @@ public class Avatar : MonoBehaviour {
 	void Start () {
 		Instance = this;
 
+		curItem = ItemHandler.Items.None;
+
 		direction = DirectionHandler.Directions.Down;
 		invulnerabilityTimer.SetDone();
 		hurtOscillator.Restart();
 
 		bumpTimer.SetDone();
 		beepTimer.SetDone();
+
+		GameplayUI.Instance.SetHealth(hitPoints);
 	}
 	
 	// Update is called once per frame
@@ -89,6 +98,11 @@ public class Avatar : MonoBehaviour {
 		if (ControllerInput.ButtonDown(controllerNum, Button.Xbox_A) && !isAttacking && attackCooldownTimer.IsDone()) {
 			StartAttack();
 		}
+
+		if (ControllerInput.ButtonDown(controllerNum, Button.Xbox_B)) {
+			ItemHandler.Instance.UseItem(curItem);
+			curItem = ItemHandler.Items.None;
+		}
 	}
 
 	void Move() {
@@ -100,10 +114,12 @@ public class Avatar : MonoBehaviour {
 	void Attack() {
 		if (isAttacking) {
 			if (attackTimer.IsDone()) {
+				swords[(int) attackDirection].transform.localPosition = swordStartPos;
 				swords[(int) attackDirection].SetActive(false);
 
 				attackCooldownTimer.Restart();
 				isAttacking = false;
+
 			}
 			else {
 				Ray ray = new Ray(transform.position, DirectionHandler.Instance.DirectionToVector(attackDirection));
@@ -132,6 +148,13 @@ public class Avatar : MonoBehaviour {
 			AudioHandler.Play(Audio.warningBeep); //SFX
 			beepTimer.Restart();
 		}
+
+		//thrust sword
+		if (isAttacking) {
+			swords[(int) attackDirection].transform.localPosition = Vector3.Lerp(swordStartPos, 
+			                                                                swordStartPos + DirectionHandler.Instance.DirectionToVector(attackDirection), 
+			                                                                swordOscillator.Displacement());
+		}
 	}
 	
 	void StartAttack() {
@@ -142,6 +165,9 @@ public class Avatar : MonoBehaviour {
 		
 		attackTimer.Restart();
 		swords[(int) attackDirection].SetActive(true);
+
+		swordOscillator.Restart();
+		swordStartPos = swords[(int) attackDirection].transform.localPosition;
 	}
 
 	public void GetLoot(int loot) {
@@ -161,6 +187,7 @@ public class Avatar : MonoBehaviour {
 	public void TakeDamage(int damage, DirectionHandler.Directions dir) { 
 		if (invulnerabilityTimer.IsDone()) {
 			hitPoints -= damage;
+			GameplayUI.Instance.SetHealth(hitPoints);
 
 			//transform.Translate(DirectionHandler.Instance.DirectionToVector(dir) * knockbackDist);
 			Knockback(dir);
@@ -212,6 +239,13 @@ public class Avatar : MonoBehaviour {
 		else if (other.gameObject.tag == "Wall" && bumpTimer.IsDone()) {
 			AudioHandler.Play(Audio.bump); //SFX
 			bumpTimer.Restart();
+		}
+
+		if (other.gameObject.tag == "Heart") {
+			hitPoints++;
+			if (hitPoints > 5) hitPoints = 5;
+			GameplayUI.Instance.SetHealth(hitPoints);
+			Destroy(other.gameObject);
 		}
 	}
 

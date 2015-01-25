@@ -85,10 +85,12 @@
      <Compile Include="Assets\Assets\Scripts\Gameplay\Card.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\CardUI.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\Deck.cs" />
+     <Compile Include="Assets\Assets\Scripts\Gameplay\DestroyEnemyOnContact.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\Door.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\DungeonMaster.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\GameplayUI.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\Hand.cs" />
+     <Compile Include="Assets\Assets\Scripts\Gameplay\ItemHandler.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\RoomEnter.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\RoomExit.cs" />
      <Compile Include="Assets\Assets\Scripts\Gameplay\RoomHighlight.cs" />

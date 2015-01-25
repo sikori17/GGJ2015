@@ -192,6 +192,7 @@ MonoBehaviour:
     AutoRestart: 0
   deathEffect: {fileID: 100000, guid: bf8ece6eeab6241a9850880cf8720ca6, type: 2}
   lootEffect: {fileID: 100000, guid: 4f9d78b09bdd24ed7aeaebc47877ad9d, type: 2}
+  heartPrefab: {fileID: 100000, guid: 50b42a788446543248f554f20b42176e, type: 2}
   stateMachine:
     currentState: 
   attackTimer:

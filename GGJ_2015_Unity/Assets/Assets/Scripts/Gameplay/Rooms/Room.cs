@@ -174,6 +174,14 @@ public class Room : MonoBehaviour {
 				lockedWalls.Add(westWall);
 			}
 
+			EnemyManager.EnemyTypes[] eProbs = { EnemyManager.EnemyTypes.Slug, EnemyManager.EnemyTypes.Slug, EnemyManager.EnemyTypes.Wizard, EnemyManager.EnemyTypes.Knight };
+			int eNum = Random.Range(1,3);
+			EnemyManager.EnemyTypes[] eSpawnList = new EnemyManager.EnemyTypes[eNum];
+			for (int i = 0; i < eNum; i++) {
+				eSpawnList[i] = eProbs[Random.Range(0,4)];
+			}
+			Spawn(eSpawnList);
+
 			untraversed = false;
 		}
 	}
