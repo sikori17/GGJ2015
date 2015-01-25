@@ -186,8 +186,7 @@ public class Avatar : MonoBehaviour {
 
 	public void TakeDamage(int damage, DirectionHandler.Directions dir) { 
 		if (invulnerabilityTimer.IsDone()) {
-			hitPoints -= damage;
-			GameplayUI.Instance.SetHealth(hitPoints);
+			AddHP(-damage);
 
 			//transform.Translate(DirectionHandler.Instance.DirectionToVector(dir) * knockbackDist);
 			Knockback(dir);
@@ -242,9 +241,7 @@ public class Avatar : MonoBehaviour {
 		}
 
 		if (other.gameObject.tag == "Heart") {
-			hitPoints++;
-			if (hitPoints > 5) hitPoints = 5;
-			GameplayUI.Instance.SetHealth(hitPoints);
+			AddHP(1);
 			Destroy(other.gameObject);
 		}
 	}
@@ -256,6 +253,10 @@ public class Avatar : MonoBehaviour {
 		}
 	}
 
-	void AddHP (int hp) {
+	public void AddHP (int hp) {
+		hitPoints += hp;
+		if (hitPoints < 0) hitPoints = 0;
+		if (hitPoints > 5) hitPoints = 5;
+		GameplayUI.Instance.SetHealth(hitPoints);
 	}
 }

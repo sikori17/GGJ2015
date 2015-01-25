@@ -47,6 +47,7 @@ MonoBehaviour:
   fireballShootTimer:
     TimerInterval: .5
     AutoRestart: 0
+  explosionPrefab: {fileID: 100000, guid: ec48909673eee452e8b9fac9b9f002a7, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
