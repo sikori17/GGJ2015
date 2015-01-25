@@ -8,9 +8,7 @@ public class GameplayUI : MonoBehaviour {
 	public static GameplayUI Instance;
 	
 	// Adventurer
-	public Image heartOne;
-	public Image heartTwo;
-	public Image heartThree;
+	public Image[] heartImages;
 	public Scrollbar adventurerXP;
 
 	// Dungeon Master
@@ -111,25 +109,8 @@ public class GameplayUI : MonoBehaviour {
 	}
 
 	public void SetHealth(int health){
-		if(health == 0){
-			heartOne.gameObject.SetActive(false);
-			heartTwo.gameObject.SetActive(false);
-			heartThree.gameObject.SetActive(false);
-		}
-		else if(health == 1){
-			heartOne.gameObject.SetActive(true);
-			heartTwo.gameObject.SetActive(false);
-			heartThree.gameObject.SetActive(false);
-		}
-		else if(health == 2){
-			heartOne.gameObject.SetActive(true);
-			heartTwo.gameObject.SetActive(true);
-			heartThree.gameObject.SetActive(false);
-		}
-		else if(health == 3){
-			heartOne.gameObject.SetActive(true);
-			heartTwo.gameObject.SetActive(true);
-			heartThree.gameObject.SetActive(true);
+		for (int i = 0; i < heartImages.Length; i++) {
+			heartImages[i].gameObject.SetActive(i < health);
 		}
 	}
 

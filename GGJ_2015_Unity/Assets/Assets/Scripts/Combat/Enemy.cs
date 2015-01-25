@@ -14,6 +14,9 @@ public class Enemy : MonoBehaviour {
 	public ARLTimer hurtTimer;
 	public GameObject deathEffect;
 	public GameObject lootEffect;
+	
+	//DROPS
+	public GameObject heartPrefab;
 
 	// Use this for initialization
 	protected virtual void Start () {
@@ -113,6 +116,10 @@ public class Enemy : MonoBehaviour {
 
 		Avatar.Instance.GetLoot(lootPoints);
 		Deck.Instance.AddPoints(lootPoints);
+
+		if (Random.Range(0f,100f) <= 30f) {
+			Instantiate(heartPrefab, transform.position, heartPrefab.transform.rotation);
+		}
 
 		GameObject lfx = Instantiate(lootEffect, transform.position, lootEffect.transform.rotation) as GameObject;
 		lfx.GetComponent<LootPointEffect>().repeatNum = lootPoints;

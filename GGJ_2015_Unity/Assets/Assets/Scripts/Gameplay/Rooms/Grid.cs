@@ -124,6 +124,7 @@ public class Grid : MonoBehaviour {
 
 		Rooms[1, 1].gameObject.SetActive(true);
 		Rooms[1, 1].OpenAllDoors();
+		Rooms[1, 1].untraversed = false;
 		tiles[1, 1].gameObject.SetActive(false);
 	}
 
