@@ -10,12 +10,17 @@ public enum WallType{
 
 public class Wall : MonoBehaviour {
 
+	public WallType type;
+
 	public GameObject closedWall;
 	public GameObject openWall;
 	public GameObject lockedDoor;
 
 
 	public void ApplyType(WallType type){
+
+		this.type = type;
+
 		if(type == WallType.Open){
 			closedWall.gameObject.SetActive(false);
 			openWall.gameObject.SetActive(true);
@@ -30,6 +35,12 @@ public class Wall : MonoBehaviour {
 			closedWall.gameObject.SetActive(false);
 			openWall.gameObject.SetActive(true);
 			lockedDoor.gameObject.SetActive(true);
+		}
+	}
+
+	public void Lock(){
+		if(type == WallType.Open){
+			ApplyType(WallType.Key);
 		}
 	}
 }

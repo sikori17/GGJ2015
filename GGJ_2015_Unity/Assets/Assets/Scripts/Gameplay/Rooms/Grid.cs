@@ -43,6 +43,7 @@ public class Grid : MonoBehaviour {
 		AdjustScreenHeight(); // To accomodate UI row
 		PositionCorners();
 		PositionAndScaleBackground();
+		//roomPrefab.ResetWallScale();
 		SpawnRooms();
 	}
 	
@@ -107,6 +108,7 @@ public class Grid : MonoBehaviour {
 				room.gameObject.SetActive(false);
 				room.transform.parent = roomsRoot;
 				Rooms[i, j] = room;
+				room.AssignLocation(i, j);
 				// Tile Setup
 				tile = GameObject.Instantiate(tilePrefab) as Transform;
 				tile.transform.position = room.transform.position;
@@ -116,7 +118,31 @@ public class Grid : MonoBehaviour {
 			}
 		}
 
-		Rooms[0, 0].gameObject.SetActive(true);
+		Rooms[1, 1].gameObject.SetActive(true);
+		Rooms[1, 1].OpenAllDoors();
+	}
+
+	public void PlayerExiting(Room room, DirectionHandler.Directions direction){
+		if(direction == DirectionHandler.Directions.Right){
+			if(LocationInBounds(room.x + 1, room.y) && !RoomActive(room.x + 1, room.y)){
+				NewOpenRoom(room.x + 1, room.y, 3);
+			}
+		}
+		else if(direction == DirectionHandler.Directions.Left){
+			if(LocationInBounds(room.x - 1, room.y) && !RoomActive(room.x - 1, room.y)){
+				NewOpenRoom(room.x - 1, room.y, 2);
+			}
+		}
+		else if(direction == DirectionHandler.Directions.Up){
+			if(LocationInBounds(room.x, room.y - 1) && !RoomActive(room.x, room.y - 1)){
+				NewOpenRoom(room.x, room.y - 1, 1);
+			}
+		}
+		else if(direction == DirectionHandler.Directions.Down){
+			if(LocationInBounds(room.x, room.y + 1) && !RoomActive(room.x, room.y + 1)){
+				NewOpenRoom(room.x, room.y + 1, 0);
+			}
+		}
 	}
 
 	public static Vector3 GetRoomPosition(int x, int y){
@@ -131,11 +157,23 @@ public class Grid : MonoBehaviour {
 		return GameObject.Instantiate(roomPrefab) as Room;
 	}
 
+	public void NewOpenRoom(int x, int y, int openWall){
+		Room newRoom = Grid.GetRoom(x, y);
+		WallType[] wallConfig = Card.GetRandomWallConfig();
+		wallConfig[openWall] = WallType.Open;
+		newRoom.ApplyWallConfiguration(wallConfig);
+		newRoom.gameObject.SetActive(true);
+	}
+
 	public static Transform GetTile(int x, int y){
 		return Instance.tiles[x, y];
 	}
 
 	public bool RoomActive(int x, int y){
-		return ((x >= 0 && x < roomsX) && (y >= 0 && y < roomsY) && GetRoom(x, y).gameObject.activeInHierarchy);
+		return (LocationInBounds(x, y) && GetRoom(x, y).gameObject.activeSelf);
+	}
+
+	public bool LocationInBounds(int x, int y){
+		return (x >= 0 && x < roomsX) && (y >= 0 && y < roomsY);
 	}
 }
