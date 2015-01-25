@@ -28,8 +28,13 @@ public class ItemHandler : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		//print ("fireball 2");
+		//print (crazyFireballTimer.PercentDone());
 		if (!crazyFireballTimer.IsDone()) {
+			print ("fireball 3");
 			if (fireballShootTimer.IsDone()) {
+				
+				print ("fireball 4");
 				Vector3 dir = DirectionHandler.Instance.DirectionToVector(Avatar.Instance.direction);
 				Vector3 startPos = Avatar.Instance.transform.position + dir * 2;
 				GameObject newFireball = Instantiate(fireballPrefab,  startPos, fireballPrefab.transform.rotation) as GameObject;
@@ -48,14 +53,34 @@ public class ItemHandler : MonoBehaviour {
 	}
 
 	void FireballAction() {
+		print ("fireball");
 		crazyFireballTimer.Restart();
 		fireballShootTimer.SetDone();
+		print (crazyFireballTimer.PercentDone());
 	}
 
 	void BombAction() {
 		Vector3 dir = DirectionHandler.Instance.DirectionToVector(Avatar.Instance.direction);
 		Vector3 startPos = Avatar.Instance.transform.position + dir * 4;
 		Instantiate(explosionPrefab, startPos, explosionPrefab.transform.rotation);
+
+		Room curRoom = Grid.Instance.Rooms[Grid.Instance.playerPosX, Grid.Instance.playerPosY];
+		DirectionHandler.Directions d = DirectionHandler.Instance.VectorToDirection(Avatar.Instance.transform.position - curRoom.transform.position);
+
+		switch (d) {
+			case DirectionHandler.Directions.Up:
+				curRoom.northWall.ApplyType(WallType.Open);
+				break;
+			case DirectionHandler.Directions.Down:
+				curRoom.southWall.ApplyType(WallType.Open);
+				break;
+			case DirectionHandler.Directions.Left:
+				curRoom.westWall.ApplyType(WallType.Open);
+				break;
+			case DirectionHandler.Directions.Right:
+				curRoom.eastWall.ApplyType(WallType.Open);
+				break;
+		}
 	}
 
 	void NoneAction() {

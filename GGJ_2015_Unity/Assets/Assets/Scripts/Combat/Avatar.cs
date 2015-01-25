@@ -225,6 +225,28 @@ public class Avatar : MonoBehaviour {
 			Vector3 v = transform.position - other.transform.position;
 			TakeDamage(other.gameObject.GetComponent<DoesDamage>().damage, DirectionHandler.Instance.VectorToDirection(v));
 		}
+
+		if (other.gameObject.tag == "Heart") {
+			AddHP(1);
+			Destroy(other.gameObject);
+		}
+
+		if (other.gameObject.tag == "Item") {
+			switch (other.gameObject.name) {
+				case "Bomb":
+					curItem = ItemHandler.Items.Bomb;
+					Destroy(other.gameObject);
+					break;
+				case "Firestaff":
+					curItem = ItemHandler.Items.Fireball;
+					Destroy(other.gameObject);
+					break;
+				case "Potion":
+					curItem = ItemHandler.Items.Potion;
+					Destroy(other.gameObject);
+					break;
+			}
+		}
 	}
 
 	void OnCollisionEnter(Collision other) {
