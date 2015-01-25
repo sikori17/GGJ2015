@@ -88,10 +88,10 @@ public class GameplayUI : MonoBehaviour {
 		adventurerXP.size = norm;
 
 		if (norm <= 0f) {
-			adventurerXP.gameObject.SetActive(false);
+			//adventurerXP.gameObject.SetActive(false);
 		}
 		else {
-			adventurerXP.gameObject.SetActive(true);
+			//adventurerXP.gameObject.SetActive(true);
 		}
 	}
 

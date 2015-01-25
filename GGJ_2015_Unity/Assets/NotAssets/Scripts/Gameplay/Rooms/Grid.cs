@@ -169,6 +169,7 @@ public class Grid : MonoBehaviour {
 	public void ChooseRewardSpaces(){
 
 		List<int[]> rewardSpaces = new List<int[]>();
+		rewardSpaces.Add(new int[]{startRoomX, startRoomY});
 
 		for(int i = 0; i < numRewardSpaces; i++){
 
@@ -180,7 +181,7 @@ public class Grid : MonoBehaviour {
 			int iMem = i;
 			for(int j = 0; j < rewardSpaces.Count; j++){
 				// If this is a previously used space or the start space
-				if(((space[0] == rewardSpaces[j][0]) && (space[1] == rewardSpaces[j][1])) || (space[0] == startRoomX && space[1] == startRoomY)){
+				if(((space[0] == rewardSpaces[j][0]) && (space[1] == rewardSpaces[j][1]))){
 					i -= 1; // Run again
 					j = rewardSpaces.Count;
 				}

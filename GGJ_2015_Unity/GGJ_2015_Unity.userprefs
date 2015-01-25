@@ -1,16 +1,21 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/NotAssets/Scripts/Gameplay/Deck.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/NotAssets/Scripts/Gameplay/Rooms/Grid.cs">
     <Files>
-      <File FileName="Assets/NotAssets/Scripts/Gameplay/Rooms/Room.cs" Line="29" Column="33" />
-      <File FileName="Assets/NotAssets/Scripts/Gameplay/DungeonMaster.cs" Line="253" Column="29" />
-      <File FileName="Assets/NotAssets/Scripts/Gameplay/GameplayUI.cs" Line="220" Column="66" />
+      <File FileName="Assets/NotAssets/Scripts/Gameplay/DungeonMaster.cs" Line="259" Column="15" />
+      <File FileName="Assets/NotAssets/Scripts/Gameplay/GameplayUI.cs" Line="1" Column="1" />
       <File FileName="Assets/NotAssets/Scripts/Combat/Avatar.cs" Line="1" Column="1" />
-      <File FileName="Assets/NotAssets/Scripts/Combat/EnemyHandler.cs" Line="12" Column="32" />
-      <File FileName="Assets/NotAssets/Scripts/Gameplay/Card.cs" Line="73" Column="33" />
-      <File FileName="Assets/NotAssets/Scripts/Gameplay/Rooms/Grid.cs" Line="193" Column="42" />
-      <File FileName="Assets/NotAssets/Scripts/Gameplay/Hand.cs" Line="41" Column="21" />
-      <File FileName="Assets/NotAssets/Scripts/Gameplay/Deck.cs" Line="80" Column="63" />
+      <File FileName="Assets/NotAssets/Scripts/Combat/EnemyHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets/NotAssets/Scripts/Gameplay/Card.cs" Line="1" Column="1" />
+      <File FileName="Assets/NotAssets/Scripts/Gameplay/Rooms/Grid.cs" Line="289" Column="34" />
+      <File FileName="Assets/NotAssets/Scripts/Gameplay/Rooms/Room.cs" Line="31" Column="26" />
+      <File FileName="Assets/NotAssets/Scripts/Gameplay/ItemRegistry.cs" Line="1" Column="1" />
+      <File FileName="Assets/NotAssets/Scripts/Gameplay/RoomExit.cs" Line="1" Column="1" />
+      <File FileName="Assets/NotAssets/Scripts/Gameplay/Treasure.cs" Line="1" Column="1" />
+      <File FileName="Assets/NotAssets/Scripts/Gameplay/Deck.cs" Line="1" Column="1" />
+      <File FileName="Assets/NotAssets/Scripts/Combat/DirectionHandler.cs" Line="1" Column="1" />
+      <File FileName="Assets/NotAssets/Scripts/Gameplay/Hand.cs" Line="1" Column="1" />
+      <File FileName="Assets/NotAssets/Scripts/Gameplay/Crown.cs" Line="18" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
