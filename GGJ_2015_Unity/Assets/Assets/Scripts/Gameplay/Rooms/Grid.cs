@@ -15,6 +15,12 @@ public class Grid : MonoBehaviour {
 	public int roomsX;
 	public int roomsY;
 
+	public int startRoomX;
+	public int startRoomY;
+
+	public int numRewardSpaces;
+	public Transform rewardMarker;
+
 	public float screenHeight;
 	public float screenWidth;
 
@@ -32,6 +38,10 @@ public class Grid : MonoBehaviour {
 	public Transform[,] tiles;
 	public Transform tilePrefab;
 
+	//Player
+	public int playerPosX;
+	public int playerPosY;
+
 	//DEBUG
 	public EnemyManager.EnemyTypes[] enemyArray;
 
@@ -48,6 +58,7 @@ public class Grid : MonoBehaviour {
 		PositionAndScaleBackground();
 		//roomPrefab.ResetWallScale();
 		SpawnRooms();
+		ChooseRewardSpaces();
 	}
 	
 	// Update is called once per frame
@@ -122,9 +133,10 @@ public class Grid : MonoBehaviour {
 			}
 		}
 
-		Rooms[1, 1].gameObject.SetActive(true);
-		Rooms[1, 1].OpenAllDoors();
-		tiles[1, 1].gameObject.SetActive(false);
+		Rooms[startRoomX, startRoomY].gameObject.SetActive(true);
+		Rooms[startRoomX, startRoomY].OpenAllDoors();
+		tiles[startRoomX, startRoomY].gameObject.SetActive(false);
+		Grid.SetPlayerPosition(startRoomX, startRoomY);
 	}
 
 	public void PlayerExiting(Room room, DirectionHandler.Directions direction){
@@ -150,6 +162,38 @@ public class Grid : MonoBehaviour {
 		}
 	}
 
+	public void ChooseRewardSpaces(){
+
+		List<int[]> rewardSpaces = new List<int[]>();
+
+		for(int i = 0; i < numRewardSpaces; i++){
+
+			int[] space = new int[2];
+
+			space[0] = Random.Range(0, Grid.Instance.roomsX);
+			space[1] = Random.Range(0, Grid.Instance.roomsY);
+
+			int iMem = i;
+			for(int j = 0; j < rewardSpaces.Count; j++){
+				// If this is a previously used space or the start space
+				if(((space[0] == rewardSpaces[j][0]) && (space[1] == rewardSpaces[j][1])) || (space[0] == startRoomX && space[1] == startRoomY)){
+					i -= 1; // Run again
+					j = rewardSpaces.Count;
+				}
+			}
+
+			// If a bad condition wasn't found
+			if(iMem == i){
+				rewardSpaces.Add(space);
+				Transform marker = GameObject.Instantiate(rewardMarker) as Transform;
+				marker.gameObject.SetActive(true);
+				Room room = GetRoom(space[0], space[1]);
+				room.rewardSpace = true;
+				marker.transform.position = room.transform.position + Vector3.up * 5;
+			}
+		}
+	}
+
 	public static Vector3 GetRoomPosition(int x, int y){
 		return Instance.Rooms[x, y].transform.position;
 	}
@@ -164,6 +208,7 @@ public class Grid : MonoBehaviour {
 
 	public void NewOpenRoom(int x, int y, int openWall){
 		Room newRoom = Grid.GetRoom(x, y);
+		tiles[x, y].gameObject.SetActive(false);
 		WallType[] wallConfig = Card.GetRandomWallConfig();
 		wallConfig[openWall] = WallType.Open;
 		newRoom.ApplyWallConfiguration(wallConfig);
@@ -180,5 +225,10 @@ public class Grid : MonoBehaviour {
 
 	public bool LocationInBounds(int x, int y){
 		return (x >= 0 && x < roomsX) && (y >= 0 && y < roomsY);
+	}
+
+	public static void SetPlayerPosition(int x, int y){
+		Instance.playerPosX = x;
+		Instance.playerPosY = y;
 	}
 }

@@ -41,11 +41,14 @@ public class GameplayUI : MonoBehaviour {
 	public Image promptX;
 	public Image promptY;
 
+	public RectTransform cardHighlight;
+
 	// Times
 	public float drawTime;
 
 	// Image assets
 	public Sprite[] cardImages;
+	public Sprite treasureSprite;
 
 	void Awake(){
 		Instance = this;
@@ -71,7 +74,7 @@ public class GameplayUI : MonoBehaviour {
 		displayRoom.gameObject.name = "Display_Room";
 		displayRoom.gameObject.SetActive(true);
 		displayRoom.transform.position = Grid.GetRoomPosition(Grid.Instance.roomsX - 1, Grid.Instance.roomsY - 1) + new Vector3(0, 0, -Grid.Instance.roomHeight);
-		displayRoom.transform.localScale *= 0.9f;
+		displayRoom.transform.localScale *= 0.75f;
 	}
 
 	public void InitializeVariables(){
@@ -170,11 +173,39 @@ public class GameplayUI : MonoBehaviour {
 
 		target.gameObject.SetActive(false);
 		prompt.gameObject.SetActive(true);
+		cardHighlight.gameObject.SetActive(false);
+		ClearPreview();
+	}
+
+	public void ClearPreview(){
 		displayRoom.gameObject.SetActive(false);
 		effectImage.gameObject.SetActive(false);
 	}
 
+	public void TreasurePreview(){
+		displayRoom.gameObject.SetActive(false);
+		effectImage.sprite = treasureSprite;
+	}
+
 	#region Animation
+
+	public void HighlightCard(Button button){
+		Vector3 targetPos = Vector3.zero;
+		if(button == Button.Xbox_A){
+			targetPos = cardOne.transform.position;
+		}
+		else if(button == Button.Xbox_B){
+			targetPos = cardTwo.transform.position;
+		}
+		else if(button == Button.Xbox_X){
+			targetPos = cardThree.transform.position;
+		}
+		else if(button == Button.Xbox_Y){
+			targetPos = cardFour.transform.position;
+		}
+		cardHighlight.transform.position = targetPos;
+		cardHighlight.gameObject.SetActive(true);
+	}
 
 	public void AnimateDraw(Card card, Button button){
 
@@ -210,13 +241,9 @@ public class GameplayUI : MonoBehaviour {
 	}
 
 	public void InitCardImages(Card cardA, Card cardB, Card cardX, Card cardY) {
-		print ((int) cardA.GetType());
 		cardOne.GetComponent<Image>().sprite = cardImages[(int) cardA.GetType()];
-		print ((int) cardB.GetType());
 		cardTwo.GetComponent<Image>().sprite = cardImages[(int) cardB.GetType()];
-		print ((int) cardX.GetType());
 		cardThree.GetComponent<Image>().sprite = cardImages[(int) cardX.GetType()];
-		print ((int) cardY.GetType());
 		cardFour.GetComponent<Image>().sprite = cardImages[(int) cardY.GetType()];
 	}
 

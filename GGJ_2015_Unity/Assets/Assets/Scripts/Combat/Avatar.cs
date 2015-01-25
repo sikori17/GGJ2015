@@ -145,7 +145,16 @@ public class Avatar : MonoBehaviour {
 	}
 
 	public void GetLoot(int loot) {
+
 		lootPoints += loot;
+
+		if(lootPoints >= maxLootPoints){
+			Debug.Log("HHHHHHHHH");
+			lootPoints -= maxLootPoints;
+			Debug.Log(lootPoints + "_" + maxLootPoints);
+			DungeonMaster.Instance.TreasureEvent();
+		}
+
 		GameplayUI.Instance.SetXP( ((float) lootPoints) / ((float) maxLootPoints) );
 	}
 

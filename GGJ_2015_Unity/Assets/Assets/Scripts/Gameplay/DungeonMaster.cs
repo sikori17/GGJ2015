@@ -3,6 +3,7 @@ using System.Collections;
 
 public class DungeonMaster : MonoBehaviour {
 
+	public static DungeonMaster Instance;
 	public int playerNum;
 
 	SimpleStateMachine stateMachine;
@@ -12,6 +13,7 @@ public class DungeonMaster : MonoBehaviour {
 	private SimpleState DeckIdleState;
 	private SimpleState DrawCardState;
 	private SimpleState CardSelectedState;
+	private SimpleState PlaceTreasureState;
 
 	public int selectionX;
 	public int selectionY;
@@ -23,6 +25,12 @@ public class DungeonMaster : MonoBehaviour {
 
 	public Card selectedCard;
 	public Button selectedButton;
+
+	public Treasure treasurePrefab;
+
+	void Awake(){
+		Instance = this;
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -38,6 +46,7 @@ public class DungeonMaster : MonoBehaviour {
 		deckMachine = new SimpleStateMachine();
 		DeckIdleState = new SimpleState(DeckIdleEnter, DeckIdleUpdate, DeckIdleExit, "DECK_IDLE");
 		CardSelectedState = new SimpleState(CardSelectedEnter, CardSelectedUpdate, CardSelectedExit, "CARD_SELECTED");
+		PlaceTreasureState = new SimpleState(PlaceTreasureEnter, PlaceTreasureUpdate, PlaceTreasureExit, "PLACE_TREASURE");
 		deckMachine.SwitchStates(DeckIdleState);
 	}
 	
@@ -48,8 +57,6 @@ public class DungeonMaster : MonoBehaviour {
 	}
 
 	public void PlayCard(Card card){
-		print ("play card");
-
 		Room room = Grid.GetRoom(selectionX, selectionY);
 		room.ApplyCard(card);
 		room.gameObject.SetActive(true);
@@ -158,8 +165,6 @@ public class DungeonMaster : MonoBehaviour {
 
 	public void CardSelectedUpdate(){
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_A)){
-			UseCard(Button.Xbox_A);
-			/*
 			if(selectedButton == Button.Xbox_A){
 				Debug.Log("LV "  + LocationValid());
 				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
@@ -173,16 +178,14 @@ public class DungeonMaster : MonoBehaviour {
 			else if(hand.CardAvailable(Button.Xbox_A)){
 				selectedButton = Button.Xbox_A;
 				selectedCard = hand.GetCard(Button.Xbox_A);
+				GameplayUI.Instance.HighlightCard(Button.Xbox_A);
 				GameplayUI.Instance.SetDisplayRoom(selectedCard);
 			}
 			else{
 				hand.DrawCard(selectedButton);
 			}
-			*/
 		}
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_B)){
-			UseCard(Button.Xbox_B);
-			/*
 			if(selectedButton == Button.Xbox_B){
 				Debug.Log("LV "  + LocationValid());
 				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
@@ -196,16 +199,14 @@ public class DungeonMaster : MonoBehaviour {
 			else if(hand.CardAvailable(Button.Xbox_B)){
 				selectedButton = Button.Xbox_B;
 				selectedCard = hand.GetCard(Button.Xbox_B);
+				GameplayUI.Instance.HighlightCard(Button.Xbox_B);
 				GameplayUI.Instance.SetDisplayRoom(selectedCard);
 			}
 			else{
 				hand.DrawCard(selectedButton);
 			}
-			*/
 		}
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_X)){
-			UseCard(Button.Xbox_X);
-			/*
 			if(selectedButton == Button.Xbox_X){
 				Debug.Log("LV "  + LocationValid());
 				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
@@ -219,16 +220,14 @@ public class DungeonMaster : MonoBehaviour {
 			else if(hand.CardAvailable(Button.Xbox_X)){
 				selectedButton = Button.Xbox_X;
 				selectedCard = hand.GetCard(Button.Xbox_X);
+				GameplayUI.Instance.HighlightCard(Button.Xbox_X);
 				GameplayUI.Instance.SetDisplayRoom(selectedCard);
 			}
 			else{
 				hand.DrawCard(selectedButton);
 			}
-			*/
 		}
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_Y)){
-			UseCard(Button.Xbox_Y);
-			/*
 			if(selectedButton == Button.Xbox_Y){
 				Debug.Log("LV "  + LocationValid());
 				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
@@ -242,43 +241,12 @@ public class DungeonMaster : MonoBehaviour {
 			else if(hand.CardAvailable(Button.Xbox_Y)){
 				selectedButton = Button.Xbox_Y;
 				selectedCard = hand.GetCard(Button.Xbox_Y);
+				GameplayUI.Instance.HighlightCard(Button.Xbox_Y);
 				GameplayUI.Instance.SetDisplayRoom(selectedCard);
 			}
 			else{
 				hand.DrawCard(selectedButton);
 			}
-			*/
-		}
-	}
-
-	void UseCard(Button b) {
-		if(selectedButton == b){
-			if (selectedCard.format == CardFormat.Room) {
-				Debug.Log("LV "  + LocationValid());
-				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
-				if(LocationValid()){
-					PlayCard(selectedCard);
-					hand.RemoveCard(b);
-					GameplayUI.Instance.ClearCard(b);
-					deckMachine.SwitchStates(DeckIdleState);
-				}
-			}
-			else { //format == CardFormat.Effect
-				if (Grid.Instance.RoomActive(selectionX, selectionY)) {
-					PlayCard(selectedCard);
-					hand.RemoveCard(b);
-					GameplayUI.Instance.ClearCard(b);
-					deckMachine.SwitchStates(DeckIdleState);
-				}
-			}
-		}
-		else if(hand.CardAvailable(b)){
-			selectedButton = b;
-			selectedCard = hand.GetCard(b);
-			GameplayUI.Instance.SetDisplayRoom(selectedCard);
-		}
-		else{
-			hand.DrawCard(b);
 		}
 	}
 
@@ -304,6 +272,41 @@ public class DungeonMaster : MonoBehaviour {
 
 	#endregion
 
+	#region PlaceTreasureState
+
+	public void TreasureEvent(){
+		deckMachine.SwitchStates(PlaceTreasureState);
+	}
+
+	public void PlaceTreasureEnter(){
+		GameplayUI.Instance.TreasurePreview();
+	}
+
+	public void PlaceTreasureUpdate(){
+
+		Debug.Log("P");
+
+		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_A) || ControllerInput.ButtonDown(playerNum, Button.Xbox_B) || ControllerInput.ButtonDown(playerNum, Button.Xbox_X) || ControllerInput.ButtonDown(playerNum, Button.Xbox_Y)){
+			if(Grid.Instance.RoomActive(selectionX, selectionY) && !((selectionX == Grid.Instance.playerPosX) && (selectionY == Grid.Instance.playerPosY))){
+				PlaceTreasure(selectionX, selectionY);
+				GameplayUI.Instance.ClearPreview();
+				deckMachine.SwitchStates(DeckIdleState);
+			}
+		}
+	}
+
+	public void PlaceTreasureExit(){
+
+	}
+
+	public void PlaceTreasure(int x, int y){
+		Treasure treasure = GameObject.Instantiate(treasurePrefab) as Treasure;
+		treasure.gameObject.SetActive(true);
+		treasure.transform.position = Grid.GetRoom(x, y).transform.position + Vector3.up * 1;
+	}
+
+	#endregion
+
 	public bool LocationValid(){
 		return
 		 /* Is selected room empty */ ((!Grid.Instance.RoomActive(selectionX, selectionY)) &&
@@ -312,4 +315,6 @@ public class DungeonMaster : MonoBehaviour {
 		 /* Is room below existing && doors are open */ (Grid.Instance.RoomActive(selectionX, selectionY + 1) && Grid.GetRoom(selectionX, selectionY + 1).IsDoorOpen(DirectionHandler.Directions.Up) && Grid.GetRoom(selectionX, selectionY).IsDoorOpen(DirectionHandler.Directions.Down)) ||
 		 /* Is room above existing && doors are open */ (Grid.Instance.RoomActive(selectionX, selectionY - 1) && Grid.GetRoom(selectionX, selectionY - 1).IsDoorOpen(DirectionHandler.Directions.Down) && Grid.GetRoom(selectionX, selectionY).IsDoorOpen(DirectionHandler.Directions.Up))));
 	}
+
+
 }

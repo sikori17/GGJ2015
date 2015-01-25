@@ -18,6 +18,7 @@ public class Room : MonoBehaviour {
 	public Transform southWestCorner;
 	public Transform northWestCorner;
 
+	public bool rewardSpace;
 	public bool untraversed;
 	public bool locked;
 	public List<Wall> lockedWalls;
@@ -147,6 +148,7 @@ public class Room : MonoBehaviour {
 
 	public void PlayerEntered(){
 
+		Grid.SetPlayerPosition(x, y);
 
 		if(untraversed){
 			locked = true;

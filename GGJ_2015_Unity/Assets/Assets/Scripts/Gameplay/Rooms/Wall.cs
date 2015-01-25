@@ -16,6 +16,7 @@ public class Wall : MonoBehaviour {
 	public GameObject openWall;
 	public GameObject lockedDoor;
 
+	public RoomExit exit;
 
 	public void ApplyType(WallType type){
 
@@ -25,16 +26,19 @@ public class Wall : MonoBehaviour {
 			closedWall.gameObject.SetActive(false);
 			openWall.gameObject.SetActive(true);
 			lockedDoor.gameObject.SetActive(false);
+			exit.gameObject.SetActive(true);
 		}
 		else if(type == WallType.Closed){
 			openWall.gameObject.SetActive(false);
 			closedWall.gameObject.SetActive(true);
 			lockedDoor.gameObject.SetActive(false);
+			exit.gameObject.SetActive(false);
 		}
 		else if(type == WallType.Key){
 			closedWall.gameObject.SetActive(false);
 			openWall.gameObject.SetActive(true);
 			lockedDoor.gameObject.SetActive(true);
+			exit.gameObject.SetActive(false);
 		}
 	}
 
