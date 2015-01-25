@@ -52,14 +52,14 @@ public class Room : MonoBehaviour {
 		this.y = y;
 	}
 
-	public void Spawn(EnemyManager.EnemyTypes[] enemies) {
+	public void Spawn(EnemyHandler.EnemyTypes[] enemies) {
 
 		untraversed = true;
 		Vector3 roomPos = transform.position;
 		Vector3 roomScale = new Vector3(Grid.Instance.roomWidth * 0.6f, 0, Grid.Instance.roomHeight * 0.6f);
 
-		foreach (EnemyManager.EnemyTypes e in enemies) {
-			GameObject newEnemy = Instantiate(EnemyManager.Instance.GetEnemyPrefab(e)) as GameObject;
+		foreach (EnemyHandler.EnemyTypes e in enemies) {
+			GameObject newEnemy = Instantiate(EnemyHandler.Instance.GetEnemyPrefab(e)) as GameObject;
 			newEnemy.GetComponent<Enemy>().Spawn(roomPos, roomScale);
 			enemyList.Add(newEnemy);
 		}
@@ -174,9 +174,9 @@ public class Room : MonoBehaviour {
 				lockedWalls.Add(westWall);
 			}
 
-			EnemyManager.EnemyTypes[] eProbs = { EnemyManager.EnemyTypes.Slug, EnemyManager.EnemyTypes.Slug, EnemyManager.EnemyTypes.Wizard, EnemyManager.EnemyTypes.Knight };
+			EnemyHandler.EnemyTypes[] eProbs = { EnemyHandler.EnemyTypes.Slug, EnemyHandler.EnemyTypes.Slug, EnemyHandler.EnemyTypes.Wizard, EnemyHandler.EnemyTypes.Knight };
 			int eNum = Random.Range(1,3);
-			EnemyManager.EnemyTypes[] eSpawnList = new EnemyManager.EnemyTypes[eNum];
+			EnemyHandler.EnemyTypes[] eSpawnList = new EnemyHandler.EnemyTypes[eNum];
 			for (int i = 0; i < eNum; i++) {
 				eSpawnList[i] = eProbs[Random.Range(0,4)];
 			}

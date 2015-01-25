@@ -18,7 +18,7 @@ public class Card{
 	public CardFormat format;
 	public WallType[] wallTypes;
 	public Effect effect;
-	public EnemyManager.EnemyTypes[] enemySpawnList;
+	public EnemyHandler.EnemyTypes[] enemySpawnList;
 	
 	public enum Type { EmptyRoom, SlugRoom, WizardRoom, KnightRoom, SlugEffect, WizardEffect, KnightEffect, Effect };
 	int mainEnemy;
@@ -39,14 +39,14 @@ public class Card{
 				return Type.EmptyRoom;
 			}
 			else {
-				switch ((EnemyManager.EnemyTypes) mainEnemy) {
-					case EnemyManager.EnemyTypes.Slug:
+				switch ((EnemyHandler.EnemyTypes) mainEnemy) {
+				case EnemyHandler.EnemyTypes.Slug:
 						return Type.SlugRoom;
 						break;
-					case EnemyManager.EnemyTypes.Wizard:
+				case EnemyHandler.EnemyTypes.Wizard:
 						return Type.WizardRoom;
 						break;
-					case EnemyManager.EnemyTypes.Knight:
+				case EnemyHandler.EnemyTypes.Knight:
 						return Type.KnightRoom;
 						break;
 				}
@@ -56,14 +56,14 @@ public class Card{
 		else {
 
 			if (effect == Effect.SpawnEnemy) {
-				switch ((EnemyManager.EnemyTypes) mainEnemy) {
-					case EnemyManager.EnemyTypes.Slug:
+				switch ((EnemyHandler.EnemyTypes) mainEnemy) {
+				case EnemyHandler.EnemyTypes.Slug:
 						return Type.SlugEffect;
 						break;
-					case EnemyManager.EnemyTypes.Wizard:
+				case EnemyHandler.EnemyTypes.Wizard:
 						return Type.WizardEffect;
 						break;
-					case EnemyManager.EnemyTypes.Knight:
+				case EnemyHandler.EnemyTypes.Knight:
 						return Type.KnightEffect;
 						break;
 				}
@@ -124,8 +124,8 @@ public class Card{
 		}
 
 		if (numEnemyTypes == 1) {
-			EnemyManager.EnemyTypes enemyType = (EnemyManager.EnemyTypes) Random.Range(0,3);
-			enemySpawnList = new EnemyManager.EnemyTypes[Random.Range(3,6)];
+			EnemyHandler.EnemyTypes enemyType = (EnemyHandler.EnemyTypes) Random.Range(0,3);
+			enemySpawnList = new EnemyHandler.EnemyTypes[Random.Range(3,6)];
 			for (int i = 0; i < enemySpawnList.Length; i++) {
 				enemySpawnList[i] = enemyType;
 			}
@@ -136,13 +136,13 @@ public class Card{
 			int a = Random.Range(0,3);
 			int b = (a + Random.Range(1,3)) % 3;
 
-			EnemyManager.EnemyTypes enemyType1 = (EnemyManager.EnemyTypes) a;
-			EnemyManager.EnemyTypes enemyType2 = (EnemyManager.EnemyTypes) b;
+			EnemyHandler.EnemyTypes enemyType1 = (EnemyHandler.EnemyTypes) a;
+			EnemyHandler.EnemyTypes enemyType2 = (EnemyHandler.EnemyTypes) b;
 
 			int aCount = Random.Range(2,4);
 			int bCount = Random.Range(1,3);
 
-			enemySpawnList = new EnemyManager.EnemyTypes[aCount + bCount];
+			enemySpawnList = new EnemyHandler.EnemyTypes[aCount + bCount];
 			for (int i = 0; i < aCount; i++) {
 				enemySpawnList[i] = enemyType1;
 			}
@@ -158,7 +158,7 @@ public class Card{
 			}
 		}
 		else {
-			enemySpawnList = new EnemyManager.EnemyTypes[0];
+			enemySpawnList = new EnemyHandler.EnemyTypes[0];
 			mainEnemy = -1;
 		}
 	}
@@ -174,8 +174,8 @@ public class Card{
 		}
 		
 		if (numEnemyTypes == 1) {
-			EnemyManager.EnemyTypes enemyType = (EnemyManager.EnemyTypes) Random.Range(0,3);
-			enemySpawnList = new EnemyManager.EnemyTypes[Random.Range(3,6)];
+			EnemyHandler.EnemyTypes enemyType = (EnemyHandler.EnemyTypes) Random.Range(0,3);
+			enemySpawnList = new EnemyHandler.EnemyTypes[Random.Range(3,6)];
 			for (int i = 0; i < enemySpawnList.Length; i++) {
 				enemySpawnList[i] = enemyType;
 			}
@@ -186,13 +186,13 @@ public class Card{
 			int a = Random.Range(0,3);
 			int b = (a + Random.Range(1,3)) % 3;
 			
-			EnemyManager.EnemyTypes enemyType1 = (EnemyManager.EnemyTypes) a;
-			EnemyManager.EnemyTypes enemyType2 = (EnemyManager.EnemyTypes) b;
+			EnemyHandler.EnemyTypes enemyType1 = (EnemyHandler.EnemyTypes) a;
+			EnemyHandler.EnemyTypes enemyType2 = (EnemyHandler.EnemyTypes) b;
 			
 			int aCount = Random.Range(2,4);
 			int bCount = Random.Range(1,3);
 			
-			enemySpawnList = new EnemyManager.EnemyTypes[aCount + bCount];
+			enemySpawnList = new EnemyHandler.EnemyTypes[aCount + bCount];
 			for (int i = 0; i < aCount; i++) {
 				enemySpawnList[i] = enemyType1;
 			}

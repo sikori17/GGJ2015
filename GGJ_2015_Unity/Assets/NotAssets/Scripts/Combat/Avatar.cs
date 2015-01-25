@@ -41,7 +41,7 @@ public class Avatar : MonoBehaviour {
 	public event GameOverAction OnGameOverMessage;
 
 	//ITEMS
-	public ItemHandler.Items curItem;
+	public ItemRegistry.Items curItem;
 
 	//SFX
 	public ARLTimer bumpTimer, beepTimer;
@@ -50,7 +50,7 @@ public class Avatar : MonoBehaviour {
 	void Start () {
 		Instance = this;
 
-		curItem = ItemHandler.Items.None;
+		curItem = ItemRegistry.Items.None;
 
 		direction = DirectionHandler.Directions.Down;
 		invulnerabilityTimer.SetDone();
@@ -61,7 +61,7 @@ public class Avatar : MonoBehaviour {
 
 		GameplayUI.Instance.SetHealth(hitPoints);
 
-		ItemHandler.Instance.SetItemButton(curItem);
+		ItemRegistry.Instance.SetItemButton(curItem);
 	}
 	
 	// Update is called once per frame
@@ -102,10 +102,10 @@ public class Avatar : MonoBehaviour {
 		}
 
 		if (ControllerInput.ButtonDown(controllerNum, Button.Xbox_B)) {
-			ItemHandler.Instance.UseItem(curItem);
-			curItem = ItemHandler.Items.None;
+			ItemRegistry.Instance.UseItem(curItem);
+			curItem = ItemRegistry.Items.None;
 			
-			ItemHandler.Instance.SetItemButton(curItem);
+			ItemRegistry.Instance.SetItemButton(curItem);
 		}
 	}
 
@@ -239,20 +239,20 @@ public class Avatar : MonoBehaviour {
 		if (other.gameObject.tag == "Item") {
 			switch (other.gameObject.name) {
 				case "Bomb":
-					curItem = ItemHandler.Items.Bomb;
+					curItem = ItemRegistry.Items.Bomb;
 					Destroy(other.gameObject);
 					break;
 				case "Firestaff":
-					curItem = ItemHandler.Items.Fireball;
+					curItem = ItemRegistry.Items.Fireball;
 					Destroy(other.gameObject);
 					break;
 				case "Potion":
-					curItem = ItemHandler.Items.Potion;
+					curItem = ItemRegistry.Items.Potion;
 					Destroy(other.gameObject);
 					break;
 			}
 			
-			ItemHandler.Instance.SetItemButton(curItem);
+			ItemRegistry.Instance.SetItemButton(curItem);
 		}
 	}
 

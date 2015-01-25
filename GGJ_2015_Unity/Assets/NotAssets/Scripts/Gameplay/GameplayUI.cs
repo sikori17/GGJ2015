@@ -161,7 +161,7 @@ public class GameplayUI : MonoBehaviour {
 
 	public void ClearPreview(){
 		displayRoom.gameObject.SetActive(false);
-		//effectImage.gameObject.SetActive(false);
+		effectImage.gameObject.SetActive(false);
 	}
 
 	public void TreasurePreview(){

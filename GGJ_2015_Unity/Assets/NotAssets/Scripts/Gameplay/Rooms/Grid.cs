@@ -43,7 +43,7 @@ public class Grid : MonoBehaviour {
 	public int playerPosY;
 
 	//DEBUG
-	public EnemyManager.EnemyTypes[] enemyArray;
+	public EnemyHandler.EnemyTypes[] enemyArray;
 
 	void Awake(){
 		Instance = this;

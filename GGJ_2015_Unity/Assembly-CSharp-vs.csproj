@@ -72,7 +72,7 @@
      <Compile Include="Assets\NotAssets\Scripts\Combat\DirectionHandler.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Combat\DoesDamage.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Combat\Enemy.cs" />
-     <Compile Include="Assets\NotAssets\Scripts\Combat\EnemyManager.cs" />
+     <Compile Include="Assets\NotAssets\Scripts\Combat\EnemyHandler.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Combat\Explosion.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Combat\Fireball.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Combat\KnightEnemy.cs" />
@@ -90,7 +90,7 @@
      <Compile Include="Assets\NotAssets\Scripts\Gameplay\DungeonMaster.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Gameplay\GameplayUI.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Gameplay\Hand.cs" />
-     <Compile Include="Assets\NotAssets\Scripts\Gameplay\ItemHandler.cs" />
+     <Compile Include="Assets\NotAssets\Scripts\Gameplay\ItemRegistry.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Gameplay\RoomEnter.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Gameplay\RoomExit.cs" />
      <Compile Include="Assets\NotAssets\Scripts\Gameplay\RoomHighlight.cs" />
