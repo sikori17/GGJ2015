@@ -55,7 +55,7 @@ public class Room : MonoBehaviour {
 
 		untraversed = true;
 		Vector3 roomPos = transform.position;
-		Vector3 roomScale = new Vector3(Grid.Instance.roomWidth, 0, Grid.Instance.roomHeight);
+		Vector3 roomScale = new Vector3(Grid.Instance.roomWidth * 0.6f, 0, Grid.Instance.roomHeight * 0.6f);
 
 		foreach (EnemyManager.EnemyTypes e in enemies) {
 			GameObject newEnemy = Instantiate(EnemyManager.Instance.GetEnemyPrefab(e)) as GameObject;
@@ -65,7 +65,6 @@ public class Room : MonoBehaviour {
 	}
 
 	public void ApplyCard(Card card){
-
 		if(card.format == CardFormat.Room){
 			ApplyRoomCard(card);
 		}

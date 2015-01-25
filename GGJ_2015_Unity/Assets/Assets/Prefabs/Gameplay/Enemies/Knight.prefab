@@ -637,7 +637,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2487371e30b3b466081b4f606767b371, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 5
+  hitPoints: 3
   lootPoints: 9
   maxLootPoints: 10
   knockbackDist: 1

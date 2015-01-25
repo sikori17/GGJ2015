@@ -210,9 +210,13 @@ public class GameplayUI : MonoBehaviour {
 	}
 
 	public void InitCardImages(Card cardA, Card cardB, Card cardX, Card cardY) {
+		print ((int) cardA.GetType());
 		cardOne.GetComponent<Image>().sprite = cardImages[(int) cardA.GetType()];
+		print ((int) cardB.GetType());
 		cardTwo.GetComponent<Image>().sprite = cardImages[(int) cardB.GetType()];
+		print ((int) cardX.GetType());
 		cardThree.GetComponent<Image>().sprite = cardImages[(int) cardX.GetType()];
+		print ((int) cardY.GetType());
 		cardFour.GetComponent<Image>().sprite = cardImages[(int) cardY.GetType()];
 	}
 

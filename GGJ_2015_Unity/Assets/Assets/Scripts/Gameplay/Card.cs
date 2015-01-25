@@ -20,7 +20,7 @@ public class Card{
 	public Effect effect;
 	public EnemyManager.EnemyTypes[] enemySpawnList;
 	
-	public enum Type { EmptyRoom, SlugRoom, WizardRoom, KnightRoom, Effect };
+	public enum Type { EmptyRoom, SlugRoom, WizardRoom, KnightRoom, SlugEffect, WizardEffect, KnightEffect, Effect };
 	int mainEnemy;
 
 	// Use this for initialization
@@ -54,6 +54,21 @@ public class Card{
 			}
 		}
 		else {
+
+			if (effect == Effect.SpawnEnemy) {
+				switch ((EnemyManager.EnemyTypes) mainEnemy) {
+					case EnemyManager.EnemyTypes.Slug:
+						return Type.SlugEffect;
+						break;
+					case EnemyManager.EnemyTypes.Wizard:
+						return Type.WizardEffect;
+						break;
+					case EnemyManager.EnemyTypes.Knight:
+						return Type.KnightEffect;
+						break;
+				}
+				return Type.Effect; //buggy stuff
+			}
 			return Type.Effect;
 		}
 	}
@@ -135,7 +150,12 @@ public class Card{
 				enemySpawnList[i] = enemyType2;
 			}
 
-			mainEnemy = a;
+			if (bCount > aCount) {
+				mainEnemy = b;
+			}
+			else {
+				mainEnemy = a;
+			}
 		}
 		else {
 			enemySpawnList = new EnemyManager.EnemyTypes[0];
@@ -159,6 +179,8 @@ public class Card{
 			for (int i = 0; i < enemySpawnList.Length; i++) {
 				enemySpawnList[i] = enemyType;
 			}
+
+			mainEnemy = (int) enemyType;
 		}
 		else if (numEnemyTypes == 2) {
 			int a = Random.Range(0,3);
@@ -176,6 +198,13 @@ public class Card{
 			}
 			for (int i = aCount; i < aCount + bCount; i++) {
 				enemySpawnList[i] = enemyType2;
+			}
+			
+			if (bCount > aCount) {
+				mainEnemy = b;
+			}
+			else {
+				mainEnemy = a;
 			}
 		}
 	}

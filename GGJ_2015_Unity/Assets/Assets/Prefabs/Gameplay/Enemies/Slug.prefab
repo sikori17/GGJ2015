@@ -110,7 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47a67b02158d5433b95f0f96dee33d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hitPoints: 3
+  hitPoints: 2
   lootPoints: 3
   maxLootPoints: 4
   knockbackDist: 1.5
