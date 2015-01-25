@@ -26,7 +26,7 @@ public class Avatar : MonoBehaviour {
 
 	//STATS
 	public int hitPoints;
-	public int lootPoints;
+	public int lootPoints, maxLootPoints;
 	public int lowHitPoints;
 
 	//POLISH
@@ -142,6 +142,11 @@ public class Avatar : MonoBehaviour {
 		
 		attackTimer.Restart();
 		swords[(int) attackDirection].SetActive(true);
+	}
+
+	public void GetLoot(int loot) {
+		lootPoints += loot;
+		GameplayUI.Instance.SetXP( ((float) lootPoints) / ((float) maxLootPoints) );
 	}
 
 	public void TakeDamage(int damage, DirectionHandler.Directions dir) { 

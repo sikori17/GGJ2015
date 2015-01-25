@@ -5,6 +5,7 @@ public class Enemy : MonoBehaviour {
 
 	public int hitPoints;
 	public int lootPoints;
+	public int maxLootPoints;
 
 	public float knockbackDist;
 	
@@ -17,7 +18,7 @@ public class Enemy : MonoBehaviour {
 	// Use this for initialization
 	protected virtual void Start () {
 		//gameObject.SetActive(false);
-		Spawn(new Vector3(0,0,0), new Vector3(30, 0, 20));
+		//Spawn(new Vector3(0,0,0), new Vector3(30, 0, 20));
 	}
 	
 	// Update is called once per frame
@@ -38,6 +39,8 @@ public class Enemy : MonoBehaviour {
 
 	public virtual void Spawn(Vector3 roomPos, Vector3 roomScale) {
 
+		lootPoints = Random.Range(0, maxLootPoints);
+
 		Vector3 spawnPos = roomPos + new Vector3(Random.Range(roomScale.x/2, -roomScale.x/2), 0, Random.Range(roomScale.z/2, -roomScale.z/2));
 		bool hasGoodSpawnPos = false;
 
@@ -52,8 +55,6 @@ public class Enemy : MonoBehaviour {
 				hasGoodSpawnPos = true;
 			}
 		}
-
-		print ("spawn " + name);
 
 		transform.position = spawnPos;
 		gameObject.SetActive(true);
@@ -110,7 +111,9 @@ public class Enemy : MonoBehaviour {
 		AudioHandler.Play(Audio.enemyDie); //SFX
 		Instantiate(deathEffect, transform.position, deathEffect.transform.rotation);
 
-		Avatar.Instance.lootPoints += lootPoints;
+		Avatar.Instance.GetLoot(lootPoints);
+		Deck.Instance.AddPoints(lootPoints);
+
 		GameObject lfx = Instantiate(lootEffect, transform.position, lootEffect.transform.rotation) as GameObject;
 		lfx.GetComponent<LootPointEffect>().repeatNum = lootPoints;
 	}

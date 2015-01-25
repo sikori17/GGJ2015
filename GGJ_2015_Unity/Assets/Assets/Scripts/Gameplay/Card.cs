@@ -19,7 +19,9 @@ public class Card{
 	public WallType[] wallTypes;
 	public Effect effect;
 	public EnemyManager.EnemyTypes[] enemySpawnList;
-
+	
+	public enum Type { EmptyRoom, SlugRoom, WizardRoom, KnightRoom, Effect };
+	int mainEnemy;
 
 	// Use this for initialization
 	void Start () {
@@ -29,6 +31,31 @@ public class Card{
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	public Type GetType() {
+		if (format == CardFormat.Room) {
+			if (mainEnemy == -1) {
+				return Type.EmptyRoom;
+			}
+			else {
+				switch ((EnemyManager.EnemyTypes) mainEnemy) {
+					case EnemyManager.EnemyTypes.Slug:
+						return Type.SlugRoom;
+						break;
+					case EnemyManager.EnemyTypes.Wizard:
+						return Type.WizardRoom;
+						break;
+					case EnemyManager.EnemyTypes.Knight:
+						return Type.KnightRoom;
+						break;
+				}
+				return Type.EmptyRoom; //buggy stuff
+			}
+		}
+		else {
+			return Type.Effect;
+		}
 	}
 
 	public void SetFormat(CardFormat format){
@@ -84,6 +111,8 @@ public class Card{
 			for (int i = 0; i < enemySpawnList.Length; i++) {
 				enemySpawnList[i] = enemyType;
 			}
+
+			mainEnemy = (int) enemyType;
 		}
 		else if (numEnemyTypes == 2) {
 			int a = Random.Range(0,3);
@@ -102,9 +131,12 @@ public class Card{
 			for (int i = aCount; i < aCount + bCount; i++) {
 				enemySpawnList[i] = enemyType2;
 			}
+
+			mainEnemy = a;
 		}
 		else {
 			enemySpawnList = new EnemyManager.EnemyTypes[0];
+			mainEnemy = -1;
 		}
 	}
 

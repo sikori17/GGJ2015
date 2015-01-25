@@ -40,6 +40,7 @@ public class GameplayUI : MonoBehaviour {
 	public float drawTime;
 
 	// Image assets
+	public Sprite[] cardImages;
 
 	void Awake(){
 		Instance = this;
@@ -78,10 +79,26 @@ public class GameplayUI : MonoBehaviour {
 
 	public void SetXP(float norm){
 		adventurerXP.size = norm;
+
+		if (norm <= 0f) {
+			adventurerXP.gameObject.SetActive(false);
+		}
+		else {
+			adventurerXP.gameObject.SetActive(true);
+		}
 	}
 
 	public void SetDeckPoints(float norm){
 		deckPoints.size = norm;
+
+		/*
+		if (norm <= 0f) {
+			deckPoints.gameObject.SetActive(false);
+		}
+		else {
+			deckPoints.gameObject.SetActive(true);
+		}
+		*/
 	}
 
 	public void SetDrawCount(int count){
@@ -168,8 +185,17 @@ public class GameplayUI : MonoBehaviour {
 			targetPos = cardFourAnchor;
 		}
 
+		target.GetComponent<Image>().sprite = cardImages[(int) card.GetType()];
+
 		target.gameObject.SetActive(true);
 		StartCoroutine(Animate(target, deckAnchor, targetPos, drawTime));
+	}
+
+	public void InitCardImages(Card cardA, Card cardB, Card cardX, Card cardY) {
+		cardOne.GetComponent<Image>().sprite = cardImages[(int) cardA.GetType()];
+		cardTwo.GetComponent<Image>().sprite = cardImages[(int) cardB.GetType()];
+		cardThree.GetComponent<Image>().sprite = cardImages[(int) cardX.GetType()];
+		cardFour.GetComponent<Image>().sprite = cardImages[(int) cardY.GetType()];
 	}
 
 	public IEnumerator Animate(RectTransform rect, Vector3 startPos, Vector3 endPos, float time){

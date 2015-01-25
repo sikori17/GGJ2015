@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &100002
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,6 +183,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitPoints: 5
   lootPoints: 5
+  maxLootPoints: 6
   knockbackDist: 2
   normalColor: {r: 1, g: 0, b: .889655113, a: 1}
   hurtColor: {r: 1, g: 1, b: 1, a: 1}

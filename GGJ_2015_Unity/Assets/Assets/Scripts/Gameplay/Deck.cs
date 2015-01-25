@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class Deck : MonoBehaviour {
+
+	public static Deck Instance;
 	
 	// Room vs Effect Percentage
 	public float roomPercentage;
@@ -15,11 +17,13 @@ public class Deck : MonoBehaviour {
 	public int pointsPerDraw;
 	public int currentPoints;
 	public int storedDraws;
+	public ARLTimer pointRefreshTimer;
 
 	public Card temp;
+
 	// Use this for initialization
 	void Start () {
-	
+		Instance = this;
 	}
 	
 	// Update is called once per frame
@@ -28,6 +32,21 @@ public class Deck : MonoBehaviour {
 			temp = Draw();
 			GameplayUI.Instance.SetDisplayRoom(temp);
 		}
+
+		if (pointRefreshTimer.IsDone()) {
+			AddPoints(1);
+			pointRefreshTimer.Restart();
+		}
+	}
+
+	public void AddPoints(int num) {
+		currentPoints += num;
+		while (currentPoints >= pointsPerDraw) {
+			currentPoints -= pointsPerDraw;
+			storedDraws++;
+		}
+		GameplayUI.Instance.SetDeckPoints( ((float) currentPoints) / ((float) pointsPerDraw) );
+		GameplayUI.Instance.SetDrawCount(storedDraws);
 	}
 
 	public Card Draw(){
