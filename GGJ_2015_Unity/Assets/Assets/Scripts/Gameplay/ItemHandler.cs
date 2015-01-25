@@ -15,6 +15,9 @@ public class ItemHandler : MonoBehaviour {
 	public GameObject fireballPrefab;
 	public ARLTimer crazyFireballTimer, fireballShootTimer;
 
+	//BOMB
+	public GameObject explosionPrefab;
+
 	// Use this for initialization
 	void Start () {
 		Instance = this;
@@ -41,17 +44,18 @@ public class ItemHandler : MonoBehaviour {
 	}
 
 	void PotionAction() {
-		print ("potion!");
+		Avatar.Instance.AddHP(5);
 	}
 
 	void FireballAction() {
-		print ("fireball!");
 		crazyFireballTimer.Restart();
 		fireballShootTimer.SetDone();
 	}
 
 	void BombAction() {
-		print ("bomb!");
+		Vector3 dir = DirectionHandler.Instance.DirectionToVector(Avatar.Instance.direction);
+		Vector3 startPos = Avatar.Instance.transform.position + dir * 4;
+		Instantiate(explosionPrefab, startPos, explosionPrefab.transform.rotation);
 	}
 
 	void NoneAction() {
