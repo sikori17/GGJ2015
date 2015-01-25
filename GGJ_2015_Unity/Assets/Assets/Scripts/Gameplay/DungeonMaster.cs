@@ -159,95 +159,15 @@ public class DungeonMaster : MonoBehaviour {
 	public void CardSelectedUpdate(){
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_A)){
 			UseCard(Button.Xbox_A);
-			/*
-			if(selectedButton == Button.Xbox_A){
-				Debug.Log("LV "  + LocationValid());
-				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
-				if(LocationValid()){
-					PlayCard(selectedCard);
-					hand.RemoveCard(Button.Xbox_A);
-					GameplayUI.Instance.ClearCard(Button.Xbox_A);
-					deckMachine.SwitchStates(DeckIdleState);
-				}
-			}
-			else if(hand.CardAvailable(Button.Xbox_A)){
-				selectedButton = Button.Xbox_A;
-				selectedCard = hand.GetCard(Button.Xbox_A);
-				GameplayUI.Instance.SetDisplayRoom(selectedCard);
-			}
-			else{
-				hand.DrawCard(selectedButton);
-			}
-			*/
 		}
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_B)){
 			UseCard(Button.Xbox_B);
-			/*
-			if(selectedButton == Button.Xbox_B){
-				Debug.Log("LV "  + LocationValid());
-				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
-				if(LocationValid()){
-					PlayCard(selectedCard);
-					hand.RemoveCard(Button.Xbox_B);
-					GameplayUI.Instance.ClearCard(Button.Xbox_B);
-					deckMachine.SwitchStates(DeckIdleState);
-				}
-			}
-			else if(hand.CardAvailable(Button.Xbox_B)){
-				selectedButton = Button.Xbox_B;
-				selectedCard = hand.GetCard(Button.Xbox_B);
-				GameplayUI.Instance.SetDisplayRoom(selectedCard);
-			}
-			else{
-				hand.DrawCard(selectedButton);
-			}
-			*/
 		}
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_X)){
 			UseCard(Button.Xbox_X);
-			/*
-			if(selectedButton == Button.Xbox_X){
-				Debug.Log("LV "  + LocationValid());
-				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
-				if(LocationValid()){
-					PlayCard(selectedCard);
-					hand.RemoveCard(Button.Xbox_X);
-					GameplayUI.Instance.ClearCard(Button.Xbox_X);
-					deckMachine.SwitchStates(DeckIdleState);
-				}
-			}
-			else if(hand.CardAvailable(Button.Xbox_X)){
-				selectedButton = Button.Xbox_X;
-				selectedCard = hand.GetCard(Button.Xbox_X);
-				GameplayUI.Instance.SetDisplayRoom(selectedCard);
-			}
-			else{
-				hand.DrawCard(selectedButton);
-			}
-			*/
 		}
 		if(ControllerInput.ButtonDown(playerNum, Button.Xbox_Y)){
 			UseCard(Button.Xbox_Y);
-			/*
-			if(selectedButton == Button.Xbox_Y){
-				Debug.Log("LV "  + LocationValid());
-				Grid.GetRoom(selectionX, selectionY).ApplyWallConfiguration(selectedCard.wallTypes);
-				if(LocationValid()){
-					PlayCard(selectedCard);
-					hand.RemoveCard(Button.Xbox_Y);
-					GameplayUI.Instance.ClearCard(Button.Xbox_Y);
-					deckMachine.SwitchStates(DeckIdleState);
-				}
-			}
-			else if(hand.CardAvailable(Button.Xbox_Y)){
-				selectedButton = Button.Xbox_Y;
-				selectedCard = hand.GetCard(Button.Xbox_Y);
-				GameplayUI.Instance.SetDisplayRoom(selectedCard);
-			}
-			else{
-				hand.DrawCard(selectedButton);
-			}
-			*/
 		}
 	}
 
