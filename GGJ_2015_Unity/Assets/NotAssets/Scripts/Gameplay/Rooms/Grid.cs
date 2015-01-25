@@ -230,6 +230,7 @@ public class Grid : MonoBehaviour {
 			DungeonMaster.Instance.PlaceTreasure(x, y);
 			newRoom.rewardSpace = false;
 			Destroy(newRoom.rewardMarker);
+			RewardUsed();
 		}
 		else {
 			newRoom.SpawnStarterEnemies();

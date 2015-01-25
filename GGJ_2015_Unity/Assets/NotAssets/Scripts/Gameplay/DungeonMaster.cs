@@ -14,6 +14,7 @@ public class DungeonMaster : MonoBehaviour {
 	private SimpleState DrawCardState;
 	private SimpleState CardSelectedState;
 	private SimpleState PlaceTreasureState;
+	private SimpleState PlaceCrownState;
 	private SimpleState DeathCardState;
 
 	public int selectionX;
@@ -253,9 +254,9 @@ public class DungeonMaster : MonoBehaviour {
 
 					if (Grid.GetRoom(selectionX, selectionY).rewardSpace) {
 						hand.DrawDeathCard(b);
-
 						Grid.GetRoom(selectionX, selectionY).rewardSpace = false;
 						Destroy(Grid.GetRoom(selectionX, selectionY).rewardMarker);
+						Grid.RewardUsed();
 					}
 				}
 			}
