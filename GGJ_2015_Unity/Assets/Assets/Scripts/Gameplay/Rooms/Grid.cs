@@ -124,6 +124,7 @@ public class Grid : MonoBehaviour {
 
 		Rooms[1, 1].gameObject.SetActive(true);
 		Rooms[1, 1].OpenAllDoors();
+		tiles[1, 1].gameObject.SetActive(false);
 	}
 
 	public void PlayerExiting(Room room, DirectionHandler.Directions direction){

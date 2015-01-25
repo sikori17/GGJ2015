@@ -36,6 +36,11 @@ public class GameplayUI : MonoBehaviour {
 	private Vector3 cardThreeAnchor;
 	private Vector3 cardFourAnchor;
 
+	public Image promptA;
+	public Image promptB;
+	public Image promptX;
+	public Image promptY;
+
 	// Times
 	public float drawTime;
 
@@ -144,21 +149,27 @@ public class GameplayUI : MonoBehaviour {
 	public void ClearCard(Button button){
 
 		RectTransform target = null;
+		Image prompt = null;
 
 		if(button == Button.Xbox_A){
 			target = cardOne;
+			prompt = promptA;
 		}
 		else if(button == Button.Xbox_B){
 			target = cardTwo;
+			prompt = promptB;
 		}
 		else if(button == Button.Xbox_X){
 			target = cardThree;
+			prompt = promptX;
 		}
 		else if(button == Button.Xbox_Y){
 			target = cardFour;
+			prompt = promptY;
 		}
 
 		target.gameObject.SetActive(false);
+		prompt.gameObject.SetActive(true);
 		displayRoom.gameObject.SetActive(false);
 		effectImage.gameObject.SetActive(false);
 	}
@@ -168,27 +179,32 @@ public class GameplayUI : MonoBehaviour {
 	public void AnimateDraw(Card card, Button button){
 
 		RectTransform target = null;
+		Image prompt = null;
 		Vector3 targetPos = Vector2.zero;
 
 		if(button == Button.Xbox_A){
 			target = cardOne;
 			targetPos = cardOneAnchor;
+			prompt = promptA;
 		}
 		else if(button == Button.Xbox_B){
 			target = cardTwo;
 			targetPos = cardTwoAnchor;
+			prompt = promptB;
 		}
 		else if(button == Button.Xbox_X){
 			target = cardThree;
 			targetPos = cardThreeAnchor;
+			prompt = promptX;
 		}
 		else if(button == Button.Xbox_Y){
 			target = cardFour;
 			targetPos = cardFourAnchor;
+			prompt = promptY;
 		}
 
 		target.GetComponent<Image>().sprite = cardImages[(int) card.GetType()];
-
+		prompt.gameObject.SetActive(false);
 		target.gameObject.SetActive(true);
 		StartCoroutine(Animate(target, deckAnchor, targetPos, drawTime));
 	}

@@ -18,8 +18,11 @@ public class Room : MonoBehaviour {
 	public Transform southWestCorner;
 	public Transform northWestCorner;
 
+	public bool untraversed;
 	public bool locked;
 	public List<Wall> lockedWalls;
+
+	public List<GameObject> enemyList;
 
 	// Use this for initialization
 	void Start () {
@@ -28,7 +31,19 @@ public class Room : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if(locked){
+			bool done = true;
+			for(int i = 0; i < enemyList.Count; i++){
+				if(enemyList[i] != null) done = false;
+			}
+			if(done){
+				locked = false;
+				enemyList = new List<GameObject>();
+				for(int i = 0; i < lockedWalls.Count; i++){
+					lockedWalls[i].ApplyType(WallType.Open);
+				}
+			}
+		}
 	}
 
 	public void AssignLocation(int x, int y){
@@ -37,12 +52,15 @@ public class Room : MonoBehaviour {
 	}
 
 	public void Spawn(EnemyManager.EnemyTypes[] enemies) {
+
+		untraversed = true;
 		Vector3 roomPos = transform.position;
 		Vector3 roomScale = new Vector3(Grid.Instance.roomWidth, 0, Grid.Instance.roomHeight);
 
 		foreach (EnemyManager.EnemyTypes e in enemies) {
 			GameObject newEnemy = Instantiate(EnemyManager.Instance.GetEnemyPrefab(e)) as GameObject;
 			newEnemy.GetComponent<Enemy>().Spawn(roomPos, roomScale);
+			enemyList.Add(newEnemy);
 		}
 	}
 
@@ -128,8 +146,8 @@ public class Room : MonoBehaviour {
 	}
 
 	public void PlayerEntered(){
-		if(false && locked){
-
+		if(untraversed){
+			locked = true;
 			lockedWalls = new List<Wall>();
 
 			if(northWall.type == WallType.Open){
@@ -152,7 +170,7 @@ public class Room : MonoBehaviour {
 				lockedWalls.Add(westWall);
 			}
 
-			locked = false;
+			untraversed = false;
 		}
 	}
 }
