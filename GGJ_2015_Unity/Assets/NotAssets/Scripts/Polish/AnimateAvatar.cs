@@ -10,6 +10,7 @@ public class AnimateAvatar : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		GetComponent<Avatar>().enabled = false;
+		animateTimer.Restart();
 	}
 	
 	// Update is called once per frame

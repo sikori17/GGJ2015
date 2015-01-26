@@ -97,13 +97,17 @@ public class ControllerInput : MonoBehaviour {
 
 	void Awake(){
 		Debug.Log("Awake");
-		if(instance == null){
+		//if(instance == null){
 			instance = this;	
 			InitTriggerStates();
 			LoadDpadDelegates();
 			enabled = true;
 			CheckPlatform();
-		}
+		//}
+	}
+
+	void Start() {
+		Awake ();
 	}
 
 	void CheckPlatform(){

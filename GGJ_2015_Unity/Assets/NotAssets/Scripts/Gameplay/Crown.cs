@@ -16,6 +16,7 @@ public class Crown : MonoBehaviour {
 	void OnTriggerEnter(Collider other){
 		if(other.tag == "Player"){
 			// End game
+			Application.LoadLevel("RestartScene_AdventurerWin");
 		}
 	}
 }

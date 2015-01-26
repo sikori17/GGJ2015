@@ -3,12 +3,17 @@ using System.Collections;
 
 public class RoomHighlight : MonoBehaviour {
 
+	public static RoomHighlight Instance;
+
 	public Color valid;
 	public Color invalid;
 	public Color neutral;
 
+	public GameObject death;
+
 	// Use this for initialization
 	void Start () {
+		Instance = this;
 		Resize();
 	}
 	
